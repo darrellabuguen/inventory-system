@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./design.css">
+
+    <title>Inventory System | Login</title>
+</head>
+
+<body>
+    <main>
+        <div class="main-container">
+            <div class="pic-container">
+                <div class="form-text">
+                    <div class="form-title">Store Inventory</div>
+                </div>
+            </div>
+            <div class="form-container">
+                <div class="form-image-container"><img class="form-image" src="./images/user.png" alt="img"></div>
+                <form class="login-form">
+                    <label class="emaillabel" for="email">Email</label><br>
+                    <input class="email" id="email" required type="email" name="email"><br>
+                    <label class="passlabel" for="password">Password</label><br>
+                    <input class="password" id="password" required type="password" name="password"><br>
+                    <input class="show-pass" id="show-pass" type="checkbox" onclick="showpass()">
+                    <label for="show-pass">show password</label><br>
+                    <input class="login" type="button" value="Login">
+                </form>
+            </div>
+        </div>
+    </main>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBlFt16zm2py8oMRZDoXtXQXlr7nW_WIB0",
+            authDomain: "inventory-c9ef8.firebaseapp.com",
+            databaseURL: "https://inventory-c9ef8-default-rtdb.firebaseio.com",
+            projectId: "inventory-c9ef8",
+            storageBucket: "inventory-c9ef8.appspot.com",
+            messagingSenderId: "822020064388",
+            appId: "1:822020064388:web:cb62ef0dab0d929d0c2ed1"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+
+        var log = document.querySelector(".login");
+        log.addEventListener("click", function () {
+            var email = document.querySelector(".email").value;
+            var password = document.querySelector(".password").value;
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    var user = userCredential.user;
+                    if (user) {
+                        window.location = "home.html";
+                    }
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    alert(errorMessage);
+                });
+        });
+    </script>
+    <script src="./index.js"></script>
+</body>
+
+</html>

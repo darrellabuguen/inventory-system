@@ -1,0 +1,566 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+header {
+    display: flex;
+    height: 10vh;
+    width: 100%;
+    background-color: gray;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+body {
+    background-color: whitesmoke;
+}
+
+main {
+    width: 95%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    gap: 10px;
+}
+
+form {
+    margin: auto;
+    width: 70%;
+}
+
+label {
+    font-family: poppins;
+}
+
+a {
+    text-decoration: none;
+}
+
+input[type=email] {
+    font-size: 15px;
+    font-family: poppins;
+    padding: 5px;
+    outline: none;
+    width: 100%;
+    border: solid rgb(224, 224, 224) 1px;
+    border-radius: 5px;
+}
+
+input[type=search] {
+    font-size: 15px;
+    font-family: poppins;
+    padding: 6px;
+    outline: none;
+    width: 40%;
+    height: 100%;
+    border: solid rgb(224, 224, 224) 1px;
+    border-radius: 5px;
+}
+
+input[type=text] {
+    font-size: 15px;
+    font-family: poppins;
+    padding: 5px;
+    outline: none;
+    width: 100%;
+    border: solid rgb(224, 224, 224) 1px;
+    border-radius: 5px;
+}
+
+input[type=password] {
+    font-size: 15px;
+    font-family: poppins;
+    padding: 5px;
+    outline: none;
+    width: 100%;
+    border: solid rgb(224, 224, 224) 1px;
+    border-radius: 5px;
+}
+
+input[type=date] {
+    font-size: 15px;
+    font-family: poppins;
+    padding: 5px;
+    outline: none;
+    width: 100%;
+    border: solid rgb(224, 224, 224) 1px;
+    border-radius: 5px;
+}
+
+input[type=email]:focus {
+    outline: #00b3ff solid 2px;
+    outline-style: groove;
+}
+
+input[type=search]:focus {
+    outline: #00b3ff solid 2px;
+    outline-style: groove;
+}
+
+input[type=password]:focus {
+    outline: #00b3ff solid 2px;
+    outline-style: groove;
+}
+
+.web-name {
+    font-size: 20px;
+    font-weight: bolder;
+    font-family: poppins;
+    color: white;
+    flex: 1;
+}
+
+.signout {
+    color: white;
+    font-family: poppins;
+    cursor: pointer;
+}
+
+.pwr_bttn {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: none;
+    background-color: transparent;
+}
+
+.pwr_icon {
+    width: 100%;
+}
+
+.main-container {
+    width: 70%;
+    display: flex;
+    margin: auto;
+    margin-top: 50px;
+    box-shadow: 3px 2px 2px 1px rgb(167, 167, 167);
+}
+
+.pic-container {
+    width: 55%;
+    padding: 15px;
+    background-color: gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-title {
+    font-size: 20px;
+    font-weight: bolder;
+    font-family: poppins;
+    color: white;
+}
+
+.form-image-container {
+    height: 20%;
+    width: 30%;
+    pointer-events: none;
+    align-self: center;
+    margin-top: 30%;
+}
+
+.form-image {
+    width: 100%;
+}
+
+.form-container {
+    width: 45%;
+    height: 35rem;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 20px;
+    justify-content: center;
+}
+
+.login {
+    width: 100%;
+    font-family: poppins;
+    font-size: 15px;
+    padding: 5px;
+    color: white;
+    background-color: #00b3ff;
+    border: none;
+    border-radius: 15px;
+    transition: background-color .3s ease-in-out;
+    cursor: pointer;
+}
+
+.login:hover {
+    background-color: #0995d1;
+}
+
+.add-item-section {
+    flex: 30%;
+    width: 100%;
+}
+
+.item-display {
+    flex: 70%;
+    width: 100%;
+}
+
+.item-status-container {
+    width: 100%;
+    height: 15vh;
+    display: flex;
+    gap: 10px;
+}
+
+th {
+    padding: 10px;
+}
+
+td {
+    padding: 5px;
+}
+
+.container {
+    width: 30%;
+    height: 100%;
+    padding: 20px;
+    text-align: center;
+    background-color: white;
+    border-radius: 5px;
+    font-family: poppins;
+}
+
+.item-all {
+    border-top: solid 5px #63F880;
+    cursor: pointer;
+}
+
+.item-available {
+    border-top: solid 5px #63F880;
+    cursor: pointer;
+}
+
+.item-to-expire {
+    border-top: 5px solid #FCE888;
+    cursor: pointer;
+}
+
+.item-expired {
+    border-top: 5px solid #ED7B79;
+    cursor: pointer;
+}
+
+.item-quantity-label {
+    cursor: pointer;
+}
+
+.available-label {
+    cursor: pointer;
+}
+
+.almost-label {
+    cursor: pointer;
+}
+
+.expired-label {
+    cursor: pointer;
+}
+
+.items-container {
+    margin-top: 10px;
+    width: 100%;
+    padding: 15px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.add-item-container {
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    padding: 15px;
+    border-top: #0caaee solid 5px;
+}
+
+.add-item-text {
+    font-family: poppins;
+    font-size: 20px;
+}
+
+.add-item {
+    background-color: #0995d1;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 10px;
+    font-family: poppins;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.add-item:hover {
+    background-color: #0caaee;
+}
+
+.add-bottom {
+    position: absolute;
+    float: right;
+    right: 40px;
+}
+
+.add-item-bottom {
+    border: none;
+    font-family: poppins;
+    cursor: pointer;
+    border-radius: 50%;
+    display: none;
+    background-color: transparent;
+}
+
+.bttm-add {
+    width: 30px;
+}
+
+.item-price {
+    margin-top: 3px;
+}
+
+.search-container {
+    display: flex;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.search-button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    font-family: poppins;
+    padding: 10px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.search-button:hover {
+    background-color: gainsboro;
+}
+
+.search-icn {
+    width: 100%;
+}
+
+.items {
+    width: 100%;
+    border: 1px solid gainsboro;
+    border-radius: 5px;
+    padding: 5px;
+    margin: auto;
+    margin-bottom: 10px;
+    font-family: poppins;
+    text-align: center;
+}
+
+.iid {
+    font-size: 10px;
+}
+
+.active {
+    box-shadow: 2px 3px 3px 1px gainsboro;
+    background-color: rgb(250, 252, 253);
+    transform: scale(1.03);
+}
+
+.menu-container {
+    width: 100%;
+    bottom: 0;
+    position: fixed;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: whitesmoke;
+    display: none;
+}
+
+.nav-title {
+    display: none;
+}
+
+.title-nav {
+    font-family: poppins;
+    font-size: 20px;
+}
+
+.status-icn {
+    width: 40px;
+}
+
+.mid-add {
+    width: 40px;
+}
+
+.bttm {
+    width: 15%;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bottom-fix {
+    width: 100%;
+    height: 8vh;
+}
+
+.active-bttm {
+    border-top: #00b3ff 2px solid;
+}
+
+@media screen and (max-width:1060px) {
+    .login-form {
+        width: 100%;
+    }
+
+    .add-item-section {
+        display: none;
+    }
+
+    .item-display {
+        flex: 100%;
+    }
+
+    .add-item-bottom {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .form-image-container {
+        width: 40%;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .main-container {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .form-container {
+        width: 100%;
+    }
+
+    .pic-container {
+        display: none;
+    }
+
+    .form-image-container {
+        width: 20%;
+    }
+
+    .login-form {
+        width: 80%;
+    }
+
+    th {
+        font-size: 15px;
+    }
+
+    td {
+        font-size: 13px;
+    }
+
+    .item-quantity-label {
+        font-size: 13px;
+    }
+
+    .available-label {
+        font-size: 13px;
+    }
+
+    .almost-label {
+        font-size: 13px;
+    }
+
+    .expired-label {
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .item-all {
+        line-height: 17px;
+    }
+
+    .item-available {
+        line-height: 17px;
+    }
+
+    .item-to-expire {
+        line-height: 17px;
+    }
+
+    .item-expired {
+        line-height: 17px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .table-container {
+        overflow-x: scroll;
+    }
+
+    input[type=search] {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .form-image-container {
+        width: 30%;
+    }
+
+    .main-container {
+        width: 100%;
+        height: 100%;
+        box-shadow: none;
+        margin: 0;
+    }
+
+    .menu-container {
+        display: flex;
+    }
+
+    form {
+        width: 100%;
+    }
+
+    body {
+        background-color: white;
+    }
+
+    .item-status-container {
+        display: none;
+    }
+
+    input[type=search] {
+        width: 80%;
+    }
+
+    .search-button {
+        width: 14%;
+        padding: 8px;
+    }
+
+    .search-icn {
+        width: 70%;
+    }
+
+    .add-item-bottom {
+        display: none;
+    }
+
+    .nav-title {
+        display: flex;
+    }
+}
