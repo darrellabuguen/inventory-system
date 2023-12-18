@@ -11,6 +11,17 @@ function showpass() {
     }
 }
 
+function checkCategory(id) {
+    var tag = document.querySelector(`#${id}`);
+    const sub = document.querySelector(".sub-category");
+    if (tag.value == "Pantry") {
+        sub.style.display = "block";
+    } else {
+        sub.style.display = "none";
+        sub.value = "";
+    }
+}
+
 function createTable(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added) {
     var tbody = document.querySelector(".item-body");
     var trow = document.createElement("tr");

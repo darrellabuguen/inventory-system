@@ -78,6 +78,23 @@
                 <div class="add-item-text">Add Item</div>
                 <input class="item-name" required type="text" placeholder="Item name...">
                 <input class="item-price" required type="text" placeholder="Item price...">
+                <label for="category">Category</label><br>
+                <select name="categories" id="category" onchange="checkCategory(this.id)">
+                    <option value="Beverage">Beverage</option>
+                    <option value="Frozen Food">Frozen Food</option>
+                    <option value="Health & Wellness">Health & Wellness</option>
+                    <option value="Pantry">Pantry</option>
+                </select>
+                <br>
+                <div class="sub-category">
+                    <label for="sub-category">Sub Category</label><br>
+                    <select name="categories" id="sub-category">
+                        <option value="Canned">Canned</option>
+                        <option value="Cooking">Cooking</option>
+                        <option value="Snacks">Snacks</option>
+                        <option value="Add category" class="test">Add category</option>
+                    </select>
+                </div>
                 <label for="manufactured">Manufactured Date</label>
                 <input class="manufactured-date" id="manufactured" required type="date" name="manufactured">
                 <label for="expiry-date">Expiry Date</label>
