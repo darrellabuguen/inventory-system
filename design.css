@@ -6,11 +6,9 @@
 
 header {
     display: flex;
-    height: 10vh;
-    width: 100%;
     background-color: gray;
     align-items: center;
-    padding: 15px;
+    padding: 1rem;
     margin-bottom: 15px;
 }
 
@@ -205,8 +203,7 @@ input[type=password]:focus {
 }
 
 .item-status-container {
-    width: 100%;
-    height: 15vh;
+    height: 8rem;
     display: flex;
     gap: 10px;
 }
@@ -485,6 +482,22 @@ td {
     .expired-label {
         font-size: 13px;
     }
+
+    .item-status-container {
+        display: none;
+    }
+
+    .menu-container {
+        display: flex;
+    }
+
+    .add-item-bottom {
+        display: none;
+    }
+
+    .table-container {
+        overflow-x: scroll;
+    }
 }
 
 @media screen and (max-width: 650px) {
@@ -506,10 +519,6 @@ td {
 }
 
 @media screen and (max-width: 550px) {
-    .table-container {
-        overflow-x: scroll;
-    }
-
     input[type=search] {
         width: 70%;
     }
@@ -527,20 +536,12 @@ td {
         margin: 0;
     }
 
-    .menu-container {
-        display: flex;
-    }
-
     form {
         width: 100%;
     }
 
     body {
         background-color: white;
-    }
-
-    .item-status-container {
-        display: none;
     }
 
     input[type=search] {
@@ -554,10 +555,6 @@ td {
 
     .search-icn {
         width: 70%;
-    }
-
-    .add-item-bottom {
-        display: none;
     }
 
     .nav-title {
