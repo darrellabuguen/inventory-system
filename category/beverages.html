@@ -8,20 +8,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./design.css">
+    <link rel="stylesheet" href="../design.css">
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
 
-    <title>Inventory System | Inventory</title>
+    <title>Inventory System | Beverages</title>
 </head>
 
 <body>
     <header>
-        <div class="web-name">Store Inventory</div>
+        <div class="web-name">Beverages</div>
         <div class="signout-contain"><button class="pwr_bttn"><img class="pwr_icon signout"
-                    src="./images/power_icon.png" alt="img"></button></div>
+                    src="../images/power_icon.png" alt="img"></button></div>
     </header>
     <main>
         <div class="item-display">
@@ -49,10 +49,10 @@
                 </div>
                 <div class="search-container">
                     <input class="search" type="search" name="search">
-                    <button class="search-button"><img class="search-icn" src="./images/search_icon.png"
+                    <button class="search-button"><img class="search-icn" src="../images/search_icon.png"
                             alt="img"></button>
                     <div class="add-bottom">
-                        <button class="add-item-bottom"><img class="bttm-add" src="./images/add_icon.png"
+                        <button class="add-item-bottom"><img class="bttm-add" src="../images/add_icon.png"
                                 alt="img"></button>
                     </div>
                 </div>
@@ -89,15 +89,15 @@
     <div class="bottom-fix"></div>
     <section>
         <div class="menu-container">
-            <div class="item-all-link bttm active-bttm"><img class="status-icn" src="./images/allitems_icon.png"
+            <div class="item-all-link bttm active-bttm"><img class="status-icn" src="../images/allitems_icon.png"
                     alt="img">
             </div>
-            <div class="item-available-link bttm"><img class="status-icn" src="./images/available_icon.png" alt="img">
+            <div class="item-available-link bttm"><img class="status-icn" src="../images/available_icon.png" alt="img">
             </div>
-            <div class="add-item-link bttm"><img class="mid-add" src="./images/add_icon.png" alt="img"></div>
-            <div class="item-to-expire-link bttm"><img class="status-icn" src="./images/toexpired_icon.png" alt="img">
+            <div class="add-item-link bttm"><img class="mid-add" src="../images/add_icon.png" alt="img"></div>
+            <div class="item-to-expire-link bttm"><img class="status-icn" src="../images/toexpired_icon.png" alt="img">
             </div>
-            <div class="item-expired-link bttm"><img class="status-icn" src="./images/expired_icon.png" alt=""></div>
+            <div class="item-expired-link bttm"><img class="status-icn" src="../images/expired_icon.png" alt=""></div>
         </div>
     </section>
     <script type="module">
@@ -176,10 +176,10 @@
         var getAll = document.querySelector(".item-all");
         var bttmAll = document.querySelector(".item-all-link");
         getAll.addEventListener("click", () => {
-            window.location = "./home.html";
+            window.location = "./beverages.html";
         });
         bttmAll.addEventListener("click", () => {
-            window.location = "./home.html";
+            window.location = "./beverages.html";
         });
 
         //add box shadow when the container is clicked
@@ -420,7 +420,7 @@
 
         self.addEventListener("load", loadData);
     </script>
-    <script src="./index.js"></script>
+    <script src="../index.js"></script>
 </body>
 
 </html>

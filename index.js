@@ -1,3 +1,4 @@
+//show password function
 function showpass() {
     var showpass = document.querySelector(".show-pass");
     var passval = document.querySelector(".password");

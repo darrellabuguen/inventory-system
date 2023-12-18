@@ -6,14 +6,14 @@
 
 header {
     display: flex;
-    background-color: gray;
+    background-color: coral;
     align-items: center;
     padding: 1rem;
     margin-bottom: 15px;
 }
 
 body {
-    background-color: whitesmoke;
+    background-color: aliceblue;
 }
 
 main {
@@ -364,7 +364,7 @@ td {
 .active {
     box-shadow: 2px 3px 3px 1px gainsboro;
     background-color: rgb(250, 252, 253);
-    transform: scale(1.03);
+    transform: scale(1.01);
 }
 
 .menu-container {
