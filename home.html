@@ -56,7 +56,7 @@
                                 alt="img"></button>
                     </div>
                 </div>
-                <div class="table-container">
+                <div class="table-container" style="display: none;">
                     <table class="items">
                         <thead>
                             <th>Item ID</th>
@@ -145,12 +145,6 @@
         const auth = getAuth(app);
         const db = getDatabase(app);
 
-        //items status
-        var item_num = 0;
-        var item_at_hand = 0;
-        var item_near = 0;
-        var item_exp = 0;
-
         onAuthStateChanged(auth, (user) => {
             if (!user) {
                 window.location = "index.html";
@@ -200,21 +194,6 @@
         });
 
         //add box shadow when the container is clicked
-        var itemcontainer = document.querySelectorAll(".container");
-        for (let i = 0; i < itemcontainer.length; i++) {
-            itemcontainer[i].onclick = function () {
-                var first_container = itemcontainer[0];
-                while (first_container) {
-                    if (first_container.tagName === "DIV") {
-                        first_container.classList.remove("active");
-                    }
-                    first_container = first_container.nextSibling;
-                }
-                this.classList.add("active");
-            }
-        }
-
-        //add box shadow when the container is clicked
         var bttmcontainer = document.querySelectorAll(".bttm");
         for (let i = 0; i < bttmcontainer.length; i++) {
             bttmcontainer[i].onclick = function () {
@@ -259,148 +238,13 @@
                     expiry: expiry,
                     added: year + "-" + month + "-" + date
                 });
-                removeTable();
-                alert("Item Added!");
-                loadData();
             }
         });
 
-        function loadData() {
-            //get data in database
-            const item = ref(db, "Items"); //initialize database reference
-            onValue(item, (snapshot) => {
-                snapshot.forEach(function (childSnap) {
-                    const data = childSnap.val();
-                    var snap_item_id = childSnap.key;
-                    var snap_itemn = data.item_name;
-                    var snap_itemp = data.item_price;
-                    var snap_manufactured = data.manufactured;
-                    var snap_expiry = data.expiry;
-                    var snap_added = data.added;
-
-                    item_num++;
-
-                    createTable(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added);
-                    checkStatus(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added);
-                })
-                var all = document.querySelector(".item-quantity").innerHTML = item_num;
-            });
-        };
-
-        function checkStatus(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added) {
-            var new_exdate = new Date(snap_expiry);
-            var exdate_time = new_exdate.getTime();
-            exdate_time = exdate_time - 28800000;
-            var month = new Date().getMonth() + 1;
-            var year = new Date().getFullYear();
-            var day = new Date().getDate();
-            var fulldate = month + "-" + day + "-" + year;
-            var transtodate = new Date(fulldate);
-            var crr_time = transtodate.getTime();
-            var near = crr_time - exdate_time;
-            var remain = Math.abs(Math.floor(near / (60 * 60 * 24)));
-            remain = remain / 1000;
-
-            //check if the item exceeded the expiry date
-            if (crr_time >= exdate_time) {
-                item_exp++;
-                var expref = ref(db, "Expired/" + snap_item_id);
-                var exp = document.querySelector(".expired").innerHTML = item_exp;
-                var expcontain = document.querySelector(".item-expired");
-                var explink = document.querySelector(".item-expired-link");
-                set(expref, {
-                    ex_id: snap_item_id,
-                    ex_name: snap_itemn,
-                    ex_price: snap_itemp,
-                    ex_manufactured: snap_manufactured,
-                    ex_expiry: snap_expiry,
-                    ex_added: snap_added
-                });
-                //function when clicking expire container
-                expcontain.addEventListener("click", () => {
-                    removeTable();
-                    checkScreen();
-                    getExp(expref, onValue);
-                });
-                //function when clicking expire link
-                explink.addEventListener("click", () => {
-                    removeTable();
-                    checkScreen();
-                    getExp(expref, onValue);
-                });
-            }
-            else {
-                item_at_hand++;
-                var avref = ref(db, "Available/" + snap_item_id);
-                var available = document.querySelector(".available").innerHTML = item_at_hand;
-                var av = document.querySelector(".item-available");
-                var avlink = document.querySelector(".item-available-link");
-                set(avref, {
-                    av_id: snap_item_id,
-                    av_name: snap_itemn,
-                    av_price: snap_itemp,
-                    av_manufactured: snap_manufactured,
-                    av_expiry: snap_expiry,
-                    av_added: snap_added
-                });
-                //function when clicking available container
-                av.addEventListener("click", () => {
-                    removeTable();
-                    checkScreen();
-                    getAvailable(avref, onValue);
-                });
-                //function when clicking available link
-                avlink.addEventListener("click", () => {
-                    removeTable();
-                    checkScreen();
-                    getAvailable(avref, onValue);
-                });
-                //to check if the item is going to expire within month.
-                if (remain <= 31) {
-                    item_near++;
-                    var near = document.querySelector(".almost").innerHTML = item_near;
-                    var toexref = ref(db, "To Expire/" + snap_item_id);
-                    var toex = document.querySelector(".item-to-expire");
-                    var toexlink = document.querySelector(".item-to-expire-link");
-
-                    set(toexref, {
-                        toex_id: snap_item_id,
-                        toex_name: snap_itemn,
-                        toex_price: snap_itemp,
-                        toex_manufactured: snap_manufactured,
-                        toex_expiry: snap_expiry,
-                        toex_added: snap_added
-                    });
-                    toex.addEventListener("click", () => {
-                        removeTable();
-                        checkScreen();
-                        getToEx(toexref, onValue);
-                    });
-                    toexlink.addEventListener("click", () => {
-                        removeTable();
-                        checkScreen();
-                        getToEx(toexref, onValue);
-                    });
-                }
-                else {
-                    var toexnone = document.querySelector(".almost").innerHTML = 0;
-                }
-            }
-        }
-
-        function checkScreen() {
-            var screen_size = screen.width; //get the user's screen size
-            var browser_size = window.innerWidth; //get the user's browser size
-            if (screen_size < 1061 || browser_size < 1061) {
-                document.querySelector("main").style.display = "flex";
-                document.querySelector(".add-item-section").style.display = "none";
-                var items_dis = document.querySelector(".items-container");
-                items_dis.style.display = "block";
-            }
-        }
-
         function search() {
+            const item_header = document.querySelector(".table-container");
             var seach_value = document.querySelector(".search").value;
+            item_header.style.display = "block";
             var reff = query(ref(db, "Items"), orderByChild("item_name"), startAt(seach_value), endAt(seach_value + "\uf8ff"));
             removeTable();
             get(reff).then((snappy) => {
@@ -434,8 +278,6 @@
                 })
             })
         };
-
-        self.addEventListener("load", loadData);
     </script>
     <script src="./index.js"></script>
 </body>
