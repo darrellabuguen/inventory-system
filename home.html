@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./design.css">
+    <link rel="stylesheet" href="./responsive.css">
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -26,21 +27,27 @@
     <main>
         <div class="item-display">
             <div class="item-status-container">
-                <div class="item-all container active">
-                    <label class="item-quantity-label">All Items</label><br>
-                    <div class="item-quantity"></div>
+                <div class="container">
+                    <label class="category-label">Beverage</label>
+                    <div class="beverage-image">
+                        <img src="./images/wine-bottle-solid.svg" alt="image">
+                    </div>
                 </div>
-                <div class="item-available container">
-                    <label class="available-label">Available Items</label><br>
-                    <div class="available"></div>
+                <div class="container">
+                    <label class="category-label">Frozen Food</label><br>
+                    <div class="frozen-image">
+                        <img src="./images/ice-cream-solid.svg" alt="image">
+                    </div>
                 </div>
-                <div class="item-to-expire container">
-                    <label class="almost-label">To Expire Items</label><br>
-                    <div class="almost"></div>
+                <div class="container">
+                    <label class="category-label">Health & Wellness</label><br>
+                    <div class="hw-image">
+                        <img src="./images/wellness.svg" alt="image">
+                    </div>
                 </div>
-                <div class="item-expired container">
-                    <label class="expired-label">Expired Items</label><br>
-                    <div class="expired"></div>
+                <div class="container">
+                    <label class="category-label">Pantry</label><br>
+                    <div class="pantry-image"></div>
                 </div>
             </div>
             <div class="items-container">
@@ -182,16 +189,6 @@
                 add_contain.style.width = "50%";
             }
         }
-
-        //if all items container is clicked
-        var getAll = document.querySelector(".item-all");
-        var bttmAll = document.querySelector(".item-all-link");
-        getAll.addEventListener("click", () => {
-            window.location = "./home.html";
-        });
-        bttmAll.addEventListener("click", () => {
-            window.location = "./home.html";
-        });
 
         //add box shadow when the container is clicked
         var bttmcontainer = document.querySelectorAll(".bttm");

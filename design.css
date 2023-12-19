@@ -48,12 +48,10 @@ input[type=email] {
 }
 
 input[type=search] {
-    font-size: 15px;
+    font-size: 1rem;
     font-family: poppins;
     padding: 6px;
     outline: none;
-    width: 40%;
-    height: 100%;
     border: solid rgb(224, 224, 224) 1px;
     border-radius: 5px;
 }
@@ -361,8 +359,8 @@ td {
 }
 
 .search-button {
-    width: 40px;
-    height: 40px;
+    width: 2.5rem;
+    height: 2.5rem;
     border: none;
     border-radius: 5px;
     font-family: poppins;
@@ -443,154 +441,4 @@ td {
 
 .active-bttm {
     border-top: #00b3ff 2px solid;
-}
-
-@media screen and (max-width:1060px) {
-    .login-form {
-        width: 100%;
-    }
-
-    .add-item-section {
-        display: none;
-    }
-
-    .item-display {
-        flex: 100%;
-    }
-
-    .add-item-bottom {
-        display: block;
-    }
-}
-
-@media screen and (max-width: 900px) {
-    .form-image-container {
-        width: 40%;
-    }
-}
-
-@media screen and (max-width: 850px) {
-    .main-container {
-        width: 80%;
-    }
-}
-
-@media screen and (max-width: 760px) {
-    .form-container {
-        width: 100%;
-    }
-
-    .pic-container {
-        display: none;
-    }
-
-    .form-image-container {
-        width: 20%;
-    }
-
-    .login-form {
-        width: 80%;
-    }
-
-    th {
-        font-size: 15px;
-    }
-
-    td {
-        font-size: 13px;
-    }
-
-    .item-quantity-label {
-        font-size: 13px;
-    }
-
-    .available-label {
-        font-size: 13px;
-    }
-
-    .almost-label {
-        font-size: 13px;
-    }
-
-    .expired-label {
-        font-size: 13px;
-    }
-
-    .item-status-container {
-        display: none;
-    }
-
-    .menu-container {
-        display: flex;
-    }
-
-    .add-item-bottom {
-        display: none;
-    }
-
-    .table-container {
-        overflow-x: scroll;
-    }
-}
-
-@media screen and (max-width: 650px) {
-    .item-all {
-        line-height: 17px;
-    }
-
-    .item-available {
-        line-height: 17px;
-    }
-
-    .item-to-expire {
-        line-height: 17px;
-    }
-
-    .item-expired {
-        line-height: 17px;
-    }
-}
-
-@media screen and (max-width: 550px) {
-    input[type=search] {
-        width: 70%;
-    }
-}
-
-@media screen and (max-width: 460px) {
-    .form-image-container {
-        width: 30%;
-    }
-
-    .main-container {
-        width: 100%;
-        height: 100%;
-        box-shadow: none;
-        margin: 0;
-    }
-
-    form {
-        width: 100%;
-    }
-
-    body {
-        background-color: white;
-    }
-
-    input[type=search] {
-        width: 80%;
-    }
-
-    .search-button {
-        width: 14%;
-        padding: 8px;
-    }
-
-    .search-icn {
-        width: 70%;
-    }
-
-    .nav-title {
-        display: flex;
-    }
 }
