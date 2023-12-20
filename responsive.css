@@ -1,5 +1,9 @@
 @media (min-width: 0px) {
 
+    main {
+        width: 95%;
+    }
+
     .item-status-container,
     .add-item-section {
         display: none;
@@ -26,6 +30,16 @@
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .items {
+        font-size: 0.9rem;
+    }
+
+}
+
+@media (min-width: 425px) {
+    input[type=search] {
+        width: 425px;
+    }
 }
 
 @media (min-width: 768px) {
@@ -34,4 +48,26 @@
         grid-template-columns: repeat(4, 1fr);
     }
 
+    .items {
+        font-size: 1rem;
+    }
+
+    .menu-container {
+        display: none;
+    }
+
+    .add-item-bottom {
+        display: block;
+    }
+}
+
+@media (min-width: 1024px) {
+
+    .add-item-section {
+        display: block;
+    }
+
+    .add-item-bottom {
+        display: none;
+    }
 }

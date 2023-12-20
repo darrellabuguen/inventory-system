@@ -17,7 +17,6 @@ body {
 }
 
 main {
-    width: 95%;
     height: 100%;
     margin: auto;
     display: flex;
@@ -86,6 +85,7 @@ input[type=date] {
     width: 100%;
     border: solid rgb(224, 224, 224) 1px;
     border-radius: 5px;
+    color: #304880;
 }
 
 select {
@@ -96,6 +96,7 @@ select {
     width: 100%;
     border: solid rgb(224, 224, 224) 1px;
     border-radius: 5px;
+    color: #304880;
 }
 
 input[type=text]:focus {
@@ -168,6 +169,14 @@ select:focus {
     margin: auto;
     margin-top: 50px;
     box-shadow: 3px 2px 2px 1px rgb(167, 167, 167);
+}
+
+.chart-container {
+    width: auto;
+    border: solid 1px rgb(224, 224, 224);
+    border-radius: 5px;
+    padding: 1rem;
+    font-family: poppins;
 }
 
 .pic-container {
@@ -270,6 +279,7 @@ td {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .item-all {

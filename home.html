@@ -78,8 +78,13 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="chart-container">
+                    <h2 align="center">Items</h2>
+                    <canvas id="myChart"></canvas>
+                </div>
             </div>
         </div>
+
         <div class="add-item-section">
             <div class="add-item-container">
                 <div class="add-item-text">Add Item</div>
@@ -108,9 +113,13 @@
                 <input class="expiry-date" id="expiry-date" required type="date" name="expiry-date">
                 <input class="add-item" type="button" name="add-item" value="Add Item">
             </div>
+
         </div>
+
     </main>
+
     <div class="bottom-fix"></div>
+
     <section>
         <div class="menu-container">
             <div class="item-all-link bttm active-bttm"><img class="status-icn" src="./images/allitems_icon.png"
@@ -124,6 +133,8 @@
             <div class="item-expired-link bttm"><img class="status-icn" src="./images/expired_icon.png" alt=""></div>
         </div>
     </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
@@ -182,7 +193,7 @@
             menu.style.display = "block";
             add_contain.style.display = "block";
             add_contain.style.marginTop = "10px";
-            if (screensize < 551 || browsersize < 551) {
+            if (screensize < 769 || browsersize < 769) {
                 add_contain.style.width = "100%";
             }
             else {
@@ -241,40 +252,66 @@
         function search() {
             const item_header = document.querySelector(".table-container");
             var seach_value = document.querySelector(".search").value;
-            item_header.style.display = "block";
             var reff = query(ref(db, "Items"), orderByChild("item_name"), startAt(seach_value), endAt(seach_value + "\uf8ff"));
             removeTable();
-            get(reff).then((snappy) => {
-                snappy.forEach(chld => {
-                    var srchdata = chld.val();
-                    var srchid = chld.key;
-                    var srchname = srchdata.item_name;
-                    var srchprice = srchdata.item_price;
-                    var srchmanu = srchdata.manufactured;
-                    var srchexp = srchdata.expiry;
-                    var srchadd = srchdata.added;
+            if (seach_value) {
+                item_header.style.display = "block";
+                get(reff).then((snappy) => {
+                    snappy.forEach(chld => {
+                        var srchdata = chld.val();
+                        var srchid = chld.key;
+                        var srchname = srchdata.item_name;
+                        var srchprice = srchdata.item_price;
+                        var srchmanu = srchdata.manufactured;
+                        var srchexp = srchdata.expiry;
+                        var srchadd = srchdata.added;
 
-                    var srchrow = document.createElement("tr");
-                    var srchtd1 = document.createElement("td");
-                    var srchtd2 = document.createElement("td");
-                    var srchtd3 = document.createElement("td");
-                    var srchtd4 = document.createElement("td");
-                    var srchtd5 = document.createElement("td");
-                    var srchtd6 = document.createElement("td");
+                        var srchrow = document.createElement("tr");
+                        var srchtd1 = document.createElement("td");
+                        var srchtd2 = document.createElement("td");
+                        var srchtd3 = document.createElement("td");
+                        var srchtd4 = document.createElement("td");
+                        var srchtd5 = document.createElement("td");
+                        var srchtd6 = document.createElement("td");
 
-                    srchtd1.innerHTML = srchid; srchtd2.innerHTML = srchname; srchtd3.innerHTML = srchprice;
-                    srchtd4.innerHTML = srchmanu; srchtd5.innerHTML = srchexp; srchtd6.innerHTML = srchadd;
+                        srchtd1.innerHTML = srchid; srchtd2.innerHTML = srchname; srchtd3.innerHTML = srchprice;
+                        srchtd4.innerHTML = srchmanu; srchtd5.innerHTML = srchexp; srchtd6.innerHTML = srchadd;
 
-                    srchtd1.classList.add("iid");
+                        srchtd1.classList.add("iid");
 
-                    srchrow.appendChild(srchtd1); srchrow.appendChild(srchtd2); srchrow.appendChild(srchtd3);
-                    srchrow.appendChild(srchtd4); srchrow.appendChild(srchtd5); srchrow.appendChild(srchtd6);
+                        srchrow.appendChild(srchtd1); srchrow.appendChild(srchtd2); srchrow.appendChild(srchtd3);
+                        srchrow.appendChild(srchtd4); srchrow.appendChild(srchtd5); srchrow.appendChild(srchtd6);
 
-                    var first = document.querySelector(".item-body");
-                    first.appendChild(srchrow);
+                        var first = document.querySelector(".item-body");
+                        first.appendChild(srchrow);
+                    })
                 })
-            })
+            }
         };
+
+        function createChart() {
+            const ctx = document.getElementById('myChart');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                    datasets: [{
+                        label: '# of Votes',
+                        data: [12, 19, 3, 5, 2, 3],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        setTimeout(createChart, 1000);
     </script>
     <script src="./index.js"></script>
 </body>
