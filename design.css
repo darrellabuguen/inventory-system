@@ -172,7 +172,8 @@ select:focus {
 }
 
 .chart-container {
-    width: auto;
+    width: 99%;
+    margin: auto;
     border: solid 1px rgb(224, 224, 224);
     border-radius: 5px;
     padding: 1rem;
@@ -379,8 +380,10 @@ td {
 
 .search-container {
     display: flex;
+    margin: auto;
     margin-bottom: 10px;
     align-items: center;
+    width: 99%;
 }
 
 .search-button {
@@ -403,7 +406,7 @@ td {
 }
 
 .items {
-    width: 100%;
+    width: 99%;
     border: 1px solid gainsboro;
     border-radius: 5px;
     padding: 5px;

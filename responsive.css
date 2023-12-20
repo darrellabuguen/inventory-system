@@ -59,6 +59,10 @@
     .add-item-bottom {
         display: block;
     }
+
+    .table-container {
+        overflow-x: unset;
+    }
 }
 
 @media (min-width: 1024px) {
