@@ -20,8 +20,9 @@ main {
     height: 100%;
     margin: auto;
     display: flex;
-    gap: 10px;
+    gap: 1rem;
     color: #304880;
+    margin-bottom: 1rem;
 }
 
 form {
@@ -320,7 +321,7 @@ td {
 }
 
 .items-container {
-    margin-top: 10px;
+    margin-top: 1rem;
     width: 100%;
     padding: 15px;
     background-color: white;

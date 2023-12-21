@@ -169,8 +169,9 @@
             }
         });
 
-        var item_number = 0;
+
         const getItem = (dbname) => {
+            var item_number = 0;
             const reff = ref(db, `${dbname}`);
             onValue(reff, (snapshot) => {
                 snapshot.forEach(item => {
@@ -178,6 +179,7 @@
                     item_number += 1;
                 });
             })
+            return item_number;
         }
 
         //select logout class
@@ -315,13 +317,13 @@
                     datasets: [
                         {
                             label: 'Available',
-                            data: [item_number, item_number, item_number, item_number],
+                            data: [3, 8, 5, 4],
                             borderWidth: 1,
                             tension: 0.1
                         },
                         {
                             label: 'Expired',
-                            data: [item_number, item_number, item_number, item_number],
+                            data: [2, 4, 6, 2],
                             borderWidth: 1,
                             tension: 0.1
                         }
@@ -336,8 +338,8 @@
                 }
             });
         }
-        setTimeout(createChart, 1500);
         getItem("Items");
+        setTimeout(createChart, 1500);
     </script>
     <script src="./index.js"></script>
 </body>
