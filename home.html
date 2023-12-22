@@ -169,19 +169,6 @@
             }
         });
 
-
-        const getItem = (dbname) => {
-            var item_number = 0;
-            const reff = ref(db, `${dbname}`);
-            onValue(reff, (snapshot) => {
-                snapshot.forEach(item => {
-                    const data = item.val();
-                    item_number += 1;
-                });
-            })
-            return item_number;
-        }
-
         //select logout class
         var buttonout = document.querySelectorAll(".signout");
         //logout function
@@ -308,38 +295,79 @@
             }
         };
 
-        function createChart() {
-            const ctx = document.getElementById('myChart');
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ["Beverage", "Frozen Food", "Health & Wellness", "Pantry"],
-                    datasets: [
-                        {
-                            label: 'Available',
-                            data: [3, 8, 5, 4],
-                            borderWidth: 1,
-                            tension: 0.1
-                        },
-                        {
-                            label: 'Expired',
-                            data: [2, 4, 6, 2],
-                            borderWidth: 1,
-                            tension: 0.1
+        var beverage_number = [];
+        var frozen_number = [];
+        var health_number = [];
+        var pantry_number = [];
+
+        function getItemNumber() {
+            setTimeout(() => {
+                var beverage = 0;
+                var frozen = 0;
+                var health = 0;
+                var pantry = 0;
+                const user = auth.currentUser;
+                const reff = ref(db, "User Items/" + user.uid + "/Items");
+                onValue(reff, (snapshot) => {
+                    snapshot.forEach(item => {
+                        const data = item.val();
+                        const category = data.category;
+                        switch (category) {
+                            case "Beverage":
+                                beverage++;
+                                break;
+                            case "Frozen Food":
+                                frozen++;
+                                break;
+                            case "Health & Wellness":
+                                health++;
+                                break;
+                            case "Pantry":
+                                pantry++;
+                                break;
+                            default:
+                                alert("Error getting category number");
+                                break;
                         }
-                    ]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
+                    });
+                    createChart(beverage, frozen, health, pantry);
+                });
+            }, 1000);
+        }
+
+        function createChart(beverage, frozen, health, pantry) {
+            setTimeout(() => {
+                const ctx = document.getElementById('myChart');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ["Beverage", "Frozen Food", "Health & Wellness", "Pantry"],
+                        datasets: [
+                            {
+                                label: 'Available',
+                                data: [beverage, frozen, health, pantry],
+                                borderWidth: 1,
+                                tension: 0.1
+                            },
+                            {
+                                label: 'Expired',
+                                data: [beverage, frozen, health, pantry],
+                                borderWidth: 1,
+                                tension: 0.1
+                            }
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
                         }
                     }
-                }
-            });
+                });
+            }, 1000);
         }
-        getItem("Items");
-        setTimeout(createChart, 1500);
+        getItemNumber();
     </script>
     <script src="./index.js"></script>
 </body>
