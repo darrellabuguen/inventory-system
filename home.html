@@ -297,19 +297,35 @@
 
         function getItemNumber() {
             setTimeout(() => {
-                const numbers = {
+                const all = {
+                    all: 0,
+                    exall: 0,
+                    toxall: 0,
+                    alltotal: 0
+                }
+                const beverages = {
                     beverage: 0,
                     exbeverage: 0,
                     toxbeverage: 0,
+                    beveragetotal: 0
+                }
+                const frozen = {
                     frozen: 0,
                     exfrozen: 0,
                     toxfrozen: 0,
+                    frozentotal: 0
+                }
+                const health = {
                     health: 0,
                     exhealth: 0,
                     toxhealth: 0,
+                    healthtotal: 0
+                }
+                const pantry = {
                     pantry: 0,
                     expantry: 0,
-                    toxpantry: 0
+                    toxpantry: 0,
+                    pantrytotal: 0
                 }
 
                 var month = new Date().getMonth() + 1;
@@ -333,62 +349,73 @@
                         var near = crr_time - exdate_time;
                         var remain = Math.abs(Math.floor(near / (60 * 60 * 24)));
                         remain = remain / 1000;
+                        console.log(remain);
+
+                        crr_time >= exdate_time ? all.exall += 1 : all.all++;
+                        remain <= 31 && remain > 0 ? all.toxall += 1 : all.toxall;
+                        all.alltotal++;
 
                         switch (category) {
                             case "Beverage":
-                                crr_time >= exdate_time ? numbers.exbeverage += 1 : numbers.exbeverage;
-                                remain <= 31 ? numbers.toxbeverage += 1 : numbers.toxbeverage;
-                                numbers.beverage++;
+                                crr_time >= exdate_time ? beverages.exbeverage += 1 : beverages.beverage++;
+                                remain <= 31 && remain > 0 ? beverages.toxbeverage += 1 : beverages.toxbeverage;
+                                beverages.beveragetotal++;
                                 break;
                             case "Frozen Food":
-                                crr_time >= exdate_time ? numbers.exfrozen += 1 : numbers.exfrozen;
-                                remain <= 31 ? numbers.toxfrozen += 1 : numbers.toxfrozen;
-                                numbers.frozen++;
+                                crr_time >= exdate_time ? frozen.exfrozen += 1 : frozen.frozen++;
+                                remain <= 31 && remain > 0 ? frozen.toxfrozen += 1 : frozen.toxfrozen;
+                                frozen.frozentotal++;
                                 break;
                             case "Health & Wellness":
-                                crr_time >= exdate_time ? numbers.exhealth += 1 : numbers.exhealth;
-                                remain <= 31 ? numbers.toxhealth += 1 : numbers.toxhealth;
-                                numbers.health++;
+                                crr_time >= exdate_time ? health.exhealth += 1 : health.health++;
+                                remain <= 31 && remain > 0 ? health.toxhealth += 1 : health.toxhealth;
+                                health.healthtotal++;
                                 break;
                             case "Pantry":
-                                crr_time >= exdate_time ? numbers.expantry += 1 : numbers.expantry;
-                                remain <= 31 ? numbers.toxpantry += 1 : numbers.toxpantry;
-                                numbers.pantry++;
+                                crr_time >= exdate_time ? pantry.expantry += 1 : pantry.pantry++;
+                                remain <= 31 && remain > 0 ? pantry.toxpantry += 1 : pantry.toxpantry;
+                                pantry.pantrytotal++;
                                 break;
                             default:
                                 alert("Error getting category number");
                                 break;
                         }
                     });
-                    createChart(numbers);
+                    createChart(all, beverages, frozen, health, pantry);
                 });
             }, 1000);
         }
 
-        function createChart(numbers) {
+        function createChart(all, beverages, frozen, health, pantry) {
             setTimeout(() => {
                 const ctx = document.getElementById('myChart');
 
                 new Chart(ctx, {
-                    type: 'line',
+                    type: 'bar',
                     data: {
-                        labels: ["Beverage", "Frozen Food", "Health & Wellness", "Pantry"],
+                        labels: ["Beverage", "Frozen Food", "Health & Wellness", "Pantry", "All Items"],
                         datasets: [
                             {
                                 label: 'Available',
-                                data: [numbers.beverage, numbers.frozen, numbers.health, numbers.pantry],
+                                data: [all.all, beverages.beverage, frozen.frozen, health.health, pantry.pantry],
                                 borderWidth: 1,
                                 tension: 0.1
                             },
                             {
                                 label: 'Expired',
-                                data: [numbers.exbeverage, numbers.exfrozen, numbers.exhealth, numbers.expantry],
+                                data: [all.exall, beverages.exbeverage, frozen.exfrozen, health.exhealth, pantry.expantry],
                                 borderWidth: 1,
                                 tension: 0.1
                             },
                             {
                                 label: 'To Expire',
-                                data: [numbers.toxbeverage, numbers.toxfrozen, numbers.toxhealth, numbers.toxpantry],
+                                data: [all.toxall, beverages.toxbeverage, frozen.toxfrozen, health.toxhealth, pantry.toxpantry],
+                                borderWidth: 1,
+                                tension: 0.1
+                            },
+                            {
+                                label: 'Total',
+                                data: [all.alltotal, beverages.beveragetotal, frozen.frozentotal, health.healthtotal, pantry.pantrytotal],
                                 borderWidth: 1,
                                 tension: 0.1
                             }
