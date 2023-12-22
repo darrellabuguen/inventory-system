@@ -295,49 +295,80 @@
             }
         };
 
-        var beverage_number = [];
-        var frozen_number = [];
-        var health_number = [];
-        var pantry_number = [];
-
         function getItemNumber() {
             setTimeout(() => {
-                var beverage = 0;
-                var frozen = 0;
-                var health = 0;
-                var pantry = 0;
+                const numbers = {
+                    beverage: 0,
+                    exbeverage: 0,
+                    toxbeverage: 0,
+                    frozen: 0,
+                    exfrozen: 0,
+                    toxfrozen: 0,
+                    health: 0,
+                    exhealth: 0,
+                    toxhealth: 0,
+                    pantry: 0,
+                    expantry: 0,
+                    toxpantry: 0
+                }
+
+                var month = new Date().getMonth() + 1;
+                var year = new Date().getFullYear();
+                var day = new Date().getDate();
                 const user = auth.currentUser;
                 const reff = ref(db, "User Items/" + user.uid + "/Items");
                 onValue(reff, (snapshot) => {
                     snapshot.forEach(item => {
+
                         const data = item.val();
+                        const manufactured = data.manufactured;
+                        const expiry = data.expiry;
                         const category = data.category;
+                        var new_expiry = new Date(expiry);
+                        var exdate_time = new_expiry.getTime();
+                        exdate_time = exdate_time - 28800000;
+                        var fulldate = month + "-" + day + "-" + year;
+                        var transtodate = new Date(fulldate);
+                        var crr_time = transtodate.getTime();
+                        var near = crr_time - exdate_time;
+                        var remain = Math.abs(Math.floor(near / (60 * 60 * 24)));
+                        remain = remain / 1000;
+
                         switch (category) {
                             case "Beverage":
-                                beverage++;
+                                crr_time >= exdate_time ? numbers.exbeverage += 1 : numbers.exbeverage;
+                                remain <= 31 ? numbers.toxbeverage += 1 : numbers.toxbeverage;
+                                numbers.beverage++;
                                 break;
                             case "Frozen Food":
-                                frozen++;
+                                crr_time >= exdate_time ? numbers.exfrozen += 1 : numbers.exfrozen;
+                                remain <= 31 ? numbers.toxfrozen += 1 : numbers.toxfrozen;
+                                numbers.frozen++;
                                 break;
                             case "Health & Wellness":
-                                health++;
+                                crr_time >= exdate_time ? numbers.exhealth += 1 : numbers.exhealth;
+                                remain <= 31 ? numbers.toxhealth += 1 : numbers.toxhealth;
+                                numbers.health++;
                                 break;
                             case "Pantry":
-                                pantry++;
+                                crr_time >= exdate_time ? numbers.expantry += 1 : numbers.expantry;
+                                remain <= 31 ? numbers.toxpantry += 1 : numbers.toxpantry;
+                                numbers.pantry++;
                                 break;
                             default:
                                 alert("Error getting category number");
                                 break;
                         }
                     });
-                    createChart(beverage, frozen, health, pantry);
+                    createChart(numbers);
                 });
             }, 1000);
         }
 
-        function createChart(beverage, frozen, health, pantry) {
+        function createChart(numbers) {
             setTimeout(() => {
                 const ctx = document.getElementById('myChart');
+
                 new Chart(ctx, {
                     type: 'line',
                     data: {
@@ -345,13 +376,19 @@
                         datasets: [
                             {
                                 label: 'Available',
-                                data: [beverage, frozen, health, pantry],
+                                data: [numbers.beverage, numbers.frozen, numbers.health, numbers.pantry],
                                 borderWidth: 1,
                                 tension: 0.1
                             },
                             {
                                 label: 'Expired',
-                                data: [beverage, frozen, health, pantry],
+                                data: [numbers.exbeverage, numbers.exfrozen, numbers.exhealth, numbers.expantry],
+                                borderWidth: 1,
+                                tension: 0.1
+                            },
+                            {
+                                label: 'To Expire',
+                                data: [numbers.toxbeverage, numbers.toxfrozen, numbers.toxhealth, numbers.toxpantry],
                                 borderWidth: 1,
                                 tension: 0.1
                             }
@@ -363,6 +400,10 @@
                                 beginAtZero: true
                             }
                         }
+                    },
+                    titlle: {
+                        display: true,
+                        text: 'Items'
                     }
                 });
             }, 1000);
