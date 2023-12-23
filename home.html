@@ -63,6 +63,144 @@
                                 alt="img"></button>
                     </div>
                 </div>
+                <div class="category-container category-status"
+                    style="padding: 0.3rem; padding-bottom: 1rem; font-size: 0.7rem;  font-family: poppins; ">
+                    <div class="category-status-container">
+                        <label class="category-label">All Item</label>
+                        <div class="flex">
+                            <div class="box blue"></div>
+                            <div>
+                                <p>Available: <span class="all-item available">0</span></p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="box orange"></div>
+                            <div>
+                                <p>To expire: <span class="all-item to-expire">0</span></p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="box red"></div>
+                            <div>
+                                <p>Expired: <span class="all-item expired">0</span></p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="box antique"></div>
+                            <div>
+                                <p>Total: <span class="all-item total">0</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category-status-container">
+                        <label class="category-label">Beverage</label>
+                        <div class="flex">
+                            <div class="box blue"></div>
+                            <div>
+                                <p>Available: <span class="beverage available">0</span></p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="box orange"></div>
+                            <div>
+                                <p>To expire: <span class="beverage to-expire">0</span></p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="box red"></div>
+                            <div>
+                                <p>Expired: <span class="beverage expired">0</span></p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="box antique"></div>
+                            <div>
+                                <p>Total: <span class="beverage total">0</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category-status-container">
+                        <label class="category-label">Frozen Food</label>
+                        <div class="flex">
+                            <div class="box blue"></div>
+                            <div>
+                                <p>Available: <span class="frozen available">0</span></p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="box orange"></div>
+                            <div>
+                                <p>To expire: <span class="frozen to-expire">0</span></p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="box red"></div>
+                            <div>
+                                <p>Expired: <span class="frozen expired">0</span></p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="box antique"></div>
+                            <div>
+                                <p>Total: <span class="frozen total">0</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category-status-container">
+                        <label class="category-label">Health & Wellness</label>
+                        <div class="flex">
+                            <div class="box blue"></div>
+                            <div>
+                                <p>Available: <span class="health available">0</span></p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="box orange"></div>
+                            <div>
+                                <p>To expire: <span class="health to-expire">0</span></p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="box red"></div>
+                            <div>
+                                <p>Expired: <span class="health expired">0</span></p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="box antique"></div>
+                            <div>
+                                <p>Total: <span class="health total">0</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category-status-container">
+                        <label class="category-label">Pantry</label>
+                        <div class="flex">
+                            <div class="box blue"></div>
+                            <div>
+                                <p>Available: <span class="pantry available">0</span></p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="box orange"></div>
+                            <div>
+                                <p>To expire: <span class="pantry to-expire">0</span></p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="box red"></div>
+                            <div>
+                                <p>Expired: <span class="pantry expired">0</span></p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="box antique"></div>
+                            <div>
+                                <p>Total: <span class="pantry total">0</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="table-container" style="display: none;">
                     <table class="items">
                         <thead>
@@ -113,7 +251,6 @@
                 <input class="expiry-date" id="expiry-date" required type="date" name="expiry-date">
                 <input class="add-item" type="button" name="add-item" value="Add Item">
             </div>
-
         </div>
 
     </main>
@@ -352,28 +489,28 @@
                         console.log(remain);
 
                         crr_time >= exdate_time ? all.exall += 1 : all.all++;
-                        remain <= 31 && remain > 0 ? all.toxall += 1 : all.toxall;
+                        remain <= 31 && crr_time < exdate_time ? all.toxall += 1 : all.toxall;
                         all.alltotal++;
 
                         switch (category) {
                             case "Beverage":
                                 crr_time >= exdate_time ? beverages.exbeverage += 1 : beverages.beverage++;
-                                remain <= 31 && remain > 0 ? beverages.toxbeverage += 1 : beverages.toxbeverage;
+                                remain <= 31 && crr_time < exdate_time ? beverages.toxbeverage += 1 : beverages.toxbeverage;
                                 beverages.beveragetotal++;
                                 break;
                             case "Frozen Food":
                                 crr_time >= exdate_time ? frozen.exfrozen += 1 : frozen.frozen++;
-                                remain <= 31 && remain > 0 ? frozen.toxfrozen += 1 : frozen.toxfrozen;
+                                remain <= 31 && crr_time < exdate_time ? frozen.toxfrozen += 1 : frozen.toxfrozen;
                                 frozen.frozentotal++;
                                 break;
                             case "Health & Wellness":
                                 crr_time >= exdate_time ? health.exhealth += 1 : health.health++;
-                                remain <= 31 && remain > 0 ? health.toxhealth += 1 : health.toxhealth;
+                                remain <= 31 && crr_time < exdate_time ? health.toxhealth += 1 : health.toxhealth;
                                 health.healthtotal++;
                                 break;
                             case "Pantry":
                                 crr_time >= exdate_time ? pantry.expantry += 1 : pantry.pantry++;
-                                remain <= 31 && remain > 0 ? pantry.toxpantry += 1 : pantry.toxpantry;
+                                remain <= 31 && crr_time < exdate_time ? pantry.toxpantry += 1 : pantry.toxpantry;
                                 pantry.pantrytotal++;
                                 break;
                             default:
@@ -383,7 +520,7 @@
                     });
                     createChart(all, beverages, frozen, health, pantry);
                 });
-            }, 1000);
+            }, 1200);
         }
 
         function createChart(all, beverages, frozen, health, pantry) {
@@ -391,33 +528,33 @@
                 const ctx = document.getElementById('myChart');
 
                 new Chart(ctx, {
-                    type: 'bar',
+                    type: 'line',
                     data: {
-                        labels: ["Beverage", "Frozen Food", "Health & Wellness", "Pantry", "All Items"],
+                        labels: ["All Items", "Beverage", "Frozen Food", "Health & Wellness", "Pantry"],
                         datasets: [
                             {
                                 label: 'Available',
                                 data: [all.all, beverages.beverage, frozen.frozen, health.health, pantry.pantry],
                                 borderWidth: 1,
-                                tension: 0.1
+                                tension: 0.3
                             },
                             {
                                 label: 'Expired',
                                 data: [all.exall, beverages.exbeverage, frozen.exfrozen, health.exhealth, pantry.expantry],
                                 borderWidth: 1,
-                                tension: 0.1
+                                tension: 0.3
                             },
                             {
                                 label: 'To Expire',
                                 data: [all.toxall, beverages.toxbeverage, frozen.toxfrozen, health.toxhealth, pantry.toxpantry],
                                 borderWidth: 1,
-                                tension: 0.1
+                                tension: 0.3
                             },
                             {
                                 label: 'Total',
                                 data: [all.alltotal, beverages.beveragetotal, frozen.frozentotal, health.healthtotal, pantry.pantrytotal],
                                 borderWidth: 1,
-                                tension: 0.1
+                                tension: 0.3
                             }
                         ]
                     },

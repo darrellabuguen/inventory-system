@@ -30,6 +30,10 @@
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .category-container.category-status {
+        display: none;
+    }
+
     .items {
         font-size: 0.9rem;
     }
@@ -46,6 +50,11 @@
 
     .category-container {
         grid-template-columns: repeat(4, 1fr);
+    }
+
+    .category-container.category-status {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
     }
 
     .items {

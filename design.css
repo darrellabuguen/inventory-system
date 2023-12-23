@@ -261,6 +261,37 @@ select:focus {
     color: #304880;
 }
 
+.category-status-container {
+    text-align: left;
+}
+
+.box {
+    height: 0.5rem;
+    width: 1rem;
+}
+
+.blue {
+    background-color: #00b3ff;
+}
+
+.red {
+    background-color: #ff6764;
+}
+
+.orange {
+    background-color: #ffa568;
+}
+
+.antique {
+    background-color: antiquewhite;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 th {
     padding: 10px;
 }
