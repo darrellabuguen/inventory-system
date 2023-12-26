@@ -261,10 +261,6 @@ select:focus {
     color: #304880;
 }
 
-.category-status-container {
-    text-align: left;
-}
-
 .box {
     height: 0.5rem;
     width: 1rem;
