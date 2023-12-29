@@ -63,6 +63,11 @@
                                 alt="img"></button>
                     </div>
                 </div>
+                <div class="chart-container">
+                    <h2 align="center">Items</h2>
+                    <canvas id="myChart"></canvas>
+                </div>
+                <br>
                 <div class="table-container" style="display: none;">
                     <table class="items">
                         <thead>
@@ -77,10 +82,6 @@
                             <tr></tr>
                         </tbody>
                     </table>
-                </div>
-                <div class="chart-container">
-                    <h2 align="center">Items</h2>
-                    <canvas id="myChart"></canvas>
                 </div>
             </div>
         </div>
@@ -332,13 +333,18 @@
                 var day = new Date().getDate();
                 const user = auth.currentUser;
                 const reff = ref(db, "User Items/" + user.uid + "/Items");
+                const item_header = document.querySelector(".table-container");
+                item_header.style.display = "block";
                 onValue(reff, (snapshot) => {
                     snapshot.forEach(item => {
-
                         const data = item.val();
+                        const id = item.key;
+                        const name = data.item_name;
+                        const price = data.item_price;
                         const manufactured = data.manufactured;
                         const expiry = data.expiry;
                         const category = data.category;
+                        const added = data.added;
                         var new_expiry = new Date(expiry);
                         var exdate_time = new_expiry.getTime();
                         exdate_time = exdate_time - 28800000;
@@ -348,11 +354,12 @@
                         var near = crr_time - exdate_time;
                         var remain = Math.abs(Math.floor(near / (60 * 60 * 24)));
                         remain = remain / 1000;
-                        console.log(remain);
 
                         crr_time >= exdate_time ? all.exall += 1 : all.all++;
                         remain <= 31 && crr_time < exdate_time ? all.toxall += 1 : all.toxall;
                         all.alltotal++;
+
+                        createTable(id, name, price, manufactured, expiry, added);
 
                         switch (category) {
                             case "Beverage":
