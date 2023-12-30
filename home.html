@@ -88,7 +88,10 @@
 
         <div class="add-item-section">
             <div class="add-item-container">
-                <div class="add-item-text">Add Item</div>
+                <div class="add-item-text">
+                    <div style="flex: 1;">Add Item</div>
+                    <div class="close-add">&Cross;</div>
+                </div>
                 <input class="item-name" required type="text" placeholder="Item name...">
                 <input class="item-price" required type="text" placeholder="Item price...">
                 <label for="category">Category</label><br>
@@ -184,24 +187,37 @@
         var add_bottom = document.querySelector(".add-item-bottom");
         add_bottom.addEventListener("click", openAdd);
 
+        //function for closing add item
+        const add_contain = document.querySelector(".add-item-section");
+        const close_add = document.querySelector(".close-add");
+        close_add.addEventListener("click", () => {
+            add_contain.style.display = "none";
+            add_contain.style.position = "unset";
+            close_add.style.display = "none";
+        });
+
+        //function for add item in the right of search bar and add item in bottom navigation
         function openAdd() {
-            var item_contain = document.querySelector(".items-container").style.display = "none";
-            var add_contain = document.querySelector(".add-item-section");
-            var menu = document.querySelector("main");
+            const menu = document.querySelector("main");
             var browsersize = window.innerWidth;
             var screensize = screen.width;
-            menu.style.display = "block";
-            add_contain.style.display = "block";
             add_contain.style.marginTop = "10px";
             if (screensize < 769 || browsersize < 769) {
+                document.querySelector(".items-container").style.display = "none";
                 add_contain.style.width = "100%";
+                menu.style.display = "block";
+                add_contain.style.display = "block";
             }
             else {
+                add_contain.style.position = "absolute";
+                add_contain.style.transform = "translate(-50% 50%)";
+                add_contain.style.display = "block";
                 add_contain.style.width = "50%";
+                close_add.style.display = "block";
             }
         }
 
-        //add box shadow when the container is clicked
+        //add border of blue when the container is clicked in bottom navigation
         var bttmcontainer = document.querySelectorAll(".bttm");
         for (let i = 0; i < bttmcontainer.length; i++) {
             bttmcontainer[i].onclick = function () {
@@ -255,12 +271,14 @@
             }
         });
 
+        //function when search button is clicked
         function search() {
             const item_header = document.querySelector(".table-container");
             var seach_value = document.querySelector(".search").value;
             var reff = query(ref(db, "Items"), orderByChild("item_name"), startAt(seach_value), endAt(seach_value + "\uf8ff"));
-            removeTable();
+
             if (seach_value) {
+                removeTable();
                 item_header.style.display = "block";
                 get(reff).then((snappy) => {
                     snappy.forEach(chld => {
@@ -295,6 +313,7 @@
             }
         };
 
+        //function for getting the number of each item per status
         function getItemNumber() {
             setTimeout(() => {
                 const all = {
@@ -359,8 +378,10 @@
                         remain <= 31 && crr_time < exdate_time ? all.toxall += 1 : all.toxall;
                         all.alltotal++;
 
+                        //create table of items below the chart
                         createTable(id, name, price, manufactured, expiry, added);
 
+                        //check what category then check if expired or not
                         switch (category) {
                             case "Beverage":
                                 crr_time >= exdate_time ? beverages.exbeverage += 1 : beverages.beverage++;
@@ -387,11 +408,13 @@
                                 break;
                         }
                     });
+                    //create the chart
                     createChart(all, beverages, frozen, health, pantry);
                 });
             }, 1200);
         }
 
+        //function for creating the chart
         function createChart(all, beverages, frozen, health, pantry) {
             setTimeout(() => {
                 const ctx = document.getElementById('myChart');

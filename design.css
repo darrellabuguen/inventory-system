@@ -366,6 +366,14 @@ td {
 .add-item-text {
     font-family: poppins;
     font-size: 20px;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+}
+
+.close-add {
+    cursor: pointer;
+    display: none;
 }
 
 .add-item {
