@@ -191,8 +191,7 @@
         const add_contain = document.querySelector(".add-item-section");
         const close_add = document.querySelector(".close-add");
         close_add.addEventListener("click", () => {
-            add_contain.style.display = "none";
-            add_contain.style.position = "unset";
+            add_contain.classList.remove("show");
             close_add.style.display = "none";
         });
 
@@ -201,17 +200,15 @@
             const menu = document.querySelector("main");
             var browsersize = window.innerWidth;
             var screensize = screen.width;
-            add_contain.style.marginTop = "10px";
             if (screensize < 769 || browsersize < 769) {
                 document.querySelector(".items-container").style.display = "none";
+                add_contain.style.marginTop = "10px";
                 add_contain.style.width = "100%";
                 menu.style.display = "block";
                 add_contain.style.display = "block";
             }
             else {
-                add_contain.style.position = "absolute";
-                add_contain.style.transform = "translate(-50% 50%)";
-                add_contain.style.display = "block";
+                add_contain.classList.add("show");
                 add_contain.style.width = "50%";
                 close_add.style.display = "block";
             }
