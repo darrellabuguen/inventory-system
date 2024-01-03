@@ -69,9 +69,10 @@
                 </div>
                 <br>
                 <div class="table-container" style="display: none;">
+                    <h2>Recent Items</h2>
                     <table class="items">
                         <thead>
-                            <th>Item ID</th>
+                            <th>Category</th>
                             <th>Item Name</th>
                             <th>Item Price</th>
                             <th>Manufactured Date</th>
@@ -310,6 +311,33 @@
             }
         };
 
+        //function for getting 5 recent items added
+        function getRecent() {
+            setTimeout(() => {
+
+                const user = auth.currentUser;
+                const reff = query(ref(db, "User Items/" + user.uid + "/Items"), orderByChild("item_name"), limitToLast(5));
+                const item_header = document.querySelector(".table-container");
+                item_header.style.display = "block";
+                onValue(reff, (snapshot) => {
+                    snapshot.forEach(item => {
+                        const data = item.val();
+                        const id = item.key;
+                        const name = data.item_name;
+                        const price = data.item_price;
+                        const manufactured = data.manufactured;
+                        const expiry = data.expiry;
+                        const category = data.category;
+                        const added = data.added;
+
+                        //create table of items below the chart
+                        createTable(category, name, price, manufactured, expiry, added);
+
+                    });
+                });
+            }, 1200);
+        }
+
         //function for getting the number of each item per status
         function getItemNumber() {
             setTimeout(() => {
@@ -349,8 +377,6 @@
                 var day = new Date().getDate();
                 const user = auth.currentUser;
                 const reff = ref(db, "User Items/" + user.uid + "/Items");
-                const item_header = document.querySelector(".table-container");
-                item_header.style.display = "block";
                 onValue(reff, (snapshot) => {
                     snapshot.forEach(item => {
                         const data = item.val();
@@ -374,9 +400,6 @@
                         crr_time >= exdate_time ? all.exall += 1 : all.all++;
                         remain <= 31 && crr_time < exdate_time ? all.toxall += 1 : all.toxall;
                         all.alltotal++;
-
-                        //create table of items below the chart
-                        createTable(id, name, price, manufactured, expiry, added);
 
                         //check what category then check if expired or not
                         switch (category) {
@@ -461,7 +484,10 @@
                 });
             }, 1000);
         }
-        getItemNumber();
+        window.addEventListener("load", () => {
+            getItemNumber();
+            getRecent();
+        });
     </script>
     <script src="./index.js"></script>
 </body>

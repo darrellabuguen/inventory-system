@@ -22,23 +22,23 @@ function checkCategory(id) {
     }
 }
 
-function createTable(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added) {
+function createTable(snap_item_category, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added) {
     var tbody = document.querySelector(".item-body");
     var trow = document.createElement("tr");
-    var tdata1 = document.createElement("td");
-    var tdata2 = document.createElement("td");
-    var tdata3 = document.createElement("td");
-    var tdata4 = document.createElement("td");
-    var tdata5 = document.createElement("td");
-    var tdata6 = document.createElement("td");
+    var category = document.createElement("td");
+    var item_name = document.createElement("td");
+    var item_price = document.createElement("td");
+    var manufactured_date = document.createElement("td");
+    var expiration_date = document.createElement("td");
+    var date_added = document.createElement("td");
 
-    tdata1.innerHTML = snap_item_id; tdata2.innerHTML = snap_itemn; tdata3.innerHTML = snap_itemp;
-    tdata4.innerHTML = snap_manufactured; tdata5.innerHTML = snap_expiry; tdata6.innerHTML = snap_added;
+    category.innerHTML = snap_item_category; item_name.innerHTML = snap_itemn; item_price.innerHTML = snap_itemp;
+    manufactured_date.innerHTML = snap_manufactured; expiration_date.innerHTML = snap_expiry; date_added.innerHTML = snap_added;
 
-    tdata1.classList.add("iid");
+    category.classList.add("iid");
 
-    trow.appendChild(tdata1); trow.appendChild(tdata2); trow.appendChild(tdata3);
-    trow.appendChild(tdata4); trow.appendChild(tdata5); trow.appendChild(tdata6);
+    trow.appendChild(category); trow.appendChild(item_name); trow.appendChild(item_price);
+    trow.appendChild(manufactured_date); trow.appendChild(expiration_date); trow.appendChild(date_added);
 
     tbody.appendChild(trow);
 }

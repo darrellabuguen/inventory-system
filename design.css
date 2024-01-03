@@ -362,6 +362,7 @@ td {
     padding: 15px;
     background-color: white;
     border-radius: 5px;
+    font-family: poppins;
 }
 
 .add-item-container {
@@ -383,6 +384,11 @@ td {
 .close-add {
     cursor: pointer;
     display: none;
+}
+
+.table-container h2 {
+    width: 99%;
+    margin: auto;
 }
 
 .add-item {
@@ -462,7 +468,7 @@ td {
 }
 
 .iid {
-    font-size: 10px;
+    font-size: 0.8rem;
 }
 
 .active {
