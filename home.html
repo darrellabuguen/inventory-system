@@ -26,34 +26,24 @@
     </header>
     <main>
         <div class="item-display">
-            <div class="category-container">
-                <div class="container" onclick="window.location='./category/beverages.html'">
-                    <label class="category-label">Beverage</label>
-                    <div class="beverage-image">
-                        <img src="./images/wine-bottle-solid.svg" alt="image">
+            <div class="category-section">
+                <h2 style="padding-bottom: 0.5rem;">Category</h2>
+                <div class="category-container">
+                    <div class="container" onclick="window.location='./category/beverages.html'">
+                        <label class="category-label">Beverage</label>
                     </div>
-                </div>
-                <div class="container" onclick="window.location='./category/frozen-foods.html'">
-                    <label class="category-label">Frozen Food</label>
-                    <div class="frozen-image">
-                        <img src="./images/ice-cream-solid.svg" alt="image">
+                    <div class="container" onclick="window.location='./category/frozen-foods.html'">
+                        <label class="category-label">Frozen Food</label>
                     </div>
-                </div>
-                <div class="container" onclick="window.location='./category/health&wellness.html'">
-                    <label class="category-label">Health & Wellness</label>
-                    <div class="hw-image">
-                        <img src="./images/wellness.svg" alt="image">
+                    <div class="container" onclick="window.location='./category/health&wellness.html'">
+                        <label class="category-label">Health & Wellness</label>
                     </div>
-                </div>
-                <div class="container" onclick="window.location='./category/pantry.html'">
-                    <label class="category-label">Pantry</label>
-                    <div class="pantry-image"></div>
+                    <div class="container" onclick="window.location='./category/pantry.html'">
+                        <label class="category-label">Pantry</label>
+                    </div>
                 </div>
             </div>
             <div class="items-container">
-                <div class="nav-title">
-                    <p class="title-nav">All Items</p>
-                </div>
                 <div class="search-container">
                     <input class="search" type="search" name="search">
                     <button class="search-button"><img class="search-icn" src="./images/search_icon.png"
@@ -69,7 +59,7 @@
                 </div>
                 <br>
                 <div class="table-container" style="display: none;">
-                    <h2>Recent Items</h2>
+                    <h2>Recent Added Items</h2>
                     <table class="items">
                         <thead>
                             <th>Category</th>
@@ -83,6 +73,10 @@
                             <tr></tr>
                         </tbody>
                     </table>
+                </div>
+                <div class="recent-container">
+                    <h2>Recent Items</h2>
+
                 </div>
             </div>
         </div>
@@ -146,7 +140,7 @@
         import {
             getDatabase, ref, push, onValue, child,
             remove, set, query, orderByChild, get,
-            startAt, endAt
+            startAt, endAt, limitToLast
         } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries

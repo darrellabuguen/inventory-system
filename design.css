@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: poppins;
 }
 
 header {
@@ -261,6 +262,12 @@ select:focus {
     gap: 10px;
 }
 
+.category-section {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 5px;
+}
+
 .category-container {
     display: grid;
     gap: 1rem;
@@ -310,7 +317,7 @@ td {
     height: 8rem;
     padding: 20px;
     text-align: center;
-    background-color: white;
+    border: solid 1px gainsboro;
     border-radius: 5px;
     font-family: poppins;
     display: flex;
