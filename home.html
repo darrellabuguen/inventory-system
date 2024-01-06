@@ -26,23 +26,6 @@
     </header>
     <main>
         <div class="item-display">
-            <div class="category-section">
-                <h2 style="padding-bottom: 0.5rem;">Category</h2>
-                <div class="category-container">
-                    <div class="container" onclick="window.location='./category/beverages.html'">
-                        <label class="category-label">Beverage</label>
-                    </div>
-                    <div class="container" onclick="window.location='./category/frozen-foods.html'">
-                        <label class="category-label">Frozen Food</label>
-                    </div>
-                    <div class="container" onclick="window.location='./category/health&wellness.html'">
-                        <label class="category-label">Health & Wellness</label>
-                    </div>
-                    <div class="container" onclick="window.location='./category/pantry.html'">
-                        <label class="category-label">Pantry</label>
-                    </div>
-                </div>
-            </div>
             <div class="items-container">
                 <div class="search-container">
                     <input class="search" type="search" name="search">
@@ -260,6 +243,8 @@
                     expiry: expiry,
                     added: year + "-" + month + "-" + date
                 });
+                alert("Item successfully added.");
+                removeTable();
             }
         });
 
@@ -310,7 +295,7 @@
             setTimeout(() => {
 
                 const user = auth.currentUser;
-                const reff = query(ref(db, "User Items/" + user.uid + "/Items"), orderByChild("item_name"), limitToLast(5));
+                const reff = query(ref(db, "User Items/" + user.uid + "/Items"), orderByChild("added"), limitToLast(5));
                 const item_header = document.querySelector(".table-container");
                 item_header.style.display = "block";
                 onValue(reff, (snapshot) => {

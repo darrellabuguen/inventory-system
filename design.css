@@ -262,21 +262,6 @@ select:focus {
     gap: 10px;
 }
 
-.category-section {
-    background-color: white;
-    padding: 1rem;
-    border-radius: 5px;
-}
-
-.category-container {
-    display: grid;
-    gap: 1rem;
-}
-
-.category-label {
-    color: #304880;
-}
-
 .box {
     height: 0.5rem;
     width: 1rem;
@@ -364,7 +349,6 @@ td {
 }
 
 .items-container {
-    margin-top: 1rem;
     width: 100%;
     padding: 15px;
     background-color: white;
