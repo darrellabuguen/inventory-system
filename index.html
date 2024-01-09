@@ -73,22 +73,16 @@
 
             signInWithPopup(auth, provider)
                 .then((result) => {
-                    // This gives you a Google Access Token
-                    var token = result.credential.accessToken;
                     // This gives you the signed-in user
                     var user = result.user;
+                    // This gives you a Google Access Token
+                    var token = result.accessToken;
                     if (user) {
-                        window.location = "home.html";
+                        window.location.href = "home.html";
                     }
                 })
                 .catch((error) => {
-                    // Handle errors here
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    // The email of the user's account used
-                    var email = error.email;
-                    // The AuthCredential type that was used
-                    var credential = error.credential;
+                    console.error(error);
                 });
         });
 
