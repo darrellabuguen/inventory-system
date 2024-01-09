@@ -1,14 +1,3 @@
-function showpass() {
-    var showpass = document.querySelector(".show-pass");
-    var passval = document.querySelector(".password");
-
-    if (showpass.checked == true) {
-        passval.type = "text";
-    }
-    else {
-        passval.type = "password";
-    }
-}
 
 function createTable(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added) {
     var tbody = document.querySelector(".item-body");

@@ -26,20 +26,40 @@
                 <div class="login-form forms">
                     <label class="emaillabel" for="email">Email</label><br>
                     <input class="email" id="email" type="email" name="email"><br>
-                    <label class="passlabel" for="password">Password</label><br>
-                    <input class="password" id="password" type="password" name="password"><br>
-                    <input class="show-pass" id="show-pass" type="checkbox" onclick="showpass()">
-                    <label for="show-pass">show password</label><br>
-                    <button class="login">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="16" width="15.25" viewBox="0 0 488 512">
+                    <label class="password" for="password">Password</label><br>
+                    <input class="password" id="password" type="password" name="password"><br><br>
+                    <button class="login-email btn-primary">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="1.5rem" width="1.5rem"
+                            viewBox="0 0 512 512">
+                            <!--! Font Awesome Pro 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                            <path
+                                d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"
+                                fill="white" />
+                        </svg>
+                        <div style="width: 80%;">Sign in with Email</div>
+                    </button>
+                    <button class="login btn-primary">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="1.5rem" width="1.5rem"
+                            viewBox="0 0 488 512">
                             <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                             <path
                                 d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"
                                 fill="white" />
                         </svg>
-                        Sign in with Google
+                        <div style="width: 80%; ">Sign in with Google</div>
                     </button>
-                    <input class="login-guest" type="button" value="Sign in as Guest">
+                    <button class="login-guest btn-secondary">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="1.5rem" width="1.5rem"
+                            viewBox="0 0 448 512">
+                            <!--! Font Awesome Pro 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                            <path
+                                d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"
+                                fill="white" />
+                        </svg>
+                        <div style="width: 80%; ">Sign in as Guest</div>
+                    </button><br>
+                    <p align="center" style="font-family: poppins;">Don't have account yet? <a
+                            href="signup.html">Signup</a></p>
                 </div>
             </div>
         </div>
@@ -47,7 +67,7 @@
     <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
-        import { getAuth, signInWithPopup, signInAnonymously, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+        import { getAuth, signInWithEmailLink, isSignInWithEmailLink, signInWithPopup, signInAnonymously, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -66,8 +86,25 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth();
 
-        //login button function
-        var log = document.querySelector(".login");
+        //sign in with email button function
+        const login_email = document.querySelector(".login-email");
+        login_email.addEventListener("click", () => {
+            const user_email = document.querySelector(".email");
+            var user_password = document.querySelector("#password");
+            var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!regex.test(user_email.value) || user_password.value == "" || user_password.value.length < 8) {
+                alert("Please fill the proper values needed in the input fields.");
+                user_email.value = "";
+                user_password.value = "";
+            }
+            else {
+                console.log("tama")
+            }
+        });
+
+        //sign in with google button function
+        const log = document.querySelector(".login");
         log.addEventListener("click", function () {
             const provider = new GoogleAuthProvider();
 
@@ -86,7 +123,7 @@
                 });
         });
 
-        //guest login function
+        //sign in as guest button function
         const login_guest = document.querySelector(".login-guest");
         login_guest.addEventListener("click", () => {
             signInAnonymously(auth)
