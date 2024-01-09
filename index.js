@@ -6,6 +6,20 @@ function showPass() {
     checkbox.checked ? password.type = "text" : password.type = "password";
 }
 
+//function for showing the password in signup page
+function showPassword() {
+    const checkbox = document.querySelector("#show-password");
+    const password = document.querySelector("#password");
+    const confirm_pass = document.querySelector("#repassword");
+    if (checkbox.checked) {
+        password.type = "text";
+        confirm_pass.type = "text"
+    } else {
+        password.type = "password";
+        confirm_pass.type = "password";
+    }
+}
+
 //function for creating table of items
 function createTable(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added) {
     var tbody = document.querySelector(".item-body");
