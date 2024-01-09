@@ -1,4 +1,12 @@
 
+//function for showing the password in login page
+function showPass() {
+    const checkbox = document.querySelector("#show-password");
+    const password = document.querySelector("#password");
+    checkbox.checked ? password.type = "text" : password.type = "password";
+}
+
+//function for creating table of items
 function createTable(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added) {
     var tbody = document.querySelector(".item-body");
     var trow = document.createElement("tr");
