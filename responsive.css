@@ -1,0 +1,104 @@
+@media (min-width: 0px) {
+    .pic-container {
+        display: none;
+    }
+
+    .main-container,
+    .forms {
+        width: 100%;
+    }
+
+    .main-container {
+        box-shadow: none;
+        top: 0%;
+        left: 0%;
+        transform: unset;
+    }
+
+    .login-form {
+        padding: 1.2rem;
+
+        label {
+            font-size: 0.7rem;
+            padding: 1rem 0;
+        }
+
+        p {
+            font-size: 0.7rem;
+        }
+    }
+}
+
+@media (min-width: 320px) {
+    .login-form {
+        padding: 1.2rem;
+
+        label {
+            font-size: 0.8rem;
+            padding: 1rem 0;
+        }
+
+        p {
+            font-size: 0.8rem;
+        }
+    }
+}
+
+@media (min-width: 375px) {
+    .login-form {
+        padding: 1.2rem;
+
+        label {
+            font-size: 1rem;
+            padding: 1rem 0;
+        }
+
+        p {
+            font-size: 1rem;
+        }
+    }
+}
+
+@media (min-width: 425px) {
+
+    .main-container,
+    .forms {
+        width: 80%;
+    }
+
+    .main-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .login-form {
+        padding: 1rem;
+
+        label {
+            font-size: 1rem;
+            padding: 1rem 0;
+        }
+
+        p {
+            font-size: 1rem;
+        }
+    }
+}
+
+@media (min-width: 768px) {}
+
+@media (min-width: 1024px) {
+    .main-container {
+        box-shadow: 3px 2px 2px 1px rgb(167, 167, 167);
+    }
+
+    .login-form {
+        padding: 3rem;
+    }
+
+    .pic-container {
+        display: flex;
+    }
+}
