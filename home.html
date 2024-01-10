@@ -102,7 +102,9 @@
             <div class="item-expired-link bttm"><img class="status-icn" src="./images/expired_icon.png" alt=""></div>
         </div>
     </section>
+    <script src="config.js" type="module"></script>
     <script type="module">
+        import firebaseConfig from "./config.js";
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
@@ -114,17 +116,6 @@
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
 
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyBlFt16zm2py8oMRZDoXtXQXlr7nW_WIB0",
-            authDomain: "inventory-c9ef8.firebaseapp.com",
-            databaseURL: "https://inventory-c9ef8-default-rtdb.firebaseio.com",
-            projectId: "inventory-c9ef8",
-            storageBucket: "inventory-c9ef8.appspot.com",
-            messagingSenderId: "822020064388",
-            appId: "1:822020064388:web:cb62ef0dab0d929d0c2ed1"
-        };
-
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
@@ -134,7 +125,9 @@
             if (!user) {
                 window.location = "index.html";
             }
-            user.emailVerified != true ? window.location = "verify.html" : user;
+            else if (user.isAnonymous != true) {
+                user.emailVerified != true ? window.location = "verify.html" : user;
+            }
         });
 
         //select logout class
