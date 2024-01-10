@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./design.css">
+    <link rel="stylesheet" href="./responsive.css">
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -31,12 +32,12 @@
         <span><a href="index.html" style="color: white;">Login</a></span>
     </header>
     <center>
-        <div style="max-width: 1000px;">
-            <h1>Please input your valid email address where the reset link will be sent.</h1>
+        <div style="max-width: 1000px;" class="reset-message">
+            <h1>Please input your valid email address where the reset link will be sent.</h1><br>
             <p></p>
             <p></p>
-            <input type="email" class="email" placeholder="email" style="width: 40%;">
-            <button class="btn-primary reset-btn" style="width: 30%;">Send reset link</button>
+            <input type="email" class="email reset-email" placeholder="email">
+            <button class="btn-primary reset-btn">Send reset link</button>
             <p></p>
         </div>
     </center>

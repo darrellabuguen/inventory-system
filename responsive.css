@@ -27,6 +27,15 @@
             font-size: 0.7rem;
         }
     }
+
+    .reset-message {
+        padding: 1rem;
+
+        input[type=email],
+        .reset-btn {
+            width: 90%;
+        }
+    }
 }
 
 @media (min-width: 320px) {
@@ -83,6 +92,15 @@
 
         p {
             font-size: 1rem;
+        }
+    }
+
+    .reset-message {
+        padding: 1rem;
+
+        input[type=email],
+        .reset-btn {
+            max-width: 450px;
         }
     }
 }
