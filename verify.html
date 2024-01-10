@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Store Inventory">
+    <meta name="keywords" content="item inventory, expire checker, HTML, CSS, JavaScript, Firebase">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./design.css">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+
+    <style>
+        * {
+            font-family: poppins;
+        }
+    </style>
+
+    <title>Verify | Inventory System</title>
+</head>
+
+<body>
+    <header>
+        <div class="web-name">Store Inventory</div>
+        <div class="signout-contain"><button class="pwr_bttn"><img class="pwr_icon signout"
+                    src="./images/power_icon.png" alt="img"></button></div>
+    </header>
+    <center>
+        <div style="max-width: 1000px;">
+            <h1>Please verify your email to be able to login. Press the button to send verification for your email.</h1>
+            <p></p>
+            <p></p>
+            <button class="btn-primary verify" style="width: 30%;">Verify</button>
+            <p></p>
+            <p>Please refresh the page if the verification is done.</p>
+        </div>
+    </center>
+    <script src="config.js" type="module"></script>
+    <script type="module">
+        import firebaseConfig from './config.js';
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                var email_verified = user.emailVerified;
+                if (email_verified == true) {
+                    window.location = "home.html";
+                }
+            } else {
+                window.location = "index.html";
+            }
+        });
+
+        //select logout class
+        var buttonout = document.querySelectorAll(".signout");
+        //logout function
+        buttonout.forEach(out => {
+            out.onclick = () => {
+                auth.signOut();
+            }
+        })
+
+        const verify = document.querySelector(".verify");
+        verify.addEventListener("click", () => {
+            const user = auth.currentUser;
+            sendEmailVerification(user)
+                .then(() => {
+                    alert("Verification sent")
+                })
+                .catch((error) => {
+                    console.error(error);
+                    alert(error);
+                })
+        });
+    </script>
+</body>
+
+</html>
