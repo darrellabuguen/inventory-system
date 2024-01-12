@@ -152,6 +152,10 @@
     .menu-container {
         display: none;
     }
+
+    .table-container {
+        overflow-x: auto;
+    }
 }
 
 @media (min-width: 1024px) {
