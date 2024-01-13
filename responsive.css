@@ -156,6 +156,22 @@
     .table-container {
         overflow-x: auto;
     }
+
+    .items {
+        th {
+            font-size: 1rem;
+        }
+    }
+
+    .item-body {
+        td {
+            font-size: 1rem;
+        }
+
+        .iid {
+            font-size: 10px;
+        }
+    }
 }
 
 @media (min-width: 1024px) {
