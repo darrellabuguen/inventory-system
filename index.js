@@ -108,6 +108,8 @@ function getAvailable(avref, onValue) {
 
 function getToEx(toexref, onValue) {
     document.querySelector(".title-nav").innerHTML = "To Expired Items";
+    var tbody = document.createElement("tbody");
+    tbody.classList.add("item-body");
     onValue(toexref, (toexsnap) => {
         var toexdata = toexsnap.val();
         var toexid = toexdata.toex_id;
@@ -140,9 +142,10 @@ function getToEx(toexref, onValue) {
 
 function removeTable() {
     var tbody = document.querySelectorAll("td");
-
-    tbody.forEach(trs => {
-        trs.parentElement.remove();
-        trs.remove();
-    });
+    setTimeout(() => {
+        tbody.forEach(trs => {
+            trs.parentElement.remove();
+            trs.remove();
+        });
+    }, 1000);
 }
