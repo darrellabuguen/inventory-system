@@ -70,6 +70,11 @@
             font-size: 10px;
         }
     }
+
+    .bottom-fix,
+    .nav-title {
+        display: block;
+    }
 }
 
 @media (min-width: 320px) {
@@ -149,6 +154,7 @@
         display: block;
     }
 
+    .nav-title,
     .menu-container {
         display: none;
     }
@@ -171,6 +177,10 @@
         .iid {
             font-size: 10px;
         }
+    }
+
+    .bottom-fix {
+        display: none;
     }
 }
 

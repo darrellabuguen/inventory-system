@@ -92,15 +92,18 @@
     <div class="bottom-fix"></div>
     <section>
         <div class="menu-container">
-            <div class="item-all-link bttm active-bttm"><img class="status-icn" src="./images/allitems_icon.png"
-                    alt="img">
+            <div class="item-all-link bttm active-bttm"><span class="item-quantity status-number">0</span><img
+                    class="status-icn" src="./images/allitems_icon.png" alt="img">
             </div>
-            <div class="item-available-link bttm"><img class="status-icn" src="./images/available_icon.png" alt="img">
+            <div class="item-available-link bttm"><span class="available status-number">0</span><img class="status-icn"
+                    src="./images/available_icon.png" alt="img">
             </div>
             <div class="add-item-link bttm"><img class="mid-add" src="./images/add_icon.png" alt="img"></div>
-            <div class="item-to-expire-link bttm"><img class="status-icn" src="./images/toexpired_icon.png" alt="img">
+            <div class="item-to-expire-link bttm"><span class="almost status-number">0</span><img class="status-icn"
+                    src="./images/toexpired_icon.png" alt="img">
             </div>
-            <div class="item-expired-link bttm"><img class="status-icn" src="./images/expired_icon.png" alt=""></div>
+            <div class="item-expired-link bttm"><span class="expired status-number">0</span><img class="status-icn"
+                    src="./images/expired_icon.png" alt=""></div>
         </div>
     </section>
     <script src="config.js" type="module"></script>
@@ -253,7 +256,10 @@
                     createTable(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added);
                     checkStatus(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added);
                 })
-                var all = document.querySelector(".item-quantity").innerHTML = item_num;
+                var all = document.querySelectorAll(".item-quantity");
+                all.forEach(item => {               //for displaying how many items is in the inventory
+                    item.innerHTML = item_num;
+                })
             });
 
             function checkStatus(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added) {
@@ -274,9 +280,14 @@
                 if (crr_time >= exdate_time) {
                     item_exp++;
                     var expref = ref(db, "Expired/" + snap_item_id);
-                    var exp = document.querySelector(".expired").innerHTML = item_exp;
+                    var exp = document.querySelectorAll(".expired");
                     var expcontain = document.querySelector(".item-expired");
                     var explink = document.querySelector(".item-expired-link");
+
+                    exp.forEach(item => {           //for displaying how many items is expired
+                        item.innerHTML = item_exp;
+                    });
+
                     set(expref, {
                         ex_id: snap_item_id,
                         ex_name: snap_itemn,
@@ -301,9 +312,14 @@
                 else {
                     item_at_hand++;
                     var avref = ref(db, "Available/" + snap_item_id);
-                    var available = document.querySelector(".available").innerHTML = item_at_hand;
+                    var available = document.querySelectorAll(".available");
                     var av = document.querySelector(".item-available");
                     var avlink = document.querySelector(".item-available-link");
+
+                    available.forEach(item => {             //for displaying how many items is available
+                        item.innerHTML = item_at_hand;
+                    });
+
                     set(avref, {
                         av_id: snap_item_id,
                         av_name: snap_itemn,
@@ -327,10 +343,14 @@
                     //to check if the item is going to expire within month.
                     if (remain <= 31) {
                         item_near++;
-                        var near = document.querySelector(".almost").innerHTML = item_near;
+                        var near = document.querySelector(".almost");
                         var toexref = ref(db, "To Expire/" + snap_item_id);
                         var toex = document.querySelector(".item-to-expire");
                         var toexlink = document.querySelector(".item-to-expire-link");
+
+                        near.forEach(item => {              //for displaying how many items is to expired
+                            item.innerHTML = item_near;
+                        });
 
                         set(toexref, {
                             toex_id: snap_item_id,
@@ -341,7 +361,6 @@
                             toex_added: snap_added
                         });
                         toex.addEventListener("click", () => {
-                            console.log(item_near);
                             removeTable();
                             checkScreen();
                             getToEx(toexref, onValue);

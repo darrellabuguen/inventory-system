@@ -227,7 +227,6 @@ input[type=password]:focus {
 .item-display {
     flex: 70%;
     width: 100%;
-    margin-bottom: 5rem;
 }
 
 .item-status-container {
@@ -424,22 +423,33 @@ td {
     width: 40px;
 }
 
+.status-number {
+    position: relative;
+    top: -0.3rem;
+    left: 2rem;
+    width: 2rem;
+    height: 0.2rem;
+    color: rgb(255, 81, 0);
+}
+
 .mid-add {
     width: 40px;
 }
 
 .bttm {
-    width: 15%;
+    width: 18%;
     padding: 5px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     border-top: transparent 2px solid;
 }
 
-rm .bottom-fix {
+.bottom-fix {
     width: 100%;
-    height: 8vh;
+    height: 10rem;
+    display: none;
 }
 
 .active-bttm {
