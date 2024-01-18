@@ -116,6 +116,7 @@
 
     .main-container {
         margin: auto;
+        margin-top: 5rem;
     }
 
     .login-form {
