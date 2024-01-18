@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Store Inventory">
+    <meta name="keywords" content="item inventory, expire checker, HTML, CSS, JavaScript, Firebase">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./design.css">
+    <link rel="stylesheet" href="./responsive.css">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+
+    <style>
+        * {
+            font-family: poppins;
+        }
+    </style>
+
+    <title>Reset Password | Inventory System</title>
+</head>
+
+<body>
+    <header>
+        <div class="web-name">Store Inventory</div>
+        <span><a href="index.html" style="color: white;">Login</a></span>
+    </header>
+    <center>
+        <div style="max-width: 1000px;" class="reset-message">
+            <h1>Please input your valid email address where the reset link will be sent.</h1><br>
+            <p></p>
+            <p></p>
+            <input type="email" class="email reset-email" placeholder="email">
+            <button class="btn-primary reset-btn">Send reset link</button>
+            <p></p>
+        </div>
+    </center>
+    <script src="config.js" type="module"></script>
+    <script type="module">
+        import firebaseConfig from './config.js';
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+        import { getAuth, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        //select logout class
+        var buttonout = document.querySelectorAll(".signout");
+        //logout function
+        buttonout.forEach(out => {
+            out.onclick = () => {
+                auth.signOut();
+            }
+        });
+
+        const reset = document.querySelector(".reset-btn");
+        reset.addEventListener("click", () => {
+            const user_email = document.querySelector(".email");
+            var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!regex.test(user_email.value) || user_email.value == "") {
+                alert("Please fill the proper value needed in the input field.");
+                user_email.value = "";
+            } else {
+                sendPasswordResetEmail(auth, user_email.value)
+                    .then(() => {
+                        alert("The reset link is sent to your email. Kindly check your inbox.");
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    })
+            }
+        })
+    </script>
+</body>
+
+</html>

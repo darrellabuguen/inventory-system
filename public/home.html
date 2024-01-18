@@ -11,12 +11,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./design.css">
+    <link rel="stylesheet" href="./responsive.css">
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
 
-    <title>Inventory System | Inventory</title>
+    <title>Dashboard | Inventory System</title>
 </head>
 
 <body>
@@ -69,7 +70,6 @@
                             <th>Date Added</th>
                         </thead>
                         <tbody class="item-body">
-                            <tr></tr>
                         </tbody>
                     </table>
                 </div>
@@ -77,7 +77,8 @@
         </div>
         <div class="add-item-section">
             <div class="add-item-container">
-                <div class="add-item-text">Add Item</div>
+                <div class="add-item-text">Add Item <span class="exit-add"
+                        style="float: right; display: none; ">&Cross;</span></div>
                 <input class="item-name" required type="text" placeholder="Item name...">
                 <input class="item-price" required type="text" placeholder="Item price...">
                 <label for="manufactured">Manufactured Date</label>
@@ -91,18 +92,23 @@
     <div class="bottom-fix"></div>
     <section>
         <div class="menu-container">
-            <div class="item-all-link bttm active-bttm"><img class="status-icn" src="./images/allitems_icon.png"
-                    alt="img">
+            <div class="item-all-link bttm active-bttm"><span class="item-quantity status-number">0</span><img
+                    class="status-icn" src="./images/allitems_icon.png" alt="img">
             </div>
-            <div class="item-available-link bttm"><img class="status-icn" src="./images/available_icon.png" alt="img">
+            <div class="item-available-link bttm"><span class="available status-number">0</span><img class="status-icn"
+                    src="./images/available_icon.png" alt="img">
             </div>
             <div class="add-item-link bttm"><img class="mid-add" src="./images/add_icon.png" alt="img"></div>
-            <div class="item-to-expire-link bttm"><img class="status-icn" src="./images/toexpired_icon.png" alt="img">
+            <div class="item-to-expire-link bttm"><span class="almost status-number">0</span><img class="status-icn"
+                    src="./images/toexpired_icon.png" alt="img">
             </div>
-            <div class="item-expired-link bttm"><img class="status-icn" src="./images/expired_icon.png" alt=""></div>
+            <div class="item-expired-link bttm"><span class="expired status-number">0</span><img class="status-icn"
+                    src="./images/expired_icon.png" alt=""></div>
         </div>
     </section>
+    <script src="config.js" type="module"></script>
     <script type="module">
+        import firebaseConfig from "./config.js";
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
@@ -114,17 +120,6 @@
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
 
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyBlFt16zm2py8oMRZDoXtXQXlr7nW_WIB0",
-            authDomain: "inventory-c9ef8.firebaseapp.com",
-            databaseURL: "https://inventory-c9ef8-default-rtdb.firebaseio.com",
-            projectId: "inventory-c9ef8",
-            storageBucket: "inventory-c9ef8.appspot.com",
-            messagingSenderId: "822020064388",
-            appId: "1:822020064388:web:cb62ef0dab0d929d0c2ed1"
-        };
-
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
@@ -133,6 +128,9 @@
         onAuthStateChanged(auth, (user) => {
             if (!user) {
                 window.location = "index.html";
+            }
+            else if (user.isAnonymous != true) {
+                user.emailVerified != true ? window.location = "verify.html" : user;
             }
         });
 
@@ -154,6 +152,13 @@
         bttmAll.addEventListener("click", () => {
             window.location = "./home.html";
         });
+
+        const exit_add = document.querySelector(".exit-add");
+        exit_add.addEventListener("click", () => {
+            const add_section = document.querySelector(".add-item-section");
+            add_section.classList.remove("show");
+            exit_add.style.display = "none";
+        })
 
         //add box shadow when the container is clicked
         var itemcontainer = document.querySelectorAll(".container");
@@ -251,7 +256,10 @@
                     createTable(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added);
                     checkStatus(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added);
                 })
-                var all = document.querySelector(".item-quantity").innerHTML = item_num;
+                var all = document.querySelectorAll(".item-quantity");
+                all.forEach(item => {               //for displaying how many items is in the inventory
+                    item.innerHTML = item_num;
+                })
             });
 
             function checkStatus(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added) {
@@ -272,9 +280,14 @@
                 if (crr_time >= exdate_time) {
                     item_exp++;
                     var expref = ref(db, "Expired/" + snap_item_id);
-                    var exp = document.querySelector(".expired").innerHTML = item_exp;
+                    var exp = document.querySelectorAll(".expired");
                     var expcontain = document.querySelector(".item-expired");
                     var explink = document.querySelector(".item-expired-link");
+
+                    exp.forEach(item => {           //for displaying how many items is expired
+                        item.innerHTML = item_exp;
+                    });
+
                     set(expref, {
                         ex_id: snap_item_id,
                         ex_name: snap_itemn,
@@ -299,9 +312,14 @@
                 else {
                     item_at_hand++;
                     var avref = ref(db, "Available/" + snap_item_id);
-                    var available = document.querySelector(".available").innerHTML = item_at_hand;
+                    var available = document.querySelectorAll(".available");
                     var av = document.querySelector(".item-available");
                     var avlink = document.querySelector(".item-available-link");
+
+                    available.forEach(item => {             //for displaying how many items is available
+                        item.innerHTML = item_at_hand;
+                    });
+
                     set(avref, {
                         av_id: snap_item_id,
                         av_name: snap_itemn,
@@ -325,10 +343,14 @@
                     //to check if the item is going to expire within month.
                     if (remain <= 31) {
                         item_near++;
-                        var near = document.querySelector(".almost").innerHTML = item_near;
+                        var near = document.querySelector(".almost");
                         var toexref = ref(db, "To Expire/" + snap_item_id);
                         var toex = document.querySelector(".item-to-expire");
                         var toexlink = document.querySelector(".item-to-expire-link");
+
+                        near.forEach(item => {              //for displaying how many items is to expired
+                            item.innerHTML = item_near;
+                        });
 
                         set(toexref, {
                             toex_id: snap_item_id,
@@ -404,19 +426,23 @@
         };
 
         function openAdd() {
-            var item_contain = document.querySelector(".items-container").style.display = "none";
-            var add_contain = document.querySelector(".add-item-section");
+            var add_section = document.querySelector(".add-item-section");
+            var add_container = document.querySelector(".add-item-container");
+            var exit_add = document.querySelector(".exit-add");
             var menu = document.querySelector("main");
             var browsersize = window.innerWidth;
             var screensize = screen.width;
-            menu.style.display = "block";
-            add_contain.style.display = "block";
-            add_contain.style.marginTop = "10px";
-            if (screensize < 551 || browsersize < 551) {
-                add_contain.style.width = "100%";
+            if (screensize < 768 || browsersize < 768) {
+                add_section.style.width = "100%";
+                add_container.style.borderTop = "none";
+                add_section.style.display = "block";
+                menu.style.display = "block";
+                document.querySelector(".items-container").style.display = "none";
             }
             else {
-                add_contain.style.width = "50%";
+                add_section.style.width = "50%";
+                exit_add.style.display = "block";
+                add_section.classList.add("show");
             }
         }
 

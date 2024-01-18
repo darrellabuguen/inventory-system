@@ -1,0 +1,205 @@
+@media (min-width: 0px) {
+    .pic-container {
+        display: none;
+    }
+
+    .main-container,
+    .forms {
+        width: 100%;
+    }
+
+    .main-container {
+        box-shadow: none;
+        top: 0%;
+        left: 0%;
+        transform: unset;
+    }
+
+    .login-form {
+        padding: 1.2rem;
+
+        label {
+            font-size: 0.7rem;
+            padding: 1rem 0;
+        }
+
+        p {
+            font-size: 0.7rem;
+        }
+    }
+
+    .reset-message {
+        padding: 1rem;
+
+        input[type=email],
+        .reset-btn {
+            width: 90%;
+        }
+    }
+
+    .item-status-container,
+    .add-item-section {
+        display: none;
+    }
+
+    .table-container {
+        overflow-x: scroll;
+    }
+
+    input[type=search] {
+        width: 100%;
+    }
+
+    .menu-container {
+        display: flex;
+        box-shadow: 2px 3px 8px 2px gray;
+    }
+
+    .items {
+        th {
+            font-size: 0.9rem;
+        }
+    }
+
+    .item-body {
+        td {
+            font-size: 0.9rem;
+        }
+
+        .iid {
+            font-size: 10px;
+        }
+    }
+
+    .bottom-fix,
+    .nav-title {
+        display: block;
+    }
+}
+
+@media (min-width: 320px) {
+    .login-form {
+        padding: 1.2rem;
+
+        label {
+            font-size: 0.8rem;
+            padding: 1rem 0;
+        }
+
+        p {
+            font-size: 0.8rem;
+        }
+    }
+}
+
+@media (min-width: 375px) {
+    .login-form {
+        padding: 1.2rem;
+
+        label {
+            font-size: 1rem;
+            padding: 1rem 0;
+        }
+
+        p {
+            font-size: 1rem;
+        }
+    }
+}
+
+@media (min-width: 425px) {
+
+    .main-container,
+    .forms {
+        width: 80%;
+    }
+
+    .main-container {
+        margin: auto;
+        margin-top: 5rem;
+    }
+
+    .login-form {
+        padding: 1rem;
+
+        label {
+            font-size: 1rem;
+            padding: 1rem 0;
+        }
+
+        p {
+            font-size: 1rem;
+        }
+    }
+
+    .reset-message {
+        padding: 1rem;
+
+        input[type=email],
+        .reset-btn {
+            max-width: 450px;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+
+    .item-status-container {
+        display: flex;
+    }
+
+    .add-item-bottom {
+        display: block;
+    }
+
+    .nav-title,
+    .menu-container {
+        display: none;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .items {
+        th {
+            font-size: 1rem;
+        }
+    }
+
+    .item-body {
+        td {
+            font-size: 1rem;
+        }
+
+        .iid {
+            font-size: 10px;
+        }
+    }
+
+    .bottom-fix {
+        display: none;
+    }
+}
+
+@media (min-width: 1024px) {
+    .main-container {
+        box-shadow: 3px 2px 2px 1px rgb(167, 167, 167);
+    }
+
+    .login-form {
+        padding: 3rem;
+    }
+
+    .pic-container {
+        display: flex;
+    }
+
+    .add-item-bottom {
+        display: none;
+    }
+
+    .add-item-section {
+        display: block;
+    }
+}
