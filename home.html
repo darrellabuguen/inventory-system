@@ -111,7 +111,7 @@
         import firebaseConfig from "./config.js";
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+        import { getAuth, onAuthStateChanged, deleteUser } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
         import {
             getDatabase, ref, push, onValue, child,
             remove, set, query, orderByChild, get,
@@ -125,12 +125,17 @@
         const auth = getAuth(app);
         const db = getDatabase(app);
 
+        var is_Anonymous = "";
+
         onAuthStateChanged(auth, (user) => {
             if (!user) {
                 window.location = "index.html";
             }
             else if (user.isAnonymous != true) {
                 user.emailVerified != true ? window.location = "verify.html" : user;
+            }
+            else if (user.isAnonymous == true) {
+                is_Anonymous = true;
             }
         });
 
@@ -139,7 +144,16 @@
         //logout function
         buttonout.forEach(out => {
             out.onclick = () => {
-                auth.signOut();
+                if (is_Anonymous == true) {
+                    var confirmation = confirm("You're currently logged in as guest, your data would be deleted if you logout. Do you want to logout?");
+                    var user = auth.currentUser;
+                    if (confirmation == true) {
+                        deleteUser(user);
+                        auth.signOut();
+                    }
+                } else {
+                    auth.signOut();
+                }
             }
         })
 
