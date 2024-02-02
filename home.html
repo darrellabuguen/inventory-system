@@ -145,7 +145,7 @@
         buttonout.forEach(out => {
             out.onclick = () => {
                 if (is_Anonymous == true) {
-                    var confirmation = confirm("You're currently logged in as guest, your data would be deleted if you logout. Do you want to logout?");
+                    var confirmation = confirm("You're currently logged in as guest, your data would be deleted if you logout. Continue to logout?");
                     var user = auth.currentUser;
                     if (confirmation == true) {
                         deleteUser(user);
