@@ -117,23 +117,30 @@ input[type=password]:focus {
     flex: 1;
 }
 
-.signout {
-    color: white;
-    font-family: poppins;
-    cursor: pointer;
-}
-
-.pwr_bttn {
+.menu_bttn {
     width: 20px;
     height: 20px;
     border-radius: 50%;
     border: none;
     background-color: transparent;
-    font-family: poppins;
 }
 
-.pwr_icon {
+.menu_icon {
     width: 100%;
+    fill: white;
+    cursor: pointer;
+}
+
+.account-container {
+    position: absolute;
+    top: 4rem;
+    right: 1rem;
+    width: 20rem;
+    background-color: aliceblue;
+    border-radius: 15px;
+    box-shadow: 1px 2px 4px 1px gainsboro;
+    font-family: poppins;
+    display: none;
 }
 
 #user-email {
@@ -149,24 +156,24 @@ input[type=password]:focus {
     cursor: pointer;
 }
 
-#manage-option:hover {
+#manage-option a:hover {
     background-color: gainsboro;
 }
 
 .close-menu {
-    position: relative;
-    width: 1rem;
-    height: 1rem;
-    padding: 1rem;
+    width: 2rem;
+    height: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    font-size: x-large;
+    float: right;
 }
 
 .close-menu:hover {
     border-radius: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 .manage-icons {
