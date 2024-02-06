@@ -184,7 +184,7 @@
 
 @media (min-width: 1024px) {
     .main-container {
-        box-shadow: 3px 2px 2px 1px rgb(167, 167, 167);
+        box-shadow: 1px 3px 4px 1px rgb(167, 167, 167);
     }
 
     .login-form {

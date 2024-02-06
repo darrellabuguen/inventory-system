@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./design.css">
+    <link rel="stylesheet" href="./responsive.css">
+
+    <title>Manage account | Inventory System</title>
+</head>
+
+<body>
+    <header>
+        <div class="web-name">Store Inventory</div>
+    </header>
+    <main>
+        <div class="main-container align-center padding1"
+            style="display: unset; font-family: poppins; max-width: 700px;">
+            <h1 align="center">Manage account</h1>
+            <div class="account-info padding1">
+                <table>
+                    <tr>
+                        <td><b>Email</b></td>
+                        <td id="user-email">test</td>
+                        <td><a href="#">edit</a></td>
+                    </tr>
+                    <tr>
+                        <td><b>Password</b></td>
+                        <td class="padding1">test</td>
+                        <td><a href="#">edit</a></td>
+                    </tr>
+                    <tr>
+                        <td><b>Confirm Password</b></td>
+                        <td class="padding1">test</td>
+                        <td><a href="#">edit</a></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center;">
+                            <a href="#" style="color: #FF3131;">Delete account</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </main>
+    <div style="height: 5rem; width: 100%;"></div>
+    <script src="config.js" type="module"></script>
+    <script type="module">
+        import firebaseConfig from "./config.js";
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+
+        var is_Anonymous = "";
+
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location = "index.html";
+            }
+            else if (user.isAnonymous != true) {
+                user.emailVerified != true ? window.location = "verify.html" : user;
+            }
+            else if (user.isAnonymous == true) {
+                is_Anonymous = true;
+            }
+            document.querySelector("#user-email").textContent = user.email;
+        });
+
+    </script>
+</body>
+
+</html>
