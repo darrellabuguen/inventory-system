@@ -152,6 +152,13 @@ input[type=password]:focus {
     overflow: hidden;
 }
 
+.account-input {
+    padding: 0;
+    outline: transparent;
+    background-color: transparent;
+    pointer-events: none;
+}
+
 #manage-option {
     cursor: pointer;
 }

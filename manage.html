@@ -23,25 +23,25 @@
             style="display: unset; font-family: poppins; max-width: 700px;">
             <h1 align="center">Manage account</h1>
             <div class="account-info padding1">
-                <table>
+                <table style="width: 90%; margin: auto;">
                     <tr>
-                        <td><b>Email</b></td>
-                        <td id="user-email">test</td>
+                        <td class="padding1"><b>Email</b></td>
+                        <td><input type="text" id="user-email" class="account-input" style="border: none;"></td>
                         <td><a href="#">edit</a></td>
                     </tr>
                     <tr>
-                        <td><b>Password</b></td>
-                        <td class="padding1">test</td>
+                        <td class="padding1"><b>Password</b></td>
+                        <td><input type="text" class="account-input" style="border: none;"></td>
                         <td><a href="#">edit</a></td>
                     </tr>
                     <tr>
-                        <td><b>Confirm Password</b></td>
-                        <td class="padding1">test</td>
+                        <td class="padding1"><b>Confirm Password</b></td>
+                        <td><input type="text" class="account-input" style="border: none;"></td>
                         <td><a href="#">edit</a></td>
                     </tr>
                     <tr>
-                        <td colspan="3" style="text-align: center;">
-                            <a href="#" style="color: #FF3131;">Delete account</a>
+                        <td colspan="3" style="text-align: center;" class="padding1">
+                            <a href="" style="color: #FF3131;" class="delete-account">Delete account</a>
                         </td>
                     </tr>
                 </table>
@@ -74,9 +74,18 @@
             else if (user.isAnonymous == true) {
                 is_Anonymous = true;
             }
-            document.querySelector("#user-email").textContent = user.email;
+            document.querySelector("#user-email").value = user.email;
         });
 
+        const delete_account = document.querySelector(".delete-account");
+        delete_account.addEventListener("click", () => {
+            var result = confirm("Proceed deleting your account?");
+            if (result) {
+                var user = auth.currentUser;
+                deleteUser(user);
+                auth.signOut();
+            }
+        })
     </script>
 </body>
 
