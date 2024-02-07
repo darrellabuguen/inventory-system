@@ -21,23 +21,32 @@
     <main>
         <div class="main-container align-center padding1"
             style="display: unset; font-family: poppins; max-width: 700px;">
+            <br>
             <h1 align="center">Manage account</h1>
+            <br>
+            <div class="flex align-center justify-center" style="width: 100%;">
+                <img src="" alt="img" class="profile-img" style="border-radius: 50%; width: 3rem; height: 3rem;">
+            </div>
             <div class="account-info padding1">
-                <table style="width: 90%; margin: auto;">
+                <table style="width: 80%; margin: auto;">
                     <tr>
                         <td class="padding1"><b>Email</b></td>
                         <td><input type="text" id="user-email" class="account-input" style="border: none;"></td>
-                        <td><a href="#">edit</a></td>
+                        <td><a href="#" class="edit-email">edit</a></td>
                     </tr>
                     <tr>
                         <td class="padding1"><b>Password</b></td>
-                        <td><input type="text" class="account-input" style="border: none;"></td>
-                        <td><a href="#">edit</a></td>
+                        <td><input type="text" class="account-input manage-password" style="border: none;"></td>
+                        <td><a href="#" class="edit-password">edit</a></td>
                     </tr>
-                    <tr>
-                        <td class="padding1"><b>Confirm Password</b></td>
-                        <td><input type="text" class="account-input" style="border: none;"></td>
-                        <td><a href="#">edit</a></td>
+                    <tr class="tr-repass" style="display: none;">
+                        <td class="padding1"><b>Re-password</b></td>
+                        <td><input type="text" class="account-input manage-repassword" style="border: none;"></td>
+                    </tr>
+                    <tr class="tr-save" style="display: none;">
+                        <td colspan="3" style="text-align: right;" class="padding1">
+                            <button style="font-family: poppins; padding: 0.5rem;">Save</button>
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="3" style="text-align: center;" class="padding1">
@@ -65,16 +74,30 @@
         var is_Anonymous = "";
 
         onAuthStateChanged(auth, (user) => {
+            const profile = document.querySelector(".profile-img");
             if (!user) {
                 window.location = "index.html";
             }
             else if (user.isAnonymous != true) {
                 user.emailVerified != true ? window.location = "verify.html" : user;
+                profile.setAttribute("src", `${user.photoURL}`);
             }
             else if (user.isAnonymous == true) {
                 is_Anonymous = true;
+                profile.setAttribute("src", "./images/g-solid.svg");
             }
             document.querySelector("#user-email").value = user.email;
+        });
+
+        const edit_pass = document.querySelector(".edit-email");
+        const email = document.querySelector("#user-email");
+        edit_pass.addEventListener("click", () => {
+            email.classList.remove("account-input");
+        });
+
+        const trsave = document.querySelector(".tr-save");
+        email.addEventListener("change", () => {
+            trsave.style.display = "block";
         });
 
         const delete_account = document.querySelector(".delete-account");
