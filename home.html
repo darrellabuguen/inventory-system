@@ -178,17 +178,36 @@
 
         onAuthStateChanged(auth, (user) => {
             const profile = document.querySelector(".profile-img");
+            const photo_guest = "./images/g-solid.svg";
+
             if (!user) {
                 window.location = "index.html";
             }
             else if (user.isAnonymous != true) {
-                document.querySelector(".link-option").parentElement.style.display = "none";
-                profile.setAttribute("src", `${user.photoURL}`);
                 user.emailVerified != true ? window.location = "verify.html" : user;
+
+                const photo_email = `${user.photoURL}`;
+                const photo_password = "./images/user.png";
+                const provider = user.providerData[0].providerId;
+
+                document.querySelector(".link-option").parentElement.style.display = "none";
+                switch (provider) {
+                    case "google.com":
+                        profile.setAttribute("src", photo_email);
+                        break;
+
+                    case "password":
+                        profile.setAttribute("src", photo_password);
+                        break;
+
+                    default:
+                        profile.setAttribute("src", photo_guest);
+                        break;
+                }
             }
             else if (user.isAnonymous == true) {
                 is_Anonymous = true;
-                profile.setAttribute("src", "./images/g-solid.svg");
+                profile.setAttribute("src", photo_guest);
                 document.querySelector(".manage-account").parentElement.style.display = "none";
             }
             document.querySelector("#user-email").textContent = user.email;

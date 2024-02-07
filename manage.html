@@ -17,6 +17,36 @@
 <body>
     <header>
         <div class="web-name">Store Inventory</div>
+        <div class="signout-contain">
+            <button class="menu_bttn">
+                <svg xmlns="http://www.w3.org/2000/svg" class="menu_icon"
+                    viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                    <path
+                        d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
+                </svg>
+            </button>
+            <div class="account-container padding1">
+                <div class="close-menu">&Cross;</div><br>
+                <div class="flex align-center justify-center" style="width: 100%;">
+                    <img src="" alt="img" class="profile-img" style="border-radius: 50%; width: 3rem; height: 3rem;">
+                </div>
+                <div class="flex-1" style="width: 100%; text-align: center;">
+                    <div id="user-email"></div>
+                </div>
+                <div class="account-manage-container" style="border-radius: 15px; background-color: white;">
+                    <span id="manage-option">
+                        <a href="#" class="signout-option flex-1 padding1 align-center" style="color: #202020;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="manage-icons"
+                                viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                <path
+                                    d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z" />
+                            </svg>
+                            Sign out
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
     </header>
     <main>
         <div class="main-container align-center padding1"
@@ -74,19 +104,20 @@
         var is_Anonymous = "";
 
         onAuthStateChanged(auth, (user) => {
-            const profile = document.querySelector(".profile-img");     //select class for profile picture
+            const profile = document.querySelectorAll(".profile-img");     //select class for profile picture
             if (!user) {
                 window.location = "index.html";
             }
             else if (user.isAnonymous != true) {        //check if user is not signed in as anonymous
                 user.emailVerified != true ? window.location = "verify.html" : user;        //if not check if the email of user is verified, if not go to verify.html
-                profile.setAttribute("src", `${user.photoURL}`);        //if user is signed in using email set the profile the same as the user's google profile picture
+                profile.forEach(tag => {
+                    tag.setAttribute("src", `${user.photoURL}`);        //if user is signed in using email set the profile the same as the user's google profile picture
+                })
             }
-            else if (user.isAnonymous == true) {            //check if user is anonymous
-                is_Anonymous = true;                        //set the variable's is_Anonymous value to true
-                profile.setAttribute("src", "./images/g-solid.svg");        //if guest set the profile as the given src
-            }
-            document.querySelector("#user-email").value = user.email;       //select user email input tag and store the user's email as value
+            document.querySelectorAll("#user-email").forEach(tag => {
+                tag.value = user.email;       //select user email input tag and store the user's email as value
+            });
+            console.log(user);
         });
 
         const edit_pass = document.querySelector(".edit-email");    //select edit button for email
