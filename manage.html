@@ -74,38 +74,38 @@
         var is_Anonymous = "";
 
         onAuthStateChanged(auth, (user) => {
-            const profile = document.querySelector(".profile-img");
+            const profile = document.querySelector(".profile-img");     //select class for profile picture
             if (!user) {
                 window.location = "index.html";
             }
-            else if (user.isAnonymous != true) {
-                user.emailVerified != true ? window.location = "verify.html" : user;
-                profile.setAttribute("src", `${user.photoURL}`);
+            else if (user.isAnonymous != true) {        //check if user is not signed in as anonymous
+                user.emailVerified != true ? window.location = "verify.html" : user;        //if not check if the email of user is verified, if not go to verify.html
+                profile.setAttribute("src", `${user.photoURL}`);        //if user is signed in using email set the profile the same as the user's google profile picture
             }
-            else if (user.isAnonymous == true) {
-                is_Anonymous = true;
-                profile.setAttribute("src", "./images/g-solid.svg");
+            else if (user.isAnonymous == true) {            //check if user is anonymous
+                is_Anonymous = true;                        //set the variable's is_Anonymous value to true
+                profile.setAttribute("src", "./images/g-solid.svg");        //if guest set the profile as the given src
             }
-            document.querySelector("#user-email").value = user.email;
+            document.querySelector("#user-email").value = user.email;       //select user email input tag and store the user's email as value
         });
 
-        const edit_pass = document.querySelector(".edit-email");
-        const email = document.querySelector("#user-email");
+        const edit_pass = document.querySelector(".edit-email");    //select edit button for email
+        const email = document.querySelector("#user-email");        //select input tag for email
         edit_pass.addEventListener("click", () => {
-            email.classList.remove("account-input");
+            email.classList.remove("account-input");                //remove the class account-input if edit is clicked
         });
 
-        const trsave = document.querySelector(".tr-save");
+        const trsave = document.querySelector(".tr-save");          //select tr that have the save button
         email.addEventListener("change", () => {
-            trsave.style.display = "block";
+            trsave.style.display = "block";                         //display save button if there are changes in email input tag
         });
 
-        const delete_account = document.querySelector(".delete-account");
+        const delete_account = document.querySelector(".delete-account");       //select class of delete button
         delete_account.addEventListener("click", () => {
-            var result = confirm("Proceed deleting your account?");
-            if (result) {
+            var result = confirm("Proceed deleting your account?");             //confirm if the user would want to delete its account
+            if (result) {                                                       //if true delete the account and signout
                 var user = auth.currentUser;
-                deleteUser(user);
+                deleteUser(user);               //method for deleting user account
                 auth.signOut();
             }
         })
