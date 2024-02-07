@@ -33,7 +33,10 @@
             </button>
             <div class="account-container padding1">
                 <div class="close-menu">&Cross;</div><br>
-                <div class="flex-1 justify-center align-center padding1">
+                <div class="flex align-center justify-center" style="width: 100%;">
+                    <img src="" alt="img" class="profile-img" style="border-radius: 50%; width: 3rem; height: 3rem;">
+                </div>
+                <div class="flex-1" style="width: 100%; text-align: center;">
                     <div id="user-email"></div>
                 </div>
                 <div class="account-manage-container" style="border-radius: 15px; background-color: white;">
@@ -174,14 +177,19 @@
         var is_Anonymous = "";
 
         onAuthStateChanged(auth, (user) => {
+            const profile = document.querySelector(".profile-img");
             if (!user) {
                 window.location = "index.html";
             }
             else if (user.isAnonymous != true) {
+                document.querySelector(".link-option").parentElement.style.display = "none";
+                profile.setAttribute("src", `${user.photoURL}`);
                 user.emailVerified != true ? window.location = "verify.html" : user;
             }
             else if (user.isAnonymous == true) {
                 is_Anonymous = true;
+                profile.setAttribute("src", "./images/g-solid.svg");
+                document.querySelector(".manage-account").parentElement.style.display = "none";
             }
             document.querySelector("#user-email").textContent = user.email;
         });
