@@ -75,9 +75,9 @@
                         <td class="padding1"><b>Re-password</b></td>
                         <td><input type="text" class="account-input manage-repassword" style="border: none;"></td>
                     </tr>
-                    <tr class="tr-save" style="display: none;">
-                        <td colspan="3" style="text-align: right;" class="padding1">
-                            <button style="font-family: poppins; padding: 0.5rem;">Save</button>
+                    <tr class="tr-save">
+                        <td colspan="3" class="padding1">
+                            <button class="manage-save" style="font-family: poppins; padding: 0.5rem;">Save</button>
                         </td>
                     </tr>
                     <tr>
@@ -124,8 +124,8 @@
                         profile.forEach(tag => {
                             tag.setAttribute("src", photo_email);        //if user is signed in using email set the profile the same as the user's google profile picture
                         })
-                        document.querySelector(".tr-pass").style.display = "none";
-                        document.querySelector(".tr-repass").style.display = "none";
+                        document.querySelector(".tr-pass").remove();
+                        document.querySelector(".tr-repass").remove();
                         break;
 
                     case "password":
@@ -191,7 +191,7 @@
 
         const update = document.querySelectorAll(".manage-update");     //select all class manage-update which are the update buttons
         update.forEach(button => {      //iterate to each button
-            button.onclick = () => {        //when clicked perform switch case that would get the button's id
+            button.onclick = () => {        //when clicked perform switch case that would check the button's id
                 switch (button.id) {
                     case "edit-email":      //if the button's id is edit-email then remove class account-input which disables pointer events
                         document.querySelector(".manage-email").classList.remove("account-input");
@@ -207,6 +207,24 @@
                 }
             }
         })
+
+        const save_btn = document.querySelector(".manage-save");
+        save_btn.addEventListener("click", () => {
+            const user = auth.currentUser;
+            const input_email = email.value;
+            const firebase_email = user.email;
+            const input_password = pass.value;
+            const input_repassword = document.querySelector(".manage-repassword");
+
+            if (input_repassword) {
+                input_password <= 7 ? alert("Password should not be less than 8 characters") : input_password;
+                input_password !== input_repassword.value ? alert("Passwords do not match") : input_password;
+
+            } else {
+                console.log("NOPS");
+            }
+
+        });
     </script>
 </body>
 
