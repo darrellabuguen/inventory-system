@@ -61,15 +61,17 @@
                 <table style="width: 80%; margin: auto;">
                     <tr>
                         <td class="padding1"><b>Email</b></td>
-                        <td><input type="text" id="user-email" class="account-input" style="border: none;"></td>
-                        <td><a href="#" class="edit-email">update</a></td>
+                        <td><input type="text" id="user-email" class="account-input manage-email" style="border: none;">
+                        </td>
+                        <td><a href="#" class="manage-update" id="edit-email">update</a></td>
                     </tr>
                     <tr class="tr-pass">
                         <td class="padding1"><b>Password</b></td>
                         <td><input type="text" class="account-input manage-password" style="border: none;"></td>
-                        <td><a href="#" class="edit-password">update</a></td>
+                        <td><a href="#" class="manage-update" id="edit-password">update</a>
+                        </td>
                     </tr>
-                    <tr class="tr-repass" style="display: none;">
+                    <tr class="tr-repass">
                         <td class="padding1"><b>Re-password</b></td>
                         <td><input type="text" class="account-input manage-repassword" style="border: none;"></td>
                     </tr>
@@ -123,6 +125,7 @@
                             tag.setAttribute("src", photo_email);        //if user is signed in using email set the profile the same as the user's google profile picture
                         })
                         document.querySelector(".tr-pass").style.display = "none";
+                        document.querySelector(".tr-repass").style.display = "none";
                         break;
 
                     case "password":
@@ -144,7 +147,6 @@
                 tag.value = user.email;       //select user email input tag and store the user's email as value
                 tag.textContent = user.email;
             });
-            console.log(user);
         });
 
         //select classes of menu button and the container
@@ -160,15 +162,14 @@
             account_container.style.display = "none";
         }
 
-        const edit_pass = document.querySelector(".edit-email");    //select edit button for email
-        const email = document.querySelector("#user-email");        //select input tag for email
-        edit_pass.addEventListener("click", () => {
-            email.classList.remove("account-input");                //remove the class account-input if edit is clicked
-        });
-
+        const email = document.querySelector(".manage-email");      //select class of email input
+        const pass = document.querySelector(".manage-password");
         const trsave = document.querySelector(".tr-save");          //select tr that have the save button
         email.addEventListener("change", () => {
             trsave.style.display = "block";                         //display save button if there are changes in email input tag
+        });
+        pass.addEventListener("change", () => {
+            trsave.style.display = "block";                         //display save button if there are changes in password input tag
         });
 
         const delete_account = document.querySelector(".delete-account");       //select class of delete button
@@ -187,6 +188,25 @@
         buttonout.onclick = () => {
             auth.signOut();
         }
+
+        const update = document.querySelectorAll(".manage-update");     //select all class manage-update which are the update buttons
+        update.forEach(button => {      //iterate to each button
+            button.onclick = () => {        //when clicked perform switch case that would get the button's id
+                switch (button.id) {
+                    case "edit-email":      //if the button's id is edit-email then remove class account-input which disables pointer events
+                        document.querySelector(".manage-email").classList.remove("account-input");
+                        break;
+
+                    case "edit-password":       //if the button's id is edit-password then remove class account-input which disables pointer events
+                        document.querySelector(".manage-password").classList.remove("account-input");
+                        document.querySelector(".manage-repassword").classList.remove("account-input");
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        })
     </script>
 </body>
 
