@@ -178,7 +178,7 @@
 
         onAuthStateChanged(auth, (user) => {
             const profile = document.querySelector(".profile-img");
-            const photo_guest = "./images/g-solid.svg";
+            const photo_guest = "./images/guest.svg";
 
             if (!user) {
                 window.location = "index.html";
@@ -187,7 +187,7 @@
                 user.emailVerified != true ? window.location = "verify.html" : user;
 
                 const photo_email = `${user.photoURL}`;
-                const photo_password = "./images/user.png";
+                const photo_password = "./images/user.svg";
                 const provider = user.providerData[0].providerId;
 
                 document.querySelector(".link-option").parentElement.style.display = "none";
@@ -226,7 +226,7 @@
             account_container.style.display = "none";
         }
 
-        //select signout class
+        //select class of signout button
         const buttonout = document.querySelector(".signout-option");
         //signout function
         buttonout.onclick = () => {

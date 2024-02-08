@@ -141,6 +141,7 @@ input[type=password]:focus {
     box-shadow: 1px 2px 4px 1px gainsboro;
     font-family: poppins;
     display: none;
+    z-index: 2;
 }
 
 #user-email {

@@ -62,12 +62,12 @@
                     <tr>
                         <td class="padding1"><b>Email</b></td>
                         <td><input type="text" id="user-email" class="account-input" style="border: none;"></td>
-                        <td><a href="#" class="edit-email">edit</a></td>
+                        <td><a href="#" class="edit-email">update</a></td>
                     </tr>
-                    <tr>
+                    <tr class="tr-pass">
                         <td class="padding1"><b>Password</b></td>
                         <td><input type="text" class="account-input manage-password" style="border: none;"></td>
-                        <td><a href="#" class="edit-password">edit</a></td>
+                        <td><a href="#" class="edit-password">update</a></td>
                     </tr>
                     <tr class="tr-repass" style="display: none;">
                         <td class="padding1"><b>Re-password</b></td>
@@ -105,20 +105,60 @@
 
         onAuthStateChanged(auth, (user) => {
             const profile = document.querySelectorAll(".profile-img");     //select class for profile picture
+            const photo_guest = "./images/g-solid.svg";
+
             if (!user) {
                 window.location = "index.html";
             }
             else if (user.isAnonymous != true) {        //check if user is not signed in as anonymous
                 user.emailVerified != true ? window.location = "verify.html" : user;        //if not check if the email of user is verified, if not go to verify.html
-                profile.forEach(tag => {
-                    tag.setAttribute("src", `${user.photoURL}`);        //if user is signed in using email set the profile the same as the user's google profile picture
-                })
+
+                const photo_email = `${user.photoURL}`;
+                const photo_password = "./images/user.svg";
+                const provider = user.providerData[0].providerId;
+
+                switch (provider) {
+                    case "google.com":
+                        profile.forEach(tag => {
+                            tag.setAttribute("src", photo_email);        //if user is signed in using email set the profile the same as the user's google profile picture
+                        })
+                        document.querySelector(".tr-pass").style.display = "none";
+                        break;
+
+                    case "password":
+                        profile.forEach(tag => {
+                            tag.setAttribute("src", photo_password);        //if user is signed in using email and password set the profile as user icon
+                            tag.style.backgroundColor = "white";
+                            tag.style.padding = "0.5rem";
+                        })
+                        break;
+
+                    default:
+                        profile.forEach(tag => {
+                            tag.setAttribute("src", photo_guest);        //if none matches set the profile into anonymous icon
+                        })
+                        break;
+                }
             }
             document.querySelectorAll("#user-email").forEach(tag => {
                 tag.value = user.email;       //select user email input tag and store the user's email as value
+                tag.textContent = user.email;
             });
             console.log(user);
         });
+
+        //select classes of menu button and the container
+        const account_menu = document.querySelector(".menu_bttn");
+        const account_container = document.querySelector(".account-container");
+        account_menu.onclick = () => {                      //function that would display the menu
+            account_container.style.display = "block";
+        }
+
+        //select class of close-menu
+        const close_menu = document.querySelector(".close-menu");
+        close_menu.onclick = () => {
+            account_container.style.display = "none";
+        }
 
         const edit_pass = document.querySelector(".edit-email");    //select edit button for email
         const email = document.querySelector("#user-email");        //select input tag for email
@@ -140,6 +180,13 @@
                 auth.signOut();
             }
         })
+
+        //select class of signout button
+        const buttonout = document.querySelector(".signout-option");
+        //signout function
+        buttonout.onclick = () => {
+            auth.signOut();
+        }
     </script>
 </body>
 
