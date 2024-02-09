@@ -16,7 +16,7 @@
 
 <body>
     <header>
-        <div class="web-name">Store Inventory</div>
+        <div class="web-name"><a href="home.html" style="color: white;">Store Inventory</a></div>
         <div class="signout-contain">
             <button class="menu_bttn">
                 <svg xmlns="http://www.w3.org/2000/svg" class="menu_icon"
@@ -169,7 +169,6 @@
             if (result) {                                                       //if true delete the account and signout
                 var user = auth.currentUser;
                 deleteUser(user);               //method for deleting user account
-                auth.signOut();
             }
         })
 
