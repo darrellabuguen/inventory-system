@@ -189,8 +189,9 @@
             const user = auth.currentUser;
             const input_email = email.value;
             const firebase_email = user.email;
+            var result = confirm("Apply the changes in your email?");
 
-            if (input_email !== firebase_email) {
+            if (input_email !== firebase_email && result == true) {
                 updateEmail(user, input_email)
                     .then(msg => {
                         alert(msg);
@@ -198,6 +199,10 @@
                     .catch(err => {
                         alert("Error: " + err);
                     })
+            } else {
+                email.classList.add("account-input");
+                email.value = firebase_email;
+                trsave.style.display = "none";
             }
         });
     </script>
