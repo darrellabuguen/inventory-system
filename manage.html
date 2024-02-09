@@ -67,16 +67,12 @@
                     </tr>
                     <tr class="tr-pass">
                         <td class="padding1"><b>Password</b></td>
-                        <td><input type="text" class="account-input manage-password" style="border: none;"></td>
-                        <td><a href="#" class="manage-update" id="edit-password">update</a>
+                        <td><input type="text" class="account-input" style="border: none;"></td>
+                        <td><a href="./reset.html">update</a>
                         </td>
                     </tr>
-                    <tr class="tr-repass">
-                        <td class="padding1"><b>Re-password</b></td>
-                        <td><input type="text" class="account-input manage-repassword" style="border: none;"></td>
-                    </tr>
-                    <tr class="tr-save">
-                        <td colspan="3" class="padding1">
+                    <tr>
+                        <td colspan="3" class="padding1 tr-save" style="display: none;">
                             <button class="manage-save" style="font-family: poppins; padding: 0.5rem;">Save</button>
                         </td>
                     </tr>
@@ -95,7 +91,7 @@
         import firebaseConfig from "./config.js";
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, updateEmail } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -125,7 +121,6 @@
                             tag.setAttribute("src", photo_email);        //if user is signed in using email set the profile the same as the user's google profile picture
                         })
                         document.querySelector(".tr-pass").remove();
-                        document.querySelector(".tr-repass").remove();
                         break;
 
                     case "password":
@@ -163,13 +158,9 @@
         }
 
         const email = document.querySelector(".manage-email");      //select class of email input
-        const pass = document.querySelector(".manage-password");
         const trsave = document.querySelector(".tr-save");          //select tr that have the save button
         email.addEventListener("change", () => {
             trsave.style.display = "block";                         //display save button if there are changes in email input tag
-        });
-        pass.addEventListener("change", () => {
-            trsave.style.display = "block";                         //display save button if there are changes in password input tag
         });
 
         const delete_account = document.querySelector(".delete-account");       //select class of delete button
@@ -189,23 +180,9 @@
             auth.signOut();
         }
 
-        const update = document.querySelectorAll(".manage-update");     //select all class manage-update which are the update buttons
-        update.forEach(button => {      //iterate to each button
-            button.onclick = () => {        //when clicked perform switch case that would check the button's id
-                switch (button.id) {
-                    case "edit-email":      //if the button's id is edit-email then remove class account-input which disables pointer events
-                        document.querySelector(".manage-email").classList.remove("account-input");
-                        break;
-
-                    case "edit-password":       //if the button's id is edit-password then remove class account-input which disables pointer events
-                        document.querySelector(".manage-password").classList.remove("account-input");
-                        document.querySelector(".manage-repassword").classList.remove("account-input");
-                        break;
-
-                    default:
-                        break;
-                }
-            }
+        const update = document.querySelector(".manage-update");     //select all class manage-update which are the update buttons
+        update.addEventListener("click", () => {
+            email.classList.remove("account-input");        //remove account-input class that prohibits the user in editing email
         })
 
         const save_btn = document.querySelector(".manage-save");
@@ -213,17 +190,16 @@
             const user = auth.currentUser;
             const input_email = email.value;
             const firebase_email = user.email;
-            const input_password = pass.value;
-            const input_repassword = document.querySelector(".manage-repassword");
 
-            if (input_repassword) {
-                input_password <= 7 ? alert("Password should not be less than 8 characters") : input_password;
-                input_password !== input_repassword.value ? alert("Passwords do not match") : input_password;
-
-            } else {
-                console.log("NOPS");
+            if (input_email !== firebase_email) {
+                updateEmail(user, input_email)
+                    .then(msg => {
+                        alert(msg);
+                    })
+                    .catch(err => {
+                        alert("Error: " + err);
+                    })
             }
-
         });
     </script>
 </body>
