@@ -78,7 +78,7 @@
                     </tr>
                     <tr>
                         <td colspan="3" style="text-align: center;" class="padding1">
-                            <a href="" style="color: #FF3131;" class="delete-account">Delete account</a>
+                            <a href="#" style="color: #FF3131;" class="delete-account">Delete account</a>
                         </td>
                     </tr>
                 </table>
@@ -91,7 +91,7 @@
         import firebaseConfig from "./config.js";
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, updateEmail } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, updateEmail, deleteUser } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -166,9 +166,10 @@
         const delete_account = document.querySelector(".delete-account");       //select class of delete button
         delete_account.addEventListener("click", () => {
             var result = confirm("Proceed deleting your account?");             //confirm if the user would want to delete its account
-            if (result) {                                                       //if true delete the account and signout
-                var user = auth.currentUser;
-                deleteUser(user);               //method for deleting user account
+            var user = auth.currentUser;
+            var lastLogin = user.metadata.lastLoginAt;
+            if (result == true) {                                                       //if true delete the account and signout
+                deleteUser(user)              //method for deleting user account
             }
         })
 

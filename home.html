@@ -160,7 +160,7 @@
         import firebaseConfig from "./config.js";
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged, deleteUser } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+        import { getAuth, onAuthStateChanged, deleteUser, signInWithPopup, GoogleAuthProvider, linkWithCredential } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
         import {
             getDatabase, ref, push, onValue, child,
             remove, set, query, orderByChild, get,
@@ -225,6 +225,20 @@
         close_menu.onclick = () => {
             account_container.style.display = "none";
         }
+
+        //select class for link account
+        const link_btn = document.querySelector(".link-option");
+        link_btn.addEventListener("click", () => {
+            const provider = new GoogleAuthProvider();
+            var user = auth.currentUser;
+            signInWithPopup(auth, provider)
+                .then(result => {
+                    linkWithCredential(user, auth.providerId)
+                })
+                .catch(err => {
+                    alert(err);
+                })
+        });
 
         //select class of signout button
         const buttonout = document.querySelector(".signout-option");
