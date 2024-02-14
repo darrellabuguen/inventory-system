@@ -114,11 +114,12 @@
                 const photo_email = `${user.photoURL}`;
                 const photo_password = "./images/user.svg";
                 const provider = user.providerData[0].providerId;
+                const photo_linked = user.providerData[0].photoURL;
 
                 switch (provider) {
                     case "google.com":
                         profile.forEach(tag => {
-                            tag.setAttribute("src", photo_email);        //if user is signed in using email set the profile the same as the user's google profile picture
+                            user.photoURL == null ? tag.setAttribute("src", photo_linked) : tag.setAttribute("src", photo_email);
                         })
                         document.querySelector(".tr-pass").remove();
                         break;

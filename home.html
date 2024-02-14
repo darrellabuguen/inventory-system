@@ -160,7 +160,7 @@
         import firebaseConfig from "./config.js";
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged, deleteUser, signInWithPopup, GoogleAuthProvider, linkWithCredential } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+        import { getAuth, onAuthStateChanged, deleteUser, GoogleAuthProvider, signInWithPopup, linkWithPopup } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
         import {
             getDatabase, ref, push, onValue, child,
             remove, set, query, orderByChild, get,
@@ -189,11 +189,12 @@
                 const photo_email = `${user.photoURL}`;
                 const photo_password = "./images/user.svg";
                 const provider = user.providerData[0].providerId;
+                const photo_linked = user.providerData[0].photoURL;
 
                 document.querySelector(".link-option").parentElement.style.display = "none";
                 switch (provider) {
                     case "google.com":
-                        profile.setAttribute("src", photo_email);
+                        user.photoURL == null ? profile.setAttribute("src", photo_linked) : profile.setAttribute("src", photo_email);
                         break;
 
                     case "password":
@@ -231,13 +232,15 @@
         link_btn.addEventListener("click", () => {
             const provider = new GoogleAuthProvider();
             var user = auth.currentUser;
-            signInWithPopup(auth, provider)
-                .then(result => {
-                    linkWithCredential(user, auth.providerId)
+
+            linkWithPopup(user, provider)
+                .then((userr) => {
+                    console.log(userr);
                 })
-                .catch(err => {
-                    alert(err);
+                .catch((err) => {
+                    console.log(err);
                 })
+
         });
 
         //select class of signout button
