@@ -262,10 +262,10 @@
         var getAll = document.querySelector(".item-all");
         var bttmAll = document.querySelector(".item-all-link");
         getAll.addEventListener("click", () => {
-            window.location = "./home.html";
+            location.reload();
         });
         bttmAll.addEventListener("click", () => {
-            window.location = "./home.html";
+            location.reload();
         });
 
         const exit_add = document.querySelector(".exit-add");
@@ -343,7 +343,7 @@
                 });
                 removeTable();
                 alert("Item Added!");
-                loadData();
+                location.reload();
             }
         });
 
@@ -426,10 +426,10 @@
                                     var result = confirm("Delete this item?");
                                     if (result) {
                                         remove(all_refs);
+                                        removeTable();
                                         remove(exp_refs)
                                             .then(() => {
-                                                removeTable();
-                                                window.location = "home.html";
+                                                location.reload();
                                             })
                                             .catch(err => {
                                                 alert(err);
