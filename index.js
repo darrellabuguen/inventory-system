@@ -52,7 +52,7 @@ function getExp(expref, onValue) {
             var exprice = expdata.ex_price;
             var exmanu = expdata.ex_manufactured;
             var exexp = expdata.ex_expiry;
-            var exadd = "<a href='#' class='delete-exx' style='color: #FF3131;'>delete</a>";
+            var exadd = "<button class='delete-exx'>delete</button>";
 
             var exrow = document.createElement("tr");
             var extd1 = document.createElement("td");

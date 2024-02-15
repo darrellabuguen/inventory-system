@@ -540,3 +540,12 @@ td {
 .active-bttm {
     border-top-color: #00b3ff;
 }
+
+.delete-exx {
+    background-color: transparent;
+    outline: transparent;
+    border: none;
+    color: #ff3131;
+    font-size: 1rem;
+    cursor: pointer;
+}
