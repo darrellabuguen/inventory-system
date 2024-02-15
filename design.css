@@ -547,5 +547,6 @@ td {
     border: none;
     color: #ff3131;
     font-size: 1rem;
+    font-family: poppins;
     cursor: pointer;
 }
