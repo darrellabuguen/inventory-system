@@ -416,12 +416,43 @@
                         removeTable();
                         checkScreen();
                         getExp(expref, onValue);
+                        setTimeout(() => {
+                            const delete_btn = document.querySelectorAll(".delete-exx");
+                            delete_btn.forEach(tag => {
+                                var id = tag.parentElement.parentElement.firstChild.textContent;
+                                const all_refs = ref(db, "Items/" + id);
+                                const exp_refs = ref(db, "Expired/" + id);
+                                tag.onclick = () => {
+                                    var result = confirm("Delete this item?");
+                                    if (result) {
+                                        remove(all_refs);
+                                        remove(exp_refs)
+                                            .then(() => {
+                                                removeTable();
+                                                window.location = "home.html";
+                                            })
+                                            .catch(err => {
+                                                alert(err);
+                                            })
+                                    }
+                                }
+                            })
+                        }, 1500);
                     });
                     //function when clicking expire link
                     explink.addEventListener("click", () => {
                         removeTable();
                         checkScreen();
                         getExp(expref, onValue);
+                        setTimeout(() => {
+                            const delete_btn = document.querySelectorAll(".delete-exx");
+                            delete_btn.forEach(tag => {
+                                var id = tag.parentElement.parentElement.firstChild.textContent;
+                                tag.onclick = () => {
+                                    console.log(id);
+                                }
+                            })
+                        }, 1500);
                     });
                 }
                 else {
@@ -458,7 +489,7 @@
                     //to check if the item is going to expire within month.
                     if (remain <= 31) {
                         item_near++;
-                        var near = document.querySelector(".almost");
+                        var near = document.querySelectorAll(".almost");
                         var toexref = ref(db, "To Expire/" + snap_item_id);
                         var toex = document.querySelector(".item-to-expire");
                         var toexlink = document.querySelector(".item-to-expire-link");
