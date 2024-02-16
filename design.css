@@ -550,3 +550,17 @@ td {
     font-family: poppins;
     cursor: pointer;
 }
+
+.recent-items-container {
+    margin-top: 10px;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.recent {
+    padding: 1rem;
+    border: solid 1px gainsboro;
+    border-radius: 5px;
+    margin-bottom: 2px;
+}

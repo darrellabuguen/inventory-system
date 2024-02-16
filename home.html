@@ -136,6 +136,12 @@
                 <input class="expiry-date" id="expiry-date" required type="date" name="expiry-date">
                 <input class="add-item" type="button" name="add-item" value="Add Item">
             </div>
+            <div class="recent-items-container">
+                <h3 align="center" style="font-family: poppins;">Recent items added</h3>
+                <ul class="recent-items" style="list-style: none; padding: 0.3rem;">
+
+                </ul>
+            </div>
         </div>
     </main>
     <div class="bottom-fix"></div>
@@ -164,7 +170,7 @@
         import {
             getDatabase, ref, push, onValue, child,
             remove, set, query, orderByChild, get,
-            startAt, endAt
+            startAt, endAt, limitToLast
         } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
@@ -592,7 +598,31 @@
             }
         }
 
+        function getRecent() {
+            const queryy = query(ref(db, "Items"), orderByChild("added"), limitToLast(5));
+            const ol_tag = document.querySelector(".recent-items");
+            get(queryy)
+                .then(result => {
+                    result.forEach(item => {
+                        const data = item.val();
+                        const date = new Date(data.added);
+                        const string_date = date.toDateString();
+                        const info = data.item_name + " " + `(${string_date})`;
+                        const li = document.createElement("li");
+                        li.textContent = info;
+                        li.style.fontFamily = "Poppins";
+                        li.style.textAlign = "center";
+                        li.classList.add("recent");
+                        ol_tag.append(li);
+                    })
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+
         self.addEventListener("load", loadData);
+        getRecent();
     </script>
     <script src="./index.js"></script>
 </body>
