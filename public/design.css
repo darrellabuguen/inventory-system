@@ -117,13 +117,7 @@ input[type=password]:focus {
     flex: 1;
 }
 
-.signout {
-    color: white;
-    font-family: poppins;
-    cursor: pointer;
-}
-
-.pwr_bttn {
+.menu_bttn {
     width: 20px;
     height: 20px;
     border-radius: 50%;
@@ -131,8 +125,66 @@ input[type=password]:focus {
     background-color: transparent;
 }
 
-.pwr_icon {
+.menu_icon {
     width: 100%;
+    fill: white;
+    cursor: pointer;
+}
+
+.account-container {
+    position: absolute;
+    top: 4rem;
+    background-color: aliceblue;
+    border-radius: 15px;
+    box-shadow: 1px 2px 4px 1px gainsboro;
+    font-family: poppins;
+    display: none;
+    z-index: 2;
+}
+
+#user-email {
+    padding: 1rem;
+    width: 100%;
+}
+
+.account-manage-container {
+    overflow: hidden;
+}
+
+.account-input {
+    padding: 0;
+    outline: transparent;
+    background-color: transparent;
+    pointer-events: none;
+}
+
+#manage-option {
+    cursor: pointer;
+}
+
+#manage-option a:hover {
+    background-color: gainsboro;
+}
+
+.close-menu {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: x-large;
+    float: right;
+}
+
+.close-menu:hover {
+    border-radius: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.manage-icons {
+    width: 1rem;
+    height: 1rem;
 }
 
 .main-container {
@@ -165,6 +217,36 @@ input[type=password]:focus {
 /* .icon {
     margin-right: 2rem;
 } */
+
+.padding1 {
+    padding: 1rem;
+}
+
+.padding2 {
+    padding: 2rem;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-1 {
+    display: flex;
+    gap: 1rem;
+}
+
+.flex-2 {
+    display: flex;
+    gap: 2rem;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.align-center {
+    align-items: center;
+}
 
 .btn-primary {
     display: flex;
@@ -455,4 +537,28 @@ td {
 
 .active-bttm {
     border-top-color: #00b3ff;
+}
+
+.delete-exx {
+    background-color: transparent;
+    outline: transparent;
+    border: none;
+    color: #ff3131;
+    font-size: 1rem;
+    font-family: poppins;
+    cursor: pointer;
+}
+
+.recent-items-container {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.recent {
+    padding: 1rem;
+    border: solid 1px gainsboro;
+    border-radius: 5px;
+    margin-bottom: 2px;
 }

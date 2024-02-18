@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./design.css">
+    <link rel="stylesheet" href="./responsive.css">
+
+    <title>Manage account | Inventory System</title>
+</head>
+
+<body>
+    <header>
+        <div class="web-name"><a href="home.html" style="color: white;">Store Inventory</a></div>
+        <div class="signout-contain">
+            <button class="menu_bttn">
+                <svg xmlns="http://www.w3.org/2000/svg" class="menu_icon"
+                    viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                    <path
+                        d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
+                </svg>
+            </button>
+            <div class="account-container padding1">
+                <div class="close-menu">&Cross;</div><br>
+                <div class="flex align-center justify-center" style="width: 100%;">
+                    <img src="" alt="img" class="profile-img" style="border-radius: 50%; width: 3rem; height: 3rem;">
+                </div>
+                <div class="flex-1" style="width: 100%; text-align: center;">
+                    <div id="user-email"></div>
+                </div>
+                <div class="account-manage-container" style="border-radius: 15px; background-color: white;">
+                    <span id="manage-option">
+                        <a href="#" class="signout-option flex-1 padding1 align-center" style="color: #202020;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="manage-icons"
+                                viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                <path
+                                    d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z" />
+                            </svg>
+                            Sign out
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="main-container align-center padding1"
+            style="display: unset; font-family: poppins; max-width: 700px;">
+            <br>
+            <h1 align="center">Manage account</h1>
+            <br>
+            <div class="flex align-center justify-center" style="width: 100%;">
+                <img src="" alt="img" class="profile-img" style="border-radius: 50%; width: 3rem; height: 3rem;">
+            </div>
+            <div class="account-info padding1">
+                <table style="margin: auto;">
+                    <tr class="tr-email">
+                        <td class="padding1"><b>Email</b></td>
+                        <td><input type="text" id="user-email" class="account-input manage-email" style="border: none;">
+                        </td>
+                        <td><a href="#" class="manage-update" id="edit-email">update</a></td>
+                    </tr>
+                    <tr class="tr-pass">
+                        <td colspan="3" class="padding1" style="text-align: center;">
+                            <a href="./reset.html">Update password?</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="padding1 tr-save" style="display: none;">
+                            <button class="manage-save" style="font-family: poppins; padding: 0.5rem;">Save</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="padding1" style="text-align: center;">
+                            <a href="#" style="color: #FF3131;" class="delete-account">Delete account</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </main>
+    <div style="height: 5rem; width: 100%;"></div>
+    <script src="config.js" type="module"></script>
+    <script type="module">
+        import firebaseConfig from "./config.js";
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, updateEmail, deleteUser } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+        import {
+            getDatabase, ref, remove
+        } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        var is_Anonymous = "";
+
+        onAuthStateChanged(auth, (user) => {
+            const profile = document.querySelectorAll(".profile-img");     //select class for profile picture
+            const photo_guest = "./images/g-solid.svg";
+
+            if (!user) {
+                window.location = "index.html";
+            }
+            else if (user.isAnonymous != true) {        //check if user is not signed in as anonymous
+                user.emailVerified != true ? window.location = "verify.html" : user;        //if not check if the email of user is verified, if not go to verify.html
+
+                const photo_email = `${user.photoURL}`;
+                const photo_password = "./images/user.svg";
+                const provider = user.providerData[0].providerId;
+                const photo_linked = user.providerData[0].photoURL;
+
+                switch (provider) {
+                    case "google.com":
+                        profile.forEach(tag => {
+                            user.photoURL == null ? tag.setAttribute("src", photo_linked) : tag.setAttribute("src", photo_email);
+                        })
+                        document.querySelector(".tr-pass").remove();
+                        break;
+
+                    case "password":
+                        profile.forEach(tag => {
+                            tag.setAttribute("src", photo_password);        //if user is signed in using email and password set the profile as user icon
+                            tag.style.backgroundColor = "white";
+                            tag.style.padding = "0.5rem";
+                        })
+                        break;
+
+                    default:
+                        profile.forEach(tag => {
+                            tag.setAttribute("src", photo_guest);        //if none matches set the profile into anonymous icon
+                        })
+                        break;
+                }
+            }
+            document.querySelectorAll("#user-email").forEach(tag => {
+                tag.value = user.email;       //select user email input tag and store the user's email as value
+                tag.textContent = user.email;
+            });
+        });
+
+        //select classes of menu button and the container
+        const account_menu = document.querySelector(".menu_bttn");
+        const account_container = document.querySelector(".account-container");
+        account_menu.onclick = () => {                      //function that would display the menu
+            account_container.style.display = "block";
+        }
+
+        //select class of close-menu
+        const close_menu = document.querySelector(".close-menu");
+        close_menu.onclick = () => {
+            account_container.style.display = "none";
+        }
+
+        const email = document.querySelector(".manage-email");      //select class of email input
+        const trsave = document.querySelector(".tr-save");          //select tr that have the save button
+        email.addEventListener("change", () => {
+            trsave.style.display = "block";                         //display save button if there are changes in email input tag
+        });
+
+        const delete_account = document.querySelector(".delete-account");       //select class of delete button
+        delete_account.addEventListener("click", () => {
+            var result = confirm("Proceed deleting your account?");             //confirm if the user would want to delete its account
+            var user = auth.currentUser;
+            var reff = ref(db, `User/${user.uid}/`);
+            var lastLogin = user.metadata.lastLoginAt;
+            if (result == true) {                                                       //if true delete the account and signout
+                deleteUser(user)              //method for deleting user account
+                reff ? remove(reff) : confirmation;
+            }
+        })
+
+        //select class of signout button
+        const buttonout = document.querySelector(".signout-option");
+        //signout function
+        buttonout.onclick = () => {
+            auth.signOut();
+        }
+
+        const update = document.querySelector(".manage-update");     //select all class manage-update which are the update buttons
+        update.addEventListener("click", () => {
+            email.classList.remove("account-input");        //remove account-input class that prohibits the user in editing email
+        })
+
+        const save_btn = document.querySelector(".manage-save");
+        save_btn.addEventListener("click", () => {
+            const user = auth.currentUser;
+            const input_email = email.value;
+            const firebase_email = user.email;
+            var result = confirm("Apply the changes in your email?");
+
+            if (input_email !== firebase_email && result == true) {
+                updateEmail(user, input_email)
+                    .then(msg => {
+                        alert(msg);
+                    })
+                    .catch(err => {
+                        alert("Error: " + err);
+                    })
+            } else {
+                email.classList.add("account-input");
+                email.value = firebase_email;
+                trsave.style.display = "none";
+            }
+        });
+    </script>
+</body>
+
+</html>

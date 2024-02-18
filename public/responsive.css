@@ -38,7 +38,8 @@
     }
 
     .item-status-container,
-    .add-item-section {
+    .add-item-section,
+    .recent-items-container {
         display: none;
     }
 
@@ -75,6 +76,17 @@
     .nav-title {
         display: block;
     }
+
+    .account-container {
+        width: 100%;
+        right: 0;
+    }
+
+    .tr-email {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
 }
 
 @media (min-width: 320px) {
@@ -104,6 +116,15 @@
         p {
             font-size: 1rem;
         }
+    }
+
+    .account-container {
+        width: 90%;
+        right: 0.5rem;
+    }
+
+    .tr-email {
+        display: unset;
     }
 }
 
@@ -139,6 +160,10 @@
         .reset-btn {
             max-width: 450px;
         }
+    }
+
+    .account-container {
+        width: 20rem;
     }
 }
 
@@ -184,7 +209,7 @@
 
 @media (min-width: 1024px) {
     .main-container {
-        box-shadow: 3px 2px 2px 1px rgb(167, 167, 167);
+        box-shadow: 1px 3px 4px 1px rgb(167, 167, 167);
     }
 
     .login-form {
@@ -199,7 +224,8 @@
         display: none;
     }
 
-    .add-item-section {
+    .add-item-section,
+    .recent-items-container {
         display: block;
     }
 }
