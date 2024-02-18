@@ -119,6 +119,9 @@
                             <th>Date Added</th>
                         </thead>
                         <tbody class="item-body">
+                            <tr>
+                                <td colspan="6" style="text-align: center;">No items</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -256,8 +259,10 @@
             if (is_Anonymous == true) {
                 var confirmation = confirm("You're currently logged in as guest, your data would be deleted if you logout. Continue to logout?");
                 var user = auth.currentUser;
+                var reff = ref(db, `User/${user.uid}/`);
                 if (confirmation == true) {
                     deleteUser(user);
+                    reff ? remove(reff) : confirmation;
                 }
             } else {
                 auth.signOut();
@@ -325,6 +330,7 @@
         var add = document.querySelector(".add-item");
         //add item button function
         add.addEventListener("click", () => {
+            const user = auth.currentUser;
             const item_id = push(child(ref(db), 'Items')).key;
             var item_name = document.querySelector(".item-name").value;
             var item_price = document.querySelector(".item-price").value;
@@ -340,7 +346,7 @@
             }
             else {
                 expiry == "" ? expiry = "No Expiry Date" : expiry = expiry;
-                push(ref(db, "Items"), {
+                push(ref(db, `User/${user.uid}/Items/`), {
                     item_name: item_name,
                     item_price: "₱ " + item_price,
                     manufactured: manufactured,
@@ -359,9 +365,10 @@
             var item_at_hand = 0;
             var item_near = 0;
             var item_exp = 0;
+            const user = auth.currentUser;
 
             //get data in database
-            const item = ref(db, "Items"); //initialize database reference
+            const item = ref(db, `User/${user.uid}/Items`); //initialize database reference
             onValue(item, (snapshot) => {
                 snapshot.forEach(function (childSnap) {
                     const data = childSnap.val();
@@ -374,8 +381,9 @@
 
                     item_num++;
 
+                    removeTable();
                     createTable(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added);
-                    checkStatus(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added);
+                    checkStatus(user.uid, snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added);
                 })
                 var all = document.querySelectorAll(".item-quantity");
                 all.forEach(item => {               //for displaying how many items is in the inventory
@@ -383,7 +391,7 @@
                 })
             });
 
-            function checkStatus(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added) {
+            function checkStatus(uid, snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added) {
                 var new_exdate = new Date(snap_expiry);
                 var exdate_time = new_exdate.getTime();
                 exdate_time = exdate_time - 28800000;
@@ -400,7 +408,7 @@
                 //check if the item exceeded the expiry date
                 if (crr_time >= exdate_time) {
                     item_exp++;
-                    var expref = ref(db, "Expired/" + snap_item_id);
+                    var expref = ref(db, `User/${uid}/Expired/` + snap_item_id);
                     var exp = document.querySelectorAll(".expired");
                     var expcontain = document.querySelector(".item-expired");
                     var explink = document.querySelector(".item-expired-link");
@@ -426,8 +434,8 @@
                             const delete_btn = document.querySelectorAll(".delete-exx");
                             delete_btn.forEach(tag => {
                                 var id = tag.parentElement.parentElement.firstChild.textContent;
-                                const all_refs = ref(db, "Items/" + id);
-                                const exp_refs = ref(db, "Expired/" + id);
+                                const all_refs = ref(db, `User/${uid}/Items/` + id);
+                                const exp_refs = ref(db, `User/${uid}/Expired/` + id);
                                 tag.onclick = () => {
                                     var result = confirm("Delete this item?");
                                     if (result) {
@@ -463,7 +471,7 @@
                 }
                 else {
                     item_at_hand++;
-                    var avref = ref(db, "Available/" + snap_item_id);
+                    var avref = ref(db, `User/${uid}/Available/` + snap_item_id);
                     var available = document.querySelectorAll(".available");
                     var av = document.querySelector(".item-available");
                     var avlink = document.querySelector(".item-available-link");
@@ -496,7 +504,7 @@
                     if (remain <= 31) {
                         item_near++;
                         var near = document.querySelectorAll(".almost");
-                        var toexref = ref(db, "To Expire/" + snap_item_id);
+                        var toexref = ref(db, `User/${uid}/To Expire/` + snap_item_id);
                         var toex = document.querySelector(".item-to-expire");
                         var toexlink = document.querySelector(".item-to-expire-link");
 
@@ -542,8 +550,9 @@
         }
 
         function search() {
+            const uid = auth.currentUser.uid;
             var seach_value = document.querySelector(".search").value;
-            var reff = query(ref(db, "Items"), orderByChild("item_name"), startAt(seach_value), endAt(seach_value + "\uf8ff"));
+            var reff = query(ref(db, `User/${uid}/Items`), orderByChild("item_name"), startAt(seach_value), endAt(seach_value + "\uf8ff"));
             removeTable();
             get(reff).then((snappy) => {
                 snappy.forEach(chld => {
@@ -599,7 +608,8 @@
         }
 
         function getRecent() {
-            const queryy = query(ref(db, "Items"), orderByChild("added"), limitToLast(5));
+            const uid = auth.currentUser.uid;
+            const queryy = query(ref(db, `User/${uid}/Items`), orderByChild("added"), limitToLast(5));
             const ol_tag = document.querySelector(".recent-items");
             get(queryy)
                 .then(result => {
@@ -617,12 +627,14 @@
                     })
                 })
                 .catch(err => {
-                    console.log(err);
+                    console.error(err);
                 })
         }
 
-        self.addEventListener("load", loadData);
-        getRecent();
+        setTimeout(() => {
+            loadData();
+            getRecent();
+        }, 1000);
     </script>
     <script src="./index.js"></script>
 </body>
