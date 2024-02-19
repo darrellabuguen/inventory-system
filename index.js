@@ -86,7 +86,7 @@ function getAvailable(avref, onValue) {
             var avprice = avdata.av_price;
             var avmanu = avdata.av_manufactured;
             var avexp = avdata.av_expiry;
-            var avadd = avdata.av_added;
+            var avadd = "<button class='delete-exx'>delete</button>";
 
             var avrow = document.createElement("tr");
             var avtd1 = document.createElement("td");
@@ -121,7 +121,7 @@ function getToEx(toexref, onValue) {
             var toexprice = toexdata.toex_price;
             var toexmanu = toexdata.toex_manufactured;
             var toexexp = toexdata.toex_expiry;
-            var toexadd = toexdata.toex_added;
+            var toexadd = "<button class='delete-exx'>delete</button>";
 
             var toexrow = document.createElement("tr");
             var toextd1 = document.createElement("td");
