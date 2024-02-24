@@ -51,7 +51,7 @@
                         </a>
                     </span>
                     <span id="manage-option">
-                        <a href="./manage.html" class="manage-account flex-1 padding1 align-center"
+                        <a href="../manage.html" class="manage-account flex-1 padding1 align-center"
                             style="color: #202020;">
                             <svg xmlns="http://www.w3.org/2000/svg" class="manage-icons"
                                 viewBox="0 0 640 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
@@ -116,10 +116,12 @@
                             <th>Item Price</th>
                             <th>Manufactured Date</th>
                             <th>Expiration Date</th>
-                            <th class="date-added">Date Added</th>
+                            <th>Option</th>
                         </thead>
                         <tbody class="item-body">
-
+                            <tr>
+                                <td colspan="6" style="text-align: center;">No Items</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -381,7 +383,6 @@
 
                     item_num++;
 
-                    createTable(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added);
                     checkStatus(user.uid, snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added);
                 })
                 var all = document.querySelectorAll(".item-quantity");
@@ -404,15 +405,11 @@
                 var remain = Math.abs(Math.floor(near / (60 * 60 * 24)));
                 remain = remain / 1000;
 
-                const th_added = document.querySelector(".date-added");
-
                 //check if the item exceeded the expiry date
                 if (crr_time >= exdate_time) {
                     item_exp++;
                     var expref = ref(db, `User/${uid}/Expired/` + snap_item_id);
                     var exp = document.querySelectorAll(".expired");
-                    var expcontain = document.querySelector(".item-expired");
-                    var explink = document.querySelector(".item-expired-link");
 
                     exp.forEach(item => {           //for displaying how many items is expired
                         item.innerHTML = item_exp;
@@ -426,71 +423,11 @@
                         ex_expiry: snap_expiry,
                         ex_added: snap_added
                     });
-                    //function when clicking expire container
-                    expcontain.addEventListener("click", () => {
-                        removeTable();
-                        checkScreen();
-                        getExp(expref, onValue);
-                        th_added.textContent = "Option";
-                        setTimeout(() => {
-                            const delete_btn = document.querySelectorAll(".delete-exx");
-                            delete_btn.forEach(tag => {
-                                var id = tag.parentElement.parentElement.firstChild.textContent;
-                                const all_refs = ref(db, `User/${uid}/Items/` + id);
-                                const exp_refs = ref(db, `User/${uid}/Expired/` + id);
-                                tag.onclick = () => {
-                                    var result = confirm("Delete this item?");
-                                    if (result) {
-                                        remove(all_refs);
-                                        removeTable();
-                                        remove(exp_refs)
-                                            .then(() => {
-                                                location.reload();
-                                            })
-                                            .catch(err => {
-                                                alert(err);
-                                            })
-                                    }
-                                }
-                            })
-                        }, 1500);
-                    });
-                    //function when clicking expire link
-                    explink.addEventListener("click", () => {
-                        removeTable();
-                        checkScreen();
-                        getExp(expref, onValue);
-                        th_added.textContent = "Option";
-                        setTimeout(() => {
-                            const delete_btn = document.querySelectorAll(".delete-exx");
-                            delete_btn.forEach(tag => {
-                                var id = tag.parentElement.parentElement.firstChild.textContent;
-                                const all_refs = ref(db, `User/${uid}/Items/` + id);
-                                const exp_refs = ref(db, `User/${uid}/Expired/` + id);
-                                tag.onclick = () => {
-                                    var result = confirm("Delete this item?");
-                                    if (result) {
-                                        remove(all_refs);
-                                        removeTable();
-                                        remove(exp_refs)
-                                            .then(() => {
-                                                location.reload();
-                                            })
-                                            .catch(err => {
-                                                alert(err);
-                                            })
-                                    }
-                                }
-                            })
-                        }, 1500);
-                    });
                 }
                 else {
                     item_at_hand++;
                     var avref = ref(db, `User/${uid}/Available/` + snap_item_id);
                     var available = document.querySelectorAll(".available");
-                    var av = document.querySelector(".item-available");
-                    var avlink = document.querySelector(".item-available-link");
 
                     available.forEach(item => {             //for displaying how many items is available
                         item.innerHTML = item_at_hand;
@@ -504,71 +441,38 @@
                         av_expiry: snap_expiry,
                         av_added: snap_added
                     });
-                    //function when clicking available container
-                    av.addEventListener("click", () => {
-                        removeTable();
-                        checkScreen();
-                        getAvailable(avref, onValue);
-                        th_added.textContent = "Option";
-                        setTimeout(() => {
-                            const delete_btn = document.querySelectorAll(".delete-exx");
-                            delete_btn.forEach(tag => {
-                                var id = tag.parentElement.parentElement.firstChild.textContent;
-                                const all_refs = ref(db, `User/${uid}/Items/` + id);
-                                const exp_refs = ref(db, `User/${uid}/Available/` + id);
-                                tag.onclick = () => {
-                                    var result = confirm("Delete this item?");
-                                    if (result) {
-                                        remove(all_refs);
-                                        removeTable();
-                                        remove(exp_refs)
-                                            .then(() => {
-                                                location.reload();
-                                            })
-                                            .catch(err => {
-                                                alert(err);
-                                            })
-                                    }
+
+                    removeTable();
+                    checkScreen();
+                    getAvailable(avref, onValue);
+                    setTimeout(() => {
+                        const delete_btn = document.querySelectorAll(".delete-exx");
+                        delete_btn.forEach(tag => {
+                            var id = tag.parentElement.parentElement.firstChild.textContent;
+                            const all_refs = ref(db, `User/${uid}/Items/` + id);
+                            const exp_refs = ref(db, `User/${uid}/Available/` + id);
+                            tag.onclick = () => {
+                                var result = confirm("Delete this item?");
+                                if (result) {
+                                    remove(all_refs);
+                                    removeTable();
+                                    remove(exp_refs)
+                                        .then(() => {
+                                            location.reload();
+                                        })
+                                        .catch(err => {
+                                            alert(err);
+                                        })
                                 }
-                            })
-                        }, 1500);
-                    });
-                    //function when clicking available link
-                    avlink.addEventListener("click", () => {
-                        removeTable();
-                        checkScreen();
-                        getAvailable(avref, onValue);
-                        th_added.textContent = "Option";
-                        setTimeout(() => {
-                            const delete_btn = document.querySelectorAll(".delete-exx");
-                            delete_btn.forEach(tag => {
-                                var id = tag.parentElement.parentElement.firstChild.textContent;
-                                const all_refs = ref(db, `User/${uid}/Items/` + id);
-                                const exp_refs = ref(db, `User/${uid}/Available/` + id);
-                                tag.onclick = () => {
-                                    var result = confirm("Delete this item?");
-                                    if (result) {
-                                        remove(all_refs);
-                                        removeTable();
-                                        remove(exp_refs)
-                                            .then(() => {
-                                                location.reload();
-                                            })
-                                            .catch(err => {
-                                                alert(err);
-                                            })
-                                    }
-                                }
-                            })
-                        }, 1500);
-                    });
+                            }
+                        })
+                    }, 1500);
+
                     //to check if the item is going to expire within month.
                     if (remain <= 31) {
                         item_near++;
                         var near = document.querySelectorAll(".almost");
                         var toexref = ref(db, `User/${uid}/To Expire/` + snap_item_id);
-                        var toex = document.querySelector(".item-to-expire");
-                        var toexlink = document.querySelector(".item-to-expire-link");
 
                         near.forEach(item => {              //for displaying how many items is to expired
                             item.innerHTML = item_near;
@@ -581,62 +485,6 @@
                             toex_manufactured: snap_manufactured,
                             toex_expiry: snap_expiry,
                             toex_added: snap_added
-                        });
-                        toex.addEventListener("click", () => {
-                            removeTable();
-                            checkScreen();
-                            getToEx(toexref, onValue);
-                            th_added.textContent = "Option";
-                            setTimeout(() => {
-                                const delete_btn = document.querySelectorAll(".delete-exx");
-                                delete_btn.forEach(tag => {
-                                    var id = tag.parentElement.parentElement.firstChild.textContent;
-                                    const all_refs = ref(db, `User/${uid}/Items/` + id);
-                                    const exp_refs = ref(db, `User/${uid}/To Expire/` + id);
-                                    tag.onclick = () => {
-                                        var result = confirm("Delete this item?");
-                                        if (result) {
-                                            remove(all_refs);
-                                            removeTable();
-                                            remove(exp_refs)
-                                                .then(() => {
-                                                    location.reload();
-                                                })
-                                                .catch(err => {
-                                                    alert(err);
-                                                })
-                                        }
-                                    }
-                                })
-                            }, 1500);
-                        });
-                        toexlink.addEventListener("click", () => {
-                            removeTable();
-                            checkScreen();
-                            getToEx(toexref, onValue);
-                            th_added.textContent = "Option";
-                            setTimeout(() => {
-                                const delete_btn = document.querySelectorAll(".delete-exx");
-                                delete_btn.forEach(tag => {
-                                    var id = tag.parentElement.parentElement.firstChild.textContent;
-                                    const all_refs = ref(db, `User/${uid}/Items/` + id);
-                                    const exp_refs = ref(db, `User/${uid}/To Expire/` + id);
-                                    tag.onclick = () => {
-                                        var result = confirm("Delete this item?");
-                                        if (result) {
-                                            remove(all_refs);
-                                            removeTable();
-                                            remove(exp_refs)
-                                                .then(() => {
-                                                    location.reload();
-                                                })
-                                                .catch(err => {
-                                                    alert(err);
-                                                })
-                                        }
-                                    }
-                                })
-                            }, 1500);
                         });
                     }
                     else {
