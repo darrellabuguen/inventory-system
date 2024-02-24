@@ -10,8 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./design.css">
-    <link rel="stylesheet" href="./responsive.css">
+    <link rel="stylesheet" href="../design.css">
+    <link rel="stylesheet" href="../responsive.css">
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -78,19 +78,19 @@
     <main>
         <div class="item-display">
             <div class="item-status-container">
-                <a href="home.html" class="item-all container active">
+                <a href="../home.html" class="item-all container">
                     All Items
                     <div class="item-quantity"></div>
                 </a>
-                <a href="./status/available.html" class="item-available container">
+                <a href="./available.html" class="item-available container active">
                     Available Items
                     <div class="available"></div>
                 </a>
-                <a href="./status/toexpire.html" class="item-to-expire container">
+                <a href="./toexpire.html" class="item-to-expire container">
                     To Expire Items
                     <div class="almost"></div>
                 </a>
-                <a href="./status/expired.html" class="item-expired container">
+                <a href="./expired.html" class="item-expired container">
                     Expired Items
                     <div class="expired"></div>
                 </a>
@@ -101,10 +101,10 @@
                 </div>
                 <div class="search-container">
                     <input class="search" type="search" name="search">
-                    <button class="search-button"><img class="search-icn" src="./images/search_icon.png"
+                    <button class="search-button"><img class="search-icn" src="../images/search_icon.png"
                             alt="img"></button>
                     <div class="add-bottom">
-                        <button class="add-item-bottom"><img class="bttm-add" src="./images/add_icon.png"
+                        <button class="add-item-bottom"><img class="bttm-add" src="../images/add_icon.png"
                                 alt="img"></button>
                     </div>
                 </div>
@@ -148,30 +148,30 @@
     <div class="bottom-fix"></div>
     <section>
         <div class="menu-container">
-            <a href="../home.html" class="item-all-link bttm active-bttm">
+            <a href="../home.html" class="item-all-link bttm">
                 <span class="item-quantity status-number">0</span>
                 <img class="status-icn" src="../images/allitems_icon.png" alt="img">
             </a>
-            <a href="./status/available.html" class="item-available-link bttm">
+            <a href="./available.html" class="item-available-link bttm active-bttm">
                 <span class="available status-number">0</span>
                 <img class="status-icn" src="../images/available_icon.png" alt="img">
             </a>
             <div class="add-item-link bttm">
                 <img class="mid-add" src="../images/add_icon.png" alt="img">
             </div>
-            <a href="./status/toexpire.html" class="item-to-expire-link bttm">
+            <a href="./toexpire.html" class="item-to-expire-link bttm">
                 <span class="almost status-number">0</span>
                 <img class="status-icn" src="../images/toexpired_icon.png" alt="img">
             </a>
-            <a href="./status/expired.html" class="item-expired-link bttm">
+            <a href="./expired.html" class="item-expired-link bttm">
                 <span class="expired status-number">0</span>
                 <img class="status-icn" src="../images/expired_icon.png" alt="">
             </a>
         </div>
     </section>
-    <script src="config.js" type="module"></script>
+    <script src="../config.js" type="module"></script>
     <script type="module">
-        import firebaseConfig from "./config.js";
+        import firebaseConfig from "../config.js";
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, deleteUser, GoogleAuthProvider, signInWithPopup, linkWithPopup } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
@@ -192,7 +192,7 @@
 
         onAuthStateChanged(auth, (user) => {
             const profile = document.querySelector(".profile-img");
-            const photo_guest = "./images/guest.svg";
+            const photo_guest = "../images/guest.svg";
 
             if (!user) {
                 window.location = "index.html";
@@ -201,7 +201,7 @@
                 user.emailVerified != true ? window.location = "verify.html" : user;
 
                 const photo_email = `${user.photoURL}`;
-                const photo_password = "./images/user.svg";
+                const photo_password = "../images/user.svg";
                 const provider = user.providerData[0].providerId;
                 const photo_linked = user.providerData[0].photoURL;
 
@@ -308,7 +308,7 @@
 
         //add box shadow when the container is clicked
         const bttmcontainer = document.querySelectorAll(".bttm");
-        const crr_active = document.querySelector(".item-all-link");
+        const crr_active = document.querySelector(".item-available-link");
         bttmcontainer.forEach(tag => {
             tag.addEventListener("click", () => {
                 crr_active.classList.remove("active-bttm");
@@ -660,17 +660,17 @@
         function search() {
             const uid = auth.currentUser.uid;
             var seach_value = document.querySelector(".search").value;
-            var reff = query(ref(db, `User/${uid}/Items`), orderByChild("item_name"), startAt(seach_value), endAt(seach_value + "\uf8ff"));
+            var reff = query(ref(db, `User/${uid}/Available`), orderByChild("av_name"), startAt(seach_value), endAt(seach_value + "\uf8ff"));
             removeTable();
             get(reff).then((snappy) => {
                 snappy.forEach(chld => {
                     var srchdata = chld.val();
                     var srchid = chld.key;
-                    var srchname = srchdata.item_name;
-                    var srchprice = srchdata.item_price;
-                    var srchmanu = srchdata.manufactured;
-                    var srchexp = srchdata.expiry;
-                    var srchadd = srchdata.added;
+                    var srchname = srchdata.av_name;
+                    var srchprice = srchdata.av_price;
+                    var srchmanu = srchdata.av_manufactured;
+                    var srchexp = srchdata.av_expiry;
+                    var srchadd = srchdata.av_added;
 
                     var srchrow = document.createElement("tr");
                     var srchtd1 = document.createElement("td");
@@ -744,7 +744,7 @@
             getRecent();
         }, 1000);
     </script>
-    <script src="./index.js"></script>
+    <script src="../index.js"></script>
 </body>
 
 </html>
