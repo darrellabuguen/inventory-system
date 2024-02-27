@@ -96,8 +96,8 @@ input[type=email]:focus {
 }
 
 input[type=search]:focus {
-    outline: #00b3ff solid 2px;
-    outline-style: groove;
+    background-color: gainsboro;
+    outline-style: none;
 }
 
 input[type=password]:focus {
@@ -151,6 +151,7 @@ input[type=password]:focus {
 
 .account-manage-container {
     overflow: hidden;
+    border: solid 1px gainsboro;
 }
 
 .account-input {
@@ -169,19 +170,19 @@ input[type=password]:focus {
 }
 
 .close-menu {
-    width: 2rem;
-    height: 2rem;
+    width: 2.3rem;
+    height: 2.3rem;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     font-size: x-large;
     float: right;
+    border-radius: 100%;
 }
 
 .close-menu:hover {
-    border-radius: 100%;
-    background-color: rgba(0, 0, 0, 0.2);
+    border: solid 2px red;
 }
 
 .manage-icons {
@@ -337,44 +338,45 @@ td {
     background-color: white;
     border-radius: 5px;
     font-family: poppins;
+    font-weight: bold;
     color: #202020;
     border: solid 1px gainsboro;
 }
 
 .item-all {
-    border-top: solid 5px #63F880;
     cursor: pointer;
 }
 
 .item-available {
-    border-top: solid 5px #63F880;
     cursor: pointer;
 }
 
 .item-to-expire {
-    border-top: 5px solid #FCE888;
     cursor: pointer;
 }
 
 .item-expired {
-    border-top: 5px solid #ED7B79;
     cursor: pointer;
 }
 
-.item-quantity-label {
+.item-quantity {
     cursor: pointer;
+    font-weight: 500;
 }
 
-.available-label {
+.available {
     cursor: pointer;
+    font-weight: 500;
 }
 
-.almost-label {
+.almost {
     cursor: pointer;
+    font-weight: 500;
 }
 
-.expired-label {
+.expired {
     cursor: pointer;
+    font-weight: 500;
 }
 
 .items-container {
@@ -392,17 +394,17 @@ td {
     border-radius: 5px;
     padding: 15px;
     border: solid 1px gainsboro;
-    border-top: #0caaee solid 5px;
 }
 
 .add-item-text {
     font-family: poppins;
     font-size: 20px;
+    font-weight: bold;
     padding: 0.7rem 0;
 }
 
 .add-item {
-    background-color: #0995d1;
+    background-color: red;
     border: none;
     border-radius: 5px;
     color: white;
@@ -413,7 +415,7 @@ td {
 }
 
 .add-item:hover {
-    background-color: #0caaee;
+    background-color: rgb(209, 0, 0);
 }
 
 .add-bottom {
@@ -483,9 +485,8 @@ td {
 }
 
 .active {
-    box-shadow: 2px 3px 3px 1px gainsboro;
+    box-shadow: 1px 3px 3px 1px gainsboro;
     background-color: rgb(250, 252, 253);
-    transform: scale(1.03);
 }
 
 .menu-container {
@@ -518,7 +519,7 @@ td {
     left: 2rem;
     width: 2rem;
     height: 0.2rem;
-    color: rgb(255, 81, 0);
+    color: rgb(255, 49, 49);
     font-family: poppins;
 }
 
@@ -543,7 +544,7 @@ td {
 }
 
 .active-bttm {
-    border-top-color: #00b3ff;
+    border-top-color: red;
 }
 
 .delete-exx {
@@ -566,7 +567,7 @@ td {
 
 .recent {
     padding: 1rem;
-    border: solid 1px gainsboro;
-    border-radius: 5px;
-    margin-bottom: 2px;
+    border-bottom: solid 1px gainsboro;
+    border-left: solid 3px red;
+    margin-bottom: 5px;
 }
