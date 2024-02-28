@@ -577,11 +577,20 @@
                         const data = item.val();
                         const date = new Date(data.added);
                         const string_date = date.toDateString();
-                        const info = data.item_name + " " + `(${string_date})`;
+                        const info = `<div>
+                                        <span style="color: #7E7E7E; font-size: 13px">${item.key}</span>
+                                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                                            <h3>${data.item_name}</h3>
+                                            <p>${data.item_price}</p>
+                                        </div>
+                                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                                            <span>Price: ${data.item_price}</span>
+                                            <p style="font-size: 13px">${string_date}</p>
+                                        </div>
+                                    </div>`;
                         const li = document.createElement("li");
-                        li.textContent = info;
+                        li.innerHTML = info;
                         li.style.fontFamily = "Poppins";
-                        li.style.textAlign = "center";
                         li.classList.add("recent");
                         ol_tag.append(li);
                     })
