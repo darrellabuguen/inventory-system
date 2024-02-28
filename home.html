@@ -82,19 +82,19 @@
             <div class="item-status-container">
                 <a href="home.html" class="item-all container active">
                     All Items
-                    <div class="item-quantity"></div>
+                    <div class="item-quantity">0</div>
                 </a>
                 <a href="./status/available.html" class="item-available container">
                     Available Items
-                    <div class="available"></div>
+                    <div class="available">0</div>
                 </a>
                 <a href="./status/toexpire.html" class="item-to-expire container">
                     Items To Expire
-                    <div class="almost"></div>
+                    <div class="almost">0</div>
                 </a>
                 <a href="./status/expired.html" class="item-expired container">
                     Expired Items
-                    <div class="expired"></div>
+                    <div class="expired">0</div>
                 </a>
             </div>
             <div class="items-container">
@@ -133,6 +133,7 @@
                         style="float: right; display: none; cursor: pointer; ">&Cross;</span></div>
                 <input class="item-name" required type="text" placeholder="Item name...">
                 <input class="item-price" required type="text" placeholder="Item price...">
+                <input class="item-qnty" required type="number" placeholder="Unit/s...">
                 <label for="manufactured">Manufactured Date</label>
                 <input class="manufactured-date" id="manufactured" required type="date" name="manufactured">
                 <label for="expiry-date">Expiry Date</label>
@@ -336,6 +337,7 @@
             const item_id = push(child(ref(db), 'Items')).key;
             var item_name = document.querySelector(".item-name").value;
             var item_price = document.querySelector(".item-price").value;
+            var item_qnty = document.querySelector(".item-qnty").value;
             var manufactured = document.querySelector(".manufactured-date").value;
             var expiry = document.querySelector(".expiry-date").value;
             var d = new Date();
@@ -353,7 +355,8 @@
                     item_price: "₱ " + item_price,
                     manufactured: manufactured,
                     expiry: expiry,
-                    added: year + "-" + month + "-" + date
+                    added: year + "-" + month + "-" + date,
+                    unit: item_qnty
                 });
                 removeTable();
                 alert("Item Added!");
@@ -460,9 +463,6 @@
                             toex_expiry: snap_expiry,
                             toex_added: snap_added
                         });
-                    }
-                    else {
-                        var toexnone = document.querySelector(".almost").innerHTML = 0;
                     }
                 }
             }

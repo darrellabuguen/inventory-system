@@ -82,19 +82,19 @@
             <div class="item-status-container">
                 <a href="../home.html" class="item-all container">
                     All Items
-                    <div class="item-quantity"></div>
+                    <div class="item-quantity">0</div>
                 </a>
                 <a href="./available.html" class="item-available container">
                     Available Items
-                    <div class="available"></div>
+                    <div class="available">0</div>
                 </a>
                 <a href="./toexpire.html" class="item-to-expire container">
                     Items To Expire
-                    <div class="almost"></div>
+                    <div class="almost">0</div>
                 </a>
                 <a href="./expired.html" class="item-expired container active">
                     Expired Items
-                    <div class="expired"></div>
+                    <div class="expired">0</div>
                 </a>
             </div>
             <div class="items-container">
@@ -488,9 +488,6 @@
                             toex_added: snap_added
                         });
 
-                    }
-                    else {
-                        var toexnone = document.querySelector(".almost").innerHTML = 0;
                     }
                 }
             }
