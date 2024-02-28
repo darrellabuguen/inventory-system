@@ -374,6 +374,11 @@
 
             //get data in database
             const item = ref(db, `User/${user.uid}/Items`); //initialize database reference
+
+            remove(ref(db, `User/${user.uid}/Available/`)); //remove data in each reference to delete data that is not suited in that status
+            remove(ref(db, `User/${user.uid}/Expired/`));
+            remove(ref(db, `User/${user.uid}/To Expire/`));
+
             onValue(item, (snapshot) => {
                 snapshot.forEach(function (childSnap) {
                     const data = childSnap.val();
