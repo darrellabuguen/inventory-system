@@ -30,14 +30,19 @@ function createTable(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, sn
     var tdata4 = document.createElement("td");
     var tdata5 = document.createElement("td");
     var tdata6 = document.createElement("td");
+    var tdata7 = document.createElement("td");
 
     tdata1.innerHTML = snap_item_id; tdata2.innerHTML = snap_itemn; tdata3.innerHTML = snap_itemp;
     tdata4.innerHTML = snap_manufactured; tdata5.innerHTML = snap_expiry; tdata6.innerHTML = snap_added;
+    tdata7.innerHTML = "<div class='item-option'>&hellip;</div>";
 
     tdata1.classList.add("iid");
 
     trow.appendChild(tdata1); trow.appendChild(tdata2); trow.appendChild(tdata3);
     trow.appendChild(tdata4); trow.appendChild(tdata5); trow.appendChild(tdata6);
+    trow.appendChild(tdata7);
+
+    trow.classList.add("item-tr");
 
     tbody.appendChild(trow);
 }
@@ -152,3 +157,43 @@ function removeTable() {
         trs.remove();
     });
 }
+
+function openTableOptions() {
+    const container = document.querySelector(".table-option-container");
+    container.style.display = "flex";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const account_container = document.querySelector(".account-container");
+    const table_option_container = document.querySelector(".table-option-container");
+    const menu_bttn = document.querySelector(".menu_bttn");
+    const add_item_bottom = document.querySelector(".add-item-bottom");
+
+    function hideContainers() {
+        account_container.style.display = "none";
+        table_option_container.style.display = "none";
+    }
+
+    document.addEventListener("click", (e) => {
+        var target = e.target;
+        if (target !== menu_bttn && target !== account_container || target !== add_item_bottom && target !== table_option_container) {
+            hideContainers();
+        }
+    })
+
+    account_container.addEventListener("click", (e) => {
+        e.stopPropagation();
+    })
+
+    menu_bttn.addEventListener("click", (e) => {
+        e.stopPropagation();
+    })
+
+    add_item_bottom.addEventListener("click", (e) => {
+        e.stopPropagation();
+    })
+
+    table_option_container.addEventListener("click", (e) => {
+        e.stopPropagation();
+    })
+})

@@ -216,6 +216,30 @@
                 trsave.style.display = "none";
             }
         });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const account_container = document.querySelector(".account-container");
+            const menu_bttn = document.querySelector(".menu_bttn");
+
+            function hideContainers() {
+                account_container.style.display = "none";
+            }
+
+            document.addEventListener("click", (e) => {
+                var target = e.target;
+                if (target !== menu_bttn && target !== account_container) {
+                    hideContainers();
+                }
+            })
+
+            account_container.addEventListener("click", (e) => {
+                e.stopPropagation();
+            })
+
+            menu_bttn.addEventListener("click", (e) => {
+                e.stopPropagation();
+            })
+        })
     </script>
 </body>
 

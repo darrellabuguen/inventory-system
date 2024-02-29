@@ -226,7 +226,7 @@
     }
 
     .add-item-bottom {
-        display: none;
+        display: block;
     }
 
     .add-item-section,
