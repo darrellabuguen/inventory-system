@@ -47,7 +47,8 @@
         overflow-x: scroll;
     }
 
-    input[type=search] {
+    input[type=search],
+    .search-with-button {
         width: 100%;
     }
 
@@ -204,6 +205,10 @@
 
     .bottom-fix {
         display: none;
+    }
+
+    .search-with-button {
+        width: 40%;
     }
 }
 

@@ -429,8 +429,6 @@ td {
 }
 
 .add-bottom {
-    position: absolute;
-    float: right;
     right: 40px;
 }
 
@@ -447,14 +445,19 @@ td {
     width: 30px;
 }
 
-.item-price,
-.item-qnty {
+.item-price {
     margin-top: 3px;
 }
 
 .search-container {
     display: flex;
     margin-bottom: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search-with-button {
+    display: flex;
     align-items: center;
 }
 

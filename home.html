@@ -17,7 +17,7 @@
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
 
-    <title>Dashboard | Inventory System</title>
+    <title>Home | Inventory System</title>
 </head>
 
 <body>
@@ -102,12 +102,16 @@
                     <p class="title-nav">All Items</p>
                 </div>
                 <div class="search-container">
-                    <input class="search" type="search" name="search">
-                    <button class="search-button"><img class="search-icn" src="./images/search_icon.png"
-                            alt="img"></button>
+                    <div class="search-with-button">
+                        <input class="search" type="search" name="search">
+                        <button class="search-button">
+                            <img class="search-icn" src="./images/search_icon.png" alt="img">
+                        </button>
+                    </div>
                     <div class="add-bottom">
-                        <button class="add-item-bottom"><img class="bttm-add" src="./images/add_icon.png"
-                                alt="img"></button>
+                        <button class="add-item-bottom">
+                            <img class="bttm-add" src="./images/add_icon.png" alt="img">
+                        </button>
                     </div>
                 </div>
                 <div class="table-container">
@@ -133,7 +137,10 @@
                         style="float: right; display: none; cursor: pointer; ">&Cross;</span></div>
                 <input class="item-name" required type="text" placeholder="Item name...">
                 <input class="item-price" required type="text" placeholder="Item price...">
-                <input class="item-qnty" required type="number" placeholder="Unit/s...">
+                <div style="display: flex; align-items: center; gap: 5px; margin-top: 3px;">
+                    <input class="item-unit" required type="number" placeholder="Unit #no...">
+                    <input class="item-qnty" required type="number" placeholder="Quantity...">
+                </div>
                 <label for="manufactured">Manufactured Date</label>
                 <input class="manufactured-date" id="manufactured" required type="date" name="manufactured">
                 <label for="expiry-date">Expiry Date</label>
@@ -337,6 +344,7 @@
             const item_id = push(child(ref(db), 'Items')).key;
             var item_name = document.querySelector(".item-name").value;
             var item_price = document.querySelector(".item-price").value;
+            var item_unit = document.querySelector(".item-unit").value;
             var item_qnty = document.querySelector(".item-qnty").value;
             var manufactured = document.querySelector(".manufactured-date").value;
             var expiry = document.querySelector(".expiry-date").value;
@@ -356,7 +364,8 @@
                     manufactured: manufactured,
                     expiry: expiry,
                     added: year + "-" + month + "-" + date,
-                    unit: item_qnty
+                    unit_no: item_unit,
+                    item_qnty: item_qnty
                 });
                 removeTable();
                 alert("Item Added!");
@@ -560,7 +569,7 @@
                                         </div>
                                         <div style="display: flex; align-items: center; justify-content: space-between;">
                                             <span>Price: ${data.item_price}</span>
-                                            <p style="font-size: 13px">${string_date}</p>
+                                            <p style="font-size: 13px; float: right;">${string_date}</p>
                                         </div>
                                     </div>`;
                         const li = document.createElement("li");
