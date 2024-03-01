@@ -117,7 +117,7 @@
                         </svg>
                         <div class="table-option-container">
                             <span class="table-option table-add">Add Item</span>
-                            <span class="table-option" onclick="deleteTable()">Delete Table</span>
+                            <span class="table-option table-delete">Delete Table</span>
                         </div>
                     </button>
                 </div>
@@ -340,11 +340,15 @@
 
         //add item link function section
         var add_link = document.querySelector(".add-item-link");
-        add_link.addEventListener("click", openAdd);
         var add_bottom = document.querySelector(".add-item-bottom");
-        add_bottom.addEventListener("click", openTableOptions);
         var table_add = document.querySelector(".table-add");
+        add_link.addEventListener("click", openAdd);
+        add_bottom.addEventListener("click", openTableOptions);
         table_add.addEventListener("click", openAdd);
+
+        //select delete button in table option
+        const table_delete = document.querySelector(".table-delete");
+        table_delete.addEventListener("click", deleteTable);
 
         //select add item button class
         var add = document.querySelector(".add-item");
@@ -571,6 +575,16 @@
                 .catch(err => {
                     console.error(err);
                 })
+        }
+
+        function deleteTable() {
+            var uid = auth.currentUser.uid;
+            var ask = confirm("Delete your saved items?");
+            const reference = ref(db, `User/${uid}/`);
+            reference ? reference : alert("You don't have any item in your database");
+            if (ask) {
+                remove(reference);
+            }
         }
 
         setTimeout(() => {

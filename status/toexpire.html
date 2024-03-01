@@ -117,7 +117,7 @@
                         </svg>
                         <div class="table-option-container">
                             <span class="table-option table-add">Add Item</span>
-                            <span class="table-option" onclick="deleteTable()">Delete Table</span>
+                            <span class="table-option table-delete">Delete Table</span>
                         </div>
                     </button>
                 </div>
@@ -202,6 +202,8 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getDatabase(app);
+
+        var toex_id = [];
 
         var is_Anonymous = "";
 
@@ -337,11 +339,15 @@
 
         //add item link function section
         var add_link = document.querySelector(".add-item-link");
-        add_link.addEventListener("click", openAdd);
         var add_bottom = document.querySelector(".add-item-bottom");
-        add_bottom.addEventListener("click", openTableOptions);
         var table_add = document.querySelector(".table-add");
+        add_link.addEventListener("click", openAdd);
+        add_bottom.addEventListener("click", openTableOptions);
         table_add.addEventListener("click", openAdd);
+
+        //select delete button in table option
+        const table_delete = document.querySelector(".table-delete");
+        table_delete.addEventListener("click", deleteTable);
 
         //select add item button class
         var add = document.querySelector(".add-item");
@@ -467,6 +473,7 @@
                         item_near++;
                         var near = document.querySelectorAll(".almost");
                         var toexref = ref(db, `User/${uid}/To Expire/` + snap_item_id);
+                        toex_id.push(snap_item_id);         //push in array for later use
 
                         near.forEach(item => {              //for displaying how many items is to expired
                             item.innerHTML = item_near;
@@ -557,27 +564,6 @@
             })
         };
 
-        function openAdd() {
-            var add_section = document.querySelector(".add-item-section");
-            var add_container = document.querySelector(".add-item-container");
-            var exit_add = document.querySelector(".exit-add");
-            var menu = document.querySelector("main");
-            var browsersize = window.innerWidth;
-            var screensize = screen.width;
-            if (screensize < 768 || browsersize < 768) {
-                add_section.style.width = "100%";
-                add_container.style.borderTop = "none";
-                add_section.style.display = "block";
-                menu.style.display = "block";
-                document.querySelector(".items-container").style.display = "none";
-            }
-            else {
-                add_section.style.width = "50%";
-                exit_add.style.display = "block";
-                add_section.classList.add("show");
-            }
-        }
-
         function getRecent() {
             const uid = auth.currentUser.uid;
             const queryy = query(ref(db, `User/${uid}/Items`), orderByChild("added"), limitToLast(5));
@@ -609,6 +595,20 @@
                 .catch(err => {
                     console.error(err);
                 })
+        }
+
+        function deleteTable() {
+            var uid = auth.currentUser.uid;
+            var ask = confirm("Delete your saved items?");
+            const toex_ref = ref(db, `User/${uid}/To Expire`);
+            toex_ref ? toex_ref : alert("You don't have any item in your database");
+            if (ask) {
+                for (let i = 0; i < toex_id.length; i++) {
+                    var id = toex_id[i];
+                    remove(ref(db, `User/${uid}/Items/` + id));
+                }
+                location.reload();
+            }
         }
 
         setTimeout(() => {
