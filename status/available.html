@@ -146,6 +146,10 @@
                         style="float: right; display: none; cursor: pointer; ">&Cross;</span></div>
                 <input class="item-name" required type="text" placeholder="Item name...">
                 <input class="item-price" required type="text" placeholder="Item price...">
+                <div style="display: flex; align-items: center; gap: 5px; margin-top: 3px;">
+                    <input class="item-unit" required type="number" placeholder="Batch no#...">
+                    <input class="item-qnty" required type="number" placeholder="Quantity...">
+                </div>
                 <label for="manufactured">Manufactured Date</label>
                 <input class="manufactured-date" id="manufactured" required type="date" name="manufactured">
                 <label for="expiry-date">Expiry Date</label>
@@ -357,6 +361,8 @@
             const item_id = push(child(ref(db), 'Items')).key;
             var item_name = document.querySelector(".item-name").value;
             var item_price = document.querySelector(".item-price").value;
+            var item_unit = document.querySelector(".item-unit").value;
+            var item_qnty = document.querySelector(".item-qnty").value;
             var manufactured = document.querySelector(".manufactured-date").value;
             var expiry = document.querySelector(".expiry-date").value;
             var d = new Date();
@@ -374,7 +380,9 @@
                     item_price: "₱ " + item_price,
                     manufactured: manufactured,
                     expiry: expiry,
-                    added: year + "-" + month + "-" + date
+                    added: year + "-" + month + "-" + date,
+                    batch_no: item_unit,
+                    item_qnty: item_qnty
                 });
                 removeTable();
                 alert("Item Added!");
@@ -601,9 +609,7 @@
         function deleteTable() {
             var uid = auth.currentUser.uid;
             var ask = confirm("Delete your saved items?");
-            const av_ref = ref(db, `User/${uid}/Available`);
-            av_ref == true ? av_ref : alert("You don't have any item in your database");
-            if (ask && av_ref == true) {
+            if (ask) {
                 for (let i = 0; i < av_id.length; i++) {
                     var id = av_id[i];
                     remove(ref(db, `User/${uid}/Items/` + id));

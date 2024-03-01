@@ -179,7 +179,7 @@
             var lastLogin = user.metadata.lastLoginAt;
             if (result == true) {                                                       //if true delete the account and signout
                 deleteUser(user)              //method for deleting user account
-                reff ? remove(reff) : confirmation;
+                reff ? remove(reff) : result;
             }
         })
 

@@ -146,7 +146,7 @@
                 <input class="item-name" required type="text" placeholder="Item name...">
                 <input class="item-price" required type="text" placeholder="Item price...">
                 <div style="display: flex; align-items: center; gap: 5px; margin-top: 3px;">
-                    <input class="item-unit" required type="number" placeholder="Unit #no...">
+                    <input class="item-unit" required type="number" placeholder="Batch no#...">
                     <input class="item-qnty" required type="number" placeholder="Quantity...">
                 </div>
                 <label for="manufactured">Manufactured Date</label>
@@ -378,7 +378,7 @@
                     manufactured: manufactured,
                     expiry: expiry,
                     added: year + "-" + month + "-" + date,
-                    unit_no: item_unit,
+                    batch_no: item_unit,
                     item_qnty: item_qnty
                 });
                 removeTable();
@@ -580,16 +580,15 @@
         function deleteTable() {
             var uid = auth.currentUser.uid;
             var ask = confirm("Delete your saved items?");
-            const reference = ref(db, `User/${uid}/`);
-            reference == true ? reference : alert("You don't have any item in your database");
-            if (ask && reference == true) {
-                remove(reference)
-                    .then(() => {
-                        location.reload();
-                    })
-                    .catch(err => {
-                        alert(err);
-                    })
+            const refere = ref(db, `User/${uid}/`);
+            if (ask) {
+                try {
+                    remove(refere)
+                    location.reload();
+                }
+                catch (err) {
+                    alert(err);
+                }
             }
         }
 
