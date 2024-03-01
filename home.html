@@ -581,9 +581,15 @@
             var uid = auth.currentUser.uid;
             var ask = confirm("Delete your saved items?");
             const reference = ref(db, `User/${uid}/`);
-            reference ? reference : alert("You don't have any item in your database");
-            if (ask) {
-                remove(reference);
+            reference == true ? reference : alert("You don't have any item in your database");
+            if (ask && reference == true) {
+                remove(reference)
+                    .then(() => {
+                        location.reload();
+                    })
+                    .catch(err => {
+                        alert(err);
+                    })
             }
         }
 

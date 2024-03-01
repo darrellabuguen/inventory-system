@@ -602,8 +602,8 @@
             var uid = auth.currentUser.uid;
             var ask = confirm("Delete your saved items?");
             const ex_ref = ref(db, `User/${uid}/Expired`);
-            ex_ref ? ex_ref : alert("You don't have any item in your database");
-            if (ask) {
+            ex_ref == true ? ex_ref : alert("You don't have any item in your database");
+            if (ask && ex_ref == true) {
                 for (let i = 0; i < ex_id.length; i++) {
                     var id = ex_id[i];
                     remove(ref(db, `User/${uid}/Items/` + id));
