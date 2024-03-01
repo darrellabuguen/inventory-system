@@ -162,38 +162,3 @@ function openTableOptions() {
     const container = document.querySelector(".table-option-container");
     container.style.display = "flex";
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-    const account_container = document.querySelector(".account-container");
-    const table_option_container = document.querySelector(".table-option-container");
-    const menu_bttn = document.querySelector(".menu_bttn");
-    const add_item_bottom = document.querySelector(".add-item-bottom");
-
-    function hideContainers() {
-        account_container.style.display = "none";
-        table_option_container.style.display = "none";
-    }
-
-    document.addEventListener("click", (e) => {
-        var target = e.target;
-        if (target !== menu_bttn && target !== account_container || target !== add_item_bottom && target !== table_option_container) {
-            hideContainers();
-        }
-    })
-
-    account_container.addEventListener("click", (e) => {
-        e.stopPropagation();
-    })
-
-    menu_bttn.addEventListener("click", (e) => {
-        e.stopPropagation();
-    })
-
-    add_item_bottom.addEventListener("click", (e) => {
-        e.stopPropagation();
-    })
-
-    table_option_container.addEventListener("click", (e) => {
-        e.stopPropagation();
-    })
-})

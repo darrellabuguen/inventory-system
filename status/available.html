@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../design.css">
     <link rel="stylesheet" href="../responsive.css">
-
+    <script src="../sameFunc.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -116,8 +116,8 @@
                                 d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z" />
                         </svg>
                         <div class="table-option-container">
-                            <span class="table-option">Add Item</span>
-                            <span class="table-option">Delete Table</span>
+                            <span class="table-option table-add">Add Item</span>
+                            <span class="table-option" onclick="deleteTable()">Delete Table</span>
                         </div>
                     </button>
                 </div>
@@ -340,6 +340,8 @@
         add_link.addEventListener("click", openAdd);
         var add_bottom = document.querySelector(".add-item-bottom");
         add_bottom.addEventListener("click", openTableOptions);
+        var table_add = document.querySelector(".table-add");
+        table_add.addEventListener("click", openAdd);
 
         //select add item button class
         var add = document.querySelector(".add-item");
@@ -461,7 +463,6 @@
                     });
 
                     removeTable();
-                    checkScreen();
                     getAvailable(avref, onValue);
                     setTimeout(() => {
                         const delete_btn = document.querySelectorAll(".delete-exx");

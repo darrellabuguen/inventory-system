@@ -435,7 +435,6 @@ td {
     font-family: poppins;
     cursor: pointer;
     border-radius: 50%;
-    display: none;
     background-color: transparent;
     padding: 6px;
     transition: 0.5s ease;
