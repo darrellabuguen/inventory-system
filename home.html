@@ -127,6 +127,7 @@
                             <th>Item ID</th>
                             <th>Item Name</th>
                             <th>Item Price</th>
+                            <th>Batch no#</th>
                             <th>Manufactured Date</th>
                             <th>Expiration Date</th>
                             <th class="date-added">Date Added</th>
@@ -411,11 +412,24 @@
                     var snap_manufactured = data.manufactured;
                     var snap_expiry = data.expiry;
                     var snap_added = data.added;
+                    var snap_batch = data.batch_no;
 
                     item_num++;
 
-                    createTable(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added);
-                    checkStatus(user.uid, snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added);
+                    createTable(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added, snap_batch);
+
+                    //select item-option class
+                    const item_option = document.querySelectorAll(".item-option");
+                    setTimeout(() => {
+                        item_option.forEach(tags => {
+                            var id = tags.parentElement.parentElement.firstChild.textContent;
+                            tags.onclick = () => {
+                                showItemOption(id)      //this function would create another element below the option button
+                            };
+                        })
+                    }, 1500);
+
+                    checkStatus(user.uid, snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added, snap_batch);
                 })
                 var all = document.querySelectorAll(".item-quantity");
                 all.forEach(item => {               //for displaying how many items is in the inventory
@@ -558,7 +572,7 @@
                                         <span style="color: #7E7E7E; font-size: 13px">${item.key}</span>
                                         <div style="display: flex; align-items: center; justify-content: space-between;">
                                             <h3>${data.item_name}</h3>
-                                            <p>${data.item_price}</p>
+                                            <p>x${data.item_qnty}</p>
                                         </div>
                                         <div style="display: flex; align-items: center; justify-content: space-between;">
                                             <span>Price: ${data.item_price}</span>
@@ -572,7 +586,7 @@
                         ol_tag.append(li);
                     })
                 })
-                .catch(err => {
+                .catch((err) => {
                     console.error(err);
                 })
         }
