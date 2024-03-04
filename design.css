@@ -634,5 +634,10 @@ td {
         border: transparent;
         background-color: transparent;
         cursor: pointer;
+        font-family: poppins;
+    }
+
+    span:hover {
+        background-color: gainsboro;
     }
 }

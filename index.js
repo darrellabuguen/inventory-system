@@ -37,7 +37,9 @@ function createTable(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, sn
     tdata4.innerHTML = snap_batch; tdata5.innerHTML = snap_manufactured; tdata6.innerHTML = snap_expiry;
     tdata7.innerHTML = snap_added;
     tdata8.innerHTML = `<div class='item-option ${snap_item_id} inactive'><div>&hellip;</div></div>`;
-
+    tdata8.addEventListener("click", (e) => {
+        e.stopPropagation();
+    })
     tdata1.classList.add("iid");
 
     trow.appendChild(tdata1); trow.appendChild(tdata2); trow.appendChild(tdata3);
@@ -161,27 +163,4 @@ function removeTable() {
 function openTableOptions() {
     const container = document.querySelector(".table-option-container");
     container.style.display = "flex";
-}
-
-function showItemOption(id) {
-    const item_info_container = document.querySelector(`.${id}`);
-    var status = item_info_container.classList.contains("inactive");
-    if (status) {
-        var div = document.createElement("div");
-        var del_span = document.createElement("span");
-        var del_btn = "<button class='delete-item'>Delete</button>"
-        var info_span = document.createElement("span");
-        var info_btn = "<button class='item-info'>Item Info</button>"
-        div.classList.add("item-option-container");
-
-        del_span.innerHTML = del_btn;
-        info_span.innerHTML = info_btn;
-        div.append(del_span);
-        div.append(info_span);
-
-        item_info_container.append(div);
-        item_info_container.classList.remove("inactive");
-    } else {
-        item_info_container.remove(item_info_container.lastChild);
-    }
 }
