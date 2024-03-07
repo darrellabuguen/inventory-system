@@ -240,11 +240,15 @@
                         profile.setAttribute("src", photo_guest);
                         break;
                 }
+                loadData();
+                getRecent();
             }
             else if (user.isAnonymous == true) {
                 is_Anonymous = true;
                 profile.setAttribute("src", photo_guest);
                 document.querySelector(".manage-account").parentElement.style.display = "none";
+                loadData();
+                getRecent();
             }
             document.querySelector("#user-email").textContent = user.email;
         });
@@ -617,11 +621,6 @@
                 location.reload();
             }
         }
-
-        setTimeout(() => {
-            loadData();
-            getRecent();
-        }, 1000);
     </script>
     <script src="../index.js"></script>
 </body>
