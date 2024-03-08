@@ -641,3 +641,45 @@ td {
         background-color: gainsboro;
     }
 }
+
+.item-info-container {
+    width: 25rem;
+    padding: 1rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: solid 1px #202020;
+    border-radius: 15px;
+    background-color: white;
+    font-family: poppins;
+
+    input[type=text],
+    input[type=date] {
+        padding: 0;
+        outline: none;
+        border: none;
+        background-color: transparent;
+        pointer-events: none;
+    }
+
+    .close-info {
+        cursor: pointer;
+        width: 1.5rem;
+        height: 1.5rem;
+        font-size: 1.5rem;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-self: center;
+    }
+}
+
+.item-info-container.hidden {
+    display: none;
+}
+
+.info-inner-container {
+    padding: 1rem;
+}

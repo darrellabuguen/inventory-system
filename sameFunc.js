@@ -64,12 +64,14 @@ export function showItemOption(id) {
     const delete_item = document.querySelector(".delete-item");
 
     //add listener when clicked
-    item_info.addEventListener("click", () => {
+    item_info.addEventListener("click", (e) => {
         showItemInfo(id);       //function that would show the information of selected item
+        e.stopPropagation();
     })
 
-    delete_item.addEventListener("click", () => {
+    delete_item.addEventListener("click", (e) => {
         deleteItem(id);         //function for deleting the selected item
+        e.stopPropagation();
     })
 }
 
@@ -80,10 +82,12 @@ export function hideContainers() {
     table_option_container.style.display = "none";
     if (selected_item !== null) {
         var item_option = document.querySelector(`.item-option.${selected_item}`);
-        var item_info_container = document.querySelector(".item-option-container");
+        var item_info_container = document.querySelector(".item-option-container");     //container of item option
+        var info_container = document.querySelector(".item-info-container");            //container for information of item
         item_info_container.remove();
         item_option.classList.add("inactive");
         item_option.classList.remove("opened");
+        info_container.classList.add("hidden");
         selected_item = null;
     }
 }
@@ -91,6 +95,18 @@ export function hideContainers() {
 function showItemInfo(id) {
     const userid = auth.currentUser.uid;
     const refr = query(ref(db, `User/${userid}/Items/${id}`));
+
+    //select class of hidden container and each input tag in the hidden container
+    const info_container = document.querySelector(".item-info-container");
+    const name = document.querySelector(".item-info-name");
+    const price = document.querySelector(".item-info-price");
+    const qnty = document.querySelector(".item-info-qnty");
+    const batch = document.querySelector(".batch-number");
+    const expiry = document.querySelector("#item-info-expiry");
+    const manufactured = document.querySelector("#item-info-manufactured");
+    const added = document.querySelector("#item-info-added");
+    const info_id = document.querySelector('.item-info-id');
+    info_container.classList.remove("hidden");
     get(refr)
         .then((snapshot) => {
             const data = snapshot.val();
@@ -101,7 +117,15 @@ function showItemInfo(id) {
             var item_mdate = data.manufactured;
             var item_edate = data.expiry;
             var item_added = data.added;
-            console.log(item_name);
+
+            name.value = item_name;
+            price.value = item_price;
+            qnty.value = "X" + item_qnty;
+            batch.value = "Batch no. " + item_batch;
+            expiry.value = item_edate;
+            manufactured.value = item_mdate;
+            added.value = item_added;
+            info_id.textContent = id;
         })
         .catch((err) => {
             alert(err);
