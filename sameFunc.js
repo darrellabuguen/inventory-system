@@ -133,6 +133,24 @@ function showItemInfo(id) {
         })
 }
 
+function deleteItem(id) {
+    const userid = auth.currentUser.uid;
+    const reff = ref(db, `User/${userid}/Items/${id}`);
+    hideContainers();
+    var confirmation = confirm("Delete this item?");
+    if (confirmation) {
+        removeTable();
+        remove(reff)
+            .then(() => {
+                alert("Item successfully deleted");
+            })
+            .catch((err) => {
+                alert(err);
+                console.error(err);
+            })
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const account_container = document.querySelector(".account-container");
     const table_option_container = document.querySelector(".table-option-container");
