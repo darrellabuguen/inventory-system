@@ -172,25 +172,26 @@
             <div class="info-inner-container">
                 <span class="flex">
                     <input type="text" class="item-info-name">
-                    <input type="text" class="item-info-qnty" style="text-align: right;">
+                    <input type="text" class="item-info-qnty">
                 </span>
                 <span class="flex">
                     <input type="text" class="item-info-price">
                 </span>
                 <span class="flex">
                     <label for="item-info-expiry">Expiry: </label>
-                    <input type="text" id="item-info-expiry" style="text-align: right;">
+                    <input type="date" id="item-info-expiry">
                 </span>
                 <span class="flex">
                     <label for="item-info-manufactured">Manufactured: </label>
-                    <input type="text" id="item-info-manufactured" style="text-align: right;">
+                    <input type="date" id="item-info-manufactured">
                 </span>
                 <span class="flex">
                     <label for="item-info-added">Added: </label>
-                    <input type="text" id="item-info-added" style="text-align: right;">
+                    <input type="date" id="item-info-added" style="text-align: right;">
                 </span>
-                <span>
+                <span class="flex" style="gap: 1rem;">
                     <button class="item-info-edit">Edit</button>
+                    <button class="item-info-update">Update</button>
                 </span>
             </div>
             <div class="item-info-id" style="text-align: right;"></div>
@@ -405,6 +406,9 @@
             var month = d.getMonth() + 1;
             var date = d.getUTCDate();
             var year = d.getUTCFullYear();
+
+            month < 10 ? month = "0" + month : month;
+            date < 10 ? date = "0" + date : date;
 
             if (item_name == "" || item_price == "" || manufactured == "") {
                 alert("Please input all the data needed.");
@@ -637,6 +641,7 @@
             var uid = auth.currentUser.uid;
             var ask = confirm("Delete your saved items?");
             const refere = ref(db, `User/${uid}/`);
+            hideContainers();
             if (ask) {
                 try {
                     remove(refere)

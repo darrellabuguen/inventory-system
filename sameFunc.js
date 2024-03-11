@@ -75,29 +75,13 @@ export function showItemOption(id) {
     })
 }
 
-export function hideContainers() {
-    const account_container = document.querySelector(".account-container");
-    const table_option_container = document.querySelector(".table-option-container");
-    account_container.style.display = "none";
-    table_option_container.style.display = "none";
-    if (selected_item !== null) {
-        var item_option = document.querySelector(`.item-option.${selected_item}`);
-        var item_info_container = document.querySelector(".item-option-container");     //container of item option
-        var info_container = document.querySelector(".item-info-container");            //container for information of item
-        item_info_container.remove();
-        item_option.classList.add("inactive");
-        item_option.classList.remove("opened");
-        info_container.classList.add("hidden");
-        selected_item = null;
-    }
-}
-
-function showItemInfo(id) {
+function showItemInfo(infos_id) {
     const userid = auth.currentUser.uid;
-    const refr = query(ref(db, `User/${userid}/Items/${id}`));
+    const refr = query(ref(db, `User/${userid}/Items/${infos_id}`));
 
     //select class of hidden container and each input tag in the hidden container
     const info_container = document.querySelector(".item-info-container");
+    const close_info = document.querySelector(".close-info");
     const name = document.querySelector(".item-info-name");
     const price = document.querySelector(".item-info-price");
     const qnty = document.querySelector(".item-info-qnty");
@@ -106,7 +90,9 @@ function showItemInfo(id) {
     const manufactured = document.querySelector("#item-info-manufactured");
     const added = document.querySelector("#item-info-added");
     const info_id = document.querySelector('.item-info-id');
+    const edit_btn = document.querySelector(".item-info-edit");
     info_container.classList.remove("hidden");
+
     get(refr)
         .then((snapshot) => {
             const data = snapshot.val();
@@ -125,17 +111,27 @@ function showItemInfo(id) {
             expiry.value = item_edate;
             manufactured.value = item_mdate;
             added.value = item_added;
-            info_id.textContent = id;
+            info_id.textContent = infos_id;
         })
         .catch((err) => {
             alert(err);
             console.error(err);
         })
+
+    close_info.addEventListener('click', hideContainers);
+
+    info_container.addEventListener("click", (e) => {
+        e.stopPropagation();
+    })
+
+    edit_btn.addEventListener("click", () => {
+        enableEdit(infos_id, name, price, qnty, batch, expiry, manufactured, edit_btn)
+    })
 }
 
-function deleteItem(id) {
+function deleteItem(delete_id) {
     const userid = auth.currentUser.uid;
-    const reff = ref(db, `User/${userid}/Items/${id}`);
+    const reff = ref(db, `User/${userid}/Items/${delete_id}`);
     hideContainers();
     var confirmation = confirm("Delete this item?");
     if (confirmation) {
@@ -148,6 +144,45 @@ function deleteItem(id) {
                 alert(err);
                 console.error(err);
             })
+    }
+}
+
+function enableEdit(edit_id, name, price, qnty, batch, expiry, manufactured, added, edit_btn) {
+    const update_btn = document.querySelector(".item-info-update");     //select update button's class
+
+    // add class enable edit that would allow pointer events
+    name.classList.add("enable-edit");
+    price.classList.add("enable-edit");
+    qnty.classList.add("enable-edit");
+    batch.classList.add("enable-edit");
+    expiry.classList.add("enable-edit");
+    manufactured.classList.add("enable-edit");
+    added.classList.add("enable-edit");
+    update_btn.classList.add("enable-edit");
+}
+
+export function hideContainers() {
+    const account_container = document.querySelector(".account-container");
+    const table_option_container = document.querySelector(".table-option-container");
+    account_container.style.display = "none";
+    table_option_container.style.display = "none";
+    if (selected_item !== null) {
+        var item_option = document.querySelector(`.item-option.${selected_item}`);
+        var item_info_container = document.querySelector(".item-option-container");     //container of item option
+        var info_container = document.querySelector(".item-info-container");            //container for information of item
+        var inputss = document.querySelectorAll(".item-info-container input.enable-edit");
+        var update_btn = document.querySelector(".item-info-update");
+
+        item_info_container.remove();
+        item_option.classList.add("inactive");
+        item_option.classList.remove("opened");
+        info_container.classList.add("hidden");
+        update_btn.classList.remove("enable-edit");
+        selected_item = null;
+
+        inputss.forEach(tag => {
+            tag.classList.remove("enable-edit");
+        })
     }
 }
 

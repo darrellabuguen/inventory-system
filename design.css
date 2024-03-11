@@ -663,6 +663,17 @@ td {
         pointer-events: none;
     }
 
+    input[type=text].enable-edit,
+    .item-info-qnty.enable-edit,
+    #item-info-expiry.enable-edit,
+    #item-info-manufactured.enable-edit {
+        border-bottom: 1px solid rgb(0, 174, 255);
+        background-color: white;
+        pointer-events: all;
+        text-align: left;
+        margin-left: 0.2rem;
+    }
+
     .close-info {
         cursor: pointer;
         width: 1.5rem;
@@ -675,12 +686,25 @@ td {
         align-self: center;
     }
 
-    button {
+    button.item-info-edit {
         border: none;
         background-color: transparent;
         outline: none;
-        color: #54EBB5;
+        color: rgb(74, 101, 255);
         cursor: pointer;
+    }
+
+    button.item-info-update {
+        border: none;
+        background-color: transparent;
+        outline: none;
+        color: red;
+        cursor: pointer;
+        display: none;
+    }
+
+    .item-info-update.enable-edit {
+        display: block;
     }
 
     .item-info-price {
@@ -706,6 +730,12 @@ td {
     #item-info-manufactured,
     #item-info-added {
         font-size: 13px;
+    }
+
+    .item-info-qnty,
+    #item-info-expiry,
+    #item-info-manufactured {
+        text-align: right;
     }
 }
 
