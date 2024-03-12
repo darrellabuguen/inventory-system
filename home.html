@@ -436,13 +436,12 @@
                 location.reload();
             }
         });
-
+        //items status
+        var item_num = 0;
+        var item_at_hand = 0;
+        var item_near = 0;
+        var item_exp = 0;
         function loadData() {
-            //items status
-            var item_num = 0;
-            var item_at_hand = 0;
-            var item_near = 0;
-            var item_exp = 0;
             const user = auth.currentUser;
 
             //get data in database
@@ -489,79 +488,79 @@
                     item.innerHTML = item_num;
                 })
             });
+        };
 
-            function checkStatus(uid, snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added) {
-                var new_exdate = new Date(snap_expiry);
-                var exdate_time = new_exdate.getTime();
-                exdate_time = exdate_time - 28800000;
-                var month = new Date().getMonth() + 1;
-                var year = new Date().getFullYear();
-                var day = new Date().getDate();
-                var fulldate = month + "-" + day + "-" + year;
-                var transtodate = new Date(fulldate);
-                var crr_time = transtodate.getTime();
-                var near = crr_time - exdate_time;
-                var remain = Math.abs(Math.floor(near / (60 * 60 * 24)));
-                remain = remain / 1000;
+        function checkStatus(uid, snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added) {
+            var new_exdate = new Date(snap_expiry);
+            var exdate_time = new_exdate.getTime();
+            exdate_time = exdate_time - 28800000;
+            var month = new Date().getMonth() + 1;
+            var year = new Date().getFullYear();
+            var day = new Date().getDate();
+            var fulldate = month + "-" + day + "-" + year;
+            var transtodate = new Date(fulldate);
+            var crr_time = transtodate.getTime();
+            var near = crr_time - exdate_time;
+            var remain = Math.abs(Math.floor(near / (60 * 60 * 24)));
+            remain = remain / 1000;
 
-                //check if the item exceeded the expiry date
-                if (crr_time >= exdate_time) {
-                    item_exp++;
-                    var expref = ref(db, `User/${uid}/Expired/` + snap_item_id);
-                    var exp = document.querySelectorAll(".expired");
+            //check if the item exceeded the expiry date
+            if (crr_time >= exdate_time) {
+                item_exp++;
+                var expref = ref(db, `User/${uid}/Expired/` + snap_item_id);
+                var exp = document.querySelectorAll(".expired");
 
-                    exp.forEach(item => {           //for displaying how many items is expired
-                        item.innerHTML = item_exp;
+                exp.forEach(item => {           //for displaying how many items is expired
+                    item.innerHTML = item_exp;
+                });
+
+                set(expref, {
+                    ex_id: snap_item_id,
+                    ex_name: snap_itemn,
+                    ex_price: snap_itemp,
+                    ex_manufactured: snap_manufactured,
+                    ex_expiry: snap_expiry,
+                    ex_added: snap_added
+                });
+            }
+            else {
+                item_at_hand++;
+                var avref = ref(db, `User/${uid}/Available/` + snap_item_id);
+                var available = document.querySelectorAll(".available");
+
+                available.forEach(item => {             //for displaying how many items is available
+                    item.innerHTML = item_at_hand;
+                });
+
+                set(avref, {
+                    av_id: snap_item_id,
+                    av_name: snap_itemn,
+                    av_price: snap_itemp,
+                    av_manufactured: snap_manufactured,
+                    av_expiry: snap_expiry,
+                    av_added: snap_added
+                });
+                //to check if the item is going to expire within month.
+                if (remain <= 31) {
+                    item_near++;
+                    var near = document.querySelectorAll(".almost");
+                    var toexref = ref(db, `User/${uid}/To Expire/` + snap_item_id);
+
+                    near.forEach(item => {              //for displaying how many items is to expired
+                        item.innerHTML = item_near;
                     });
 
-                    set(expref, {
-                        ex_id: snap_item_id,
-                        ex_name: snap_itemn,
-                        ex_price: snap_itemp,
-                        ex_manufactured: snap_manufactured,
-                        ex_expiry: snap_expiry,
-                        ex_added: snap_added
+                    set(toexref, {
+                        toex_id: snap_item_id,
+                        toex_name: snap_itemn,
+                        toex_price: snap_itemp,
+                        toex_manufactured: snap_manufactured,
+                        toex_expiry: snap_expiry,
+                        toex_added: snap_added
                     });
-                }
-                else {
-                    item_at_hand++;
-                    var avref = ref(db, `User/${uid}/Available/` + snap_item_id);
-                    var available = document.querySelectorAll(".available");
-
-                    available.forEach(item => {             //for displaying how many items is available
-                        item.innerHTML = item_at_hand;
-                    });
-
-                    set(avref, {
-                        av_id: snap_item_id,
-                        av_name: snap_itemn,
-                        av_price: snap_itemp,
-                        av_manufactured: snap_manufactured,
-                        av_expiry: snap_expiry,
-                        av_added: snap_added
-                    });
-                    //to check if the item is going to expire within month.
-                    if (remain <= 31) {
-                        item_near++;
-                        var near = document.querySelectorAll(".almost");
-                        var toexref = ref(db, `User/${uid}/To Expire/` + snap_item_id);
-
-                        near.forEach(item => {              //for displaying how many items is to expired
-                            item.innerHTML = item_near;
-                        });
-
-                        set(toexref, {
-                            toex_id: snap_item_id,
-                            toex_name: snap_itemn,
-                            toex_price: snap_itemp,
-                            toex_manufactured: snap_manufactured,
-                            toex_expiry: snap_expiry,
-                            toex_added: snap_added
-                        });
-                    }
                 }
             }
-        };
+        }
 
         function checkScreen() {
             var screen_size = screen.width; //get the user's screen size

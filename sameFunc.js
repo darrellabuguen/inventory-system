@@ -5,7 +5,7 @@ import { getAuth, onAuthStateChanged, deleteUser, GoogleAuthProvider, signInWith
 import {
     getDatabase, ref, push, onValue, child,
     remove, set, query, orderByChild, get,
-    startAt, endAt, limitToLast
+    startAt, endAt, limitToLast, update
 } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
 
 // Initialize Firebase
@@ -124,9 +124,9 @@ function showItemInfo(infos_id) {
         e.stopPropagation();
     })
 
-    edit_btn.addEventListener("click", () => {
-        enableEdit(infos_id, name, price, qnty, batch, expiry, manufactured, edit_btn)
-    })
+    edit_btn.onclick = () => {
+        enableEdit(infos_id, name, price, qnty, batch, expiry, manufactured, added);
+    }
 }
 
 function deleteItem(delete_id) {
@@ -147,7 +147,7 @@ function deleteItem(delete_id) {
     }
 }
 
-function enableEdit(edit_id, name, price, qnty, batch, expiry, manufactured, added, edit_btn) {
+function enableEdit(edit_id, name, price, qnty, batch, expiry, manufactured, added) {
     const update_btn = document.querySelector(".item-info-update");     //select update button's class
 
     // add class enable edit that would allow pointer events
@@ -159,6 +159,36 @@ function enableEdit(edit_id, name, price, qnty, batch, expiry, manufactured, add
     manufactured.classList.add("enable-edit");
     added.classList.add("enable-edit");
     update_btn.classList.add("enable-edit");
+
+    update_btn.onclick = () => {
+        updateInfo(edit_id, name.value, price.value, qnty.value, batch.value, expiry.value, manufactured.value);
+    };
+}
+
+function updateInfo(edit_id, name, price, qnty, batch, expiry, manufactured) {
+    var confirmation = confirm("Update the item's information?");
+    var userid = auth.currentUser.uid;
+    var item_ref = ref(db, `User/${userid}/Items/${edit_id}`);
+    var data = {
+        item_name: name,
+        item_price: price,
+        manufactured: manufactured,
+        expiry: expiry,
+        batch_no: batch,
+        item_qnty: qnty
+    }
+    hideContainers();
+    if (confirmation) {
+        removeTable();
+        update(item_ref, data)
+            .then(() => {
+                alert("Updated!");
+            })
+            .catch((err) => {
+                alert(err);
+                console.log(err);
+            })
+    }
 }
 
 export function hideContainers() {
