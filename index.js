@@ -33,7 +33,7 @@ function createTable(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, sn
     var tdata7 = document.createElement("td");
     var tdata8 = document.createElement("td");
 
-    tdata1.innerHTML = snap_item_id; tdata2.innerHTML = snap_itemn; tdata3.innerHTML = snap_itemp;
+    tdata1.innerHTML = snap_item_id; tdata2.innerHTML = snap_itemn; tdata3.innerHTML = "₱" + snap_itemp;
     tdata4.innerHTML = snap_batch; tdata5.innerHTML = snap_manufactured; tdata6.innerHTML = snap_expiry;
     tdata7.innerHTML = snap_added;
     tdata8.innerHTML = `<div class='item-option ${snap_item_id} inactive'><div>&hellip;</div></div>`;

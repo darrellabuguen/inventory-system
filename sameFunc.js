@@ -106,8 +106,8 @@ function showItemInfo(infos_id) {
 
             name.value = item_name;
             price.value = item_price;
-            qnty.value = "X" + item_qnty;
-            batch.value = "Batch no. " + item_batch;
+            qnty.value = item_qnty;
+            batch.value = item_batch;
             expiry.value = item_edate;
             manufactured.value = item_mdate;
             added.value = item_added;

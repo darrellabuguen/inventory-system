@@ -165,16 +165,23 @@
             </div>
         </div>
         <div class="item-info-container hidden">
-            <span class="flex">
-                <input type="text" class="batch-number">
+            <span class="flex" style="align-items: center;">
+                <span class="flex">
+                    <p style="color: #7E7E7E;">Batch no.</p>
+                    <input type="text" class="batch-number">
+                </span>
                 <div class="close-info">&Cross;</div>
             </span>
             <div class="info-inner-container">
                 <span class="flex">
                     <input type="text" class="item-info-name">
-                    <input type="text" class="item-info-qnty">
+                    <span class="flex" style="align-items: center;">
+                        <input type="text" class="item-info-qnty">
+                        <p>pcs</p>
+                    </span>
                 </span>
-                <span class="flex">
+                <span class="flex" style="align-items: center;">
+                    <p style="font-size: 32px; width: 10%; font-weight: bold;">₱</p>
                     <input type="text" class="item-info-price">
                 </span>
                 <span class="flex">
@@ -417,7 +424,7 @@
                 expiry == "" ? expiry = "No Expiry Date" : expiry = expiry;
                 push(ref(db, `User/${user.uid}/Items/`), {
                     item_name: item_name,
-                    item_price: "₱ " + item_price,
+                    item_price: item_price,
                     manufactured: manufactured,
                     expiry: expiry,
                     added: year + "-" + month + "-" + date,

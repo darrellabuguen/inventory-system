@@ -737,6 +737,10 @@ td {
     #item-info-manufactured {
         text-align: right;
     }
+
+    p {
+        width: 45%;
+    }
 }
 
 .item-info-container.hidden {
