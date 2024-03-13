@@ -655,7 +655,8 @@ td {
     box-shadow: 2px 2px 5px 2px gainsboro;
 
     input[type=text],
-    input[type=date] {
+    input[type=date],
+    input[type=number] {
         padding: 0;
         outline: none;
         border: none;
@@ -663,7 +664,18 @@ td {
         pointer-events: none;
     }
 
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
     input[type=text].enable-edit,
+    input[type=number].enable-edit,
     .item-info-qnty.enable-edit,
     #item-info-expiry.enable-edit,
     #item-info-manufactured.enable-edit {
@@ -690,7 +702,7 @@ td {
         border: none;
         background-color: transparent;
         outline: none;
-        color: rgb(74, 101, 255);
+        color: red;
         cursor: pointer;
     }
 
@@ -698,7 +710,7 @@ td {
         border: none;
         background-color: transparent;
         outline: none;
-        color: red;
+        color: rgb(74, 101, 255);
         cursor: pointer;
         display: none;
     }

@@ -161,7 +161,12 @@ function enableEdit(edit_id, name, price, qnty, batch, expiry, manufactured, add
     update_btn.classList.add("enable-edit");
 
     update_btn.onclick = () => {
-        updateInfo(edit_id, name.value, price.value, qnty.value, batch.value, expiry.value, manufactured.value);
+        var check = name.value && price.value && qnty.value && batch.value && expiry.value !== "";      //check if empty
+        if (check == true) {
+            updateInfo(edit_id, name.value, price.value, qnty.value, batch.value, expiry.value, manufactured.value);
+        } else {
+            alert("Kindly input the proper information needed");
+        }
     };
 }
 
