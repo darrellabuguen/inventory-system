@@ -587,26 +587,39 @@
                     var srchmanu = srchdata.manufactured;
                     var srchexp = srchdata.expiry;
                     var srchadd = srchdata.added;
+                    var srchbatch = srchdata.batch_no;
 
-                    var srchrow = document.createElement("tr");
-                    var srchtd1 = document.createElement("td");
-                    var srchtd2 = document.createElement("td");
-                    var srchtd3 = document.createElement("td");
-                    var srchtd4 = document.createElement("td");
-                    var srchtd5 = document.createElement("td");
-                    var srchtd6 = document.createElement("td");
+                    createTable(srchid, srchname, srchprice, srchmanu, srchexp, srchadd, srchbatch);
 
-                    srchtd1.innerHTML = srchid; srchtd2.innerHTML = srchname; srchtd3.innerHTML = srchprice;
-                    srchtd4.innerHTML = srchmanu; srchtd5.innerHTML = srchexp; srchtd6.innerHTML = srchadd;
-
-                    srchtd1.classList.add("iid");
-
-                    srchrow.appendChild(srchtd1); srchrow.appendChild(srchtd2); srchrow.appendChild(srchtd3);
-                    srchrow.appendChild(srchtd4); srchrow.appendChild(srchtd5); srchrow.appendChild(srchtd6);
-
-                    var first = document.querySelector(".item-body");
-                    first.appendChild(srchrow);
+                    //select item-option class
+                    const item_option = document.querySelectorAll(".item-option");
+                    item_option.forEach(tags => {
+                        var id = tags.parentElement.parentElement.firstChild.textContent;        //stored id in the table
+                        tags.onclick = () => {
+                            var opened = document.querySelectorAll(".opened");
+                            if (opened.length == 0) {
+                                showItemOption(id)      //this function would create another element below the option button
+                            } else {
+                                hideContainers();
+                                showItemOption(id);
+                            }
+                        };
+                    })
                 })
+            })
+            //select item-option class
+            const item_option = document.querySelectorAll(".item-option");
+            item_option.forEach(tags => {
+                var id = tags.parentElement.parentElement.firstChild.textContent;        //stored id in the table
+                tags.onclick = () => {
+                    var opened = document.querySelectorAll(".opened");
+                    if (opened.length == 0) {
+                        showItemOption(id)      //this function would create another element below the option button
+                    } else {
+                        hideContainers();
+                        showItemOption(id);
+                    }
+                };
             })
         };
 
