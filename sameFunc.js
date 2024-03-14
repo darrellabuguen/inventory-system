@@ -1,5 +1,5 @@
 
-import firebaseConfig from "./config.js";
+import firebaseConfig from "../config.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, deleteUser, GoogleAuthProvider, signInWithPopup, linkWithPopup } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 import {

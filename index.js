@@ -84,7 +84,6 @@ function getExp(expref, onValue) {
 }
 
 function getAvailable(avref, onValue) {
-    document.querySelector(".title-nav").innerHTML = "Available Items";
     setTimeout(() => {
         onValue(avref, (avsnap) => {
             var avdata = avsnap.val();
@@ -118,7 +117,6 @@ function getAvailable(avref, onValue) {
 }
 
 function getToEx(toexref, onValue) {
-    document.querySelector(".title-nav").innerHTML = "To Expired Items";
     setTimeout(() => {
 
         onValue(toexref, (toexsnap) => {

@@ -665,7 +665,7 @@ td {
     }
 
     input[type=number] {
-        -moz-appearance: textfield;
+        appearance-moz-appearance: textfield;
     }
 
     input::-webkit-outer-spin-button,
