@@ -423,7 +423,7 @@
                 expiry == "" ? expiry = "No Expiry Date" : expiry = expiry;
                 push(ref(db, `User/${user.uid}/Items/`), {
                     item_name: item_name,
-                    item_price: "₱ " + item_price,
+                    item_price: item_price,
                     manufactured: manufactured,
                     expiry: expiry,
                     added: year + "-" + month + "-" + date,
