@@ -594,7 +594,6 @@
                     var srchadd = srchdata.av_added;
                     var srchbatch = srchdata.av_batch;
 
-
                     createTable(srchid, srchname, srchprice, srchmanu, srchexp, srchadd, srchbatch);
 
                     //select item-option class
@@ -651,6 +650,7 @@
         function deleteTable() {
             var uid = auth.currentUser.uid;
             var ask = confirm("Delete your saved items?");
+            hideContainers();
             if (ask) {
                 for (let i = 0; i < av_id.length; i++) {
                     var id = av_id[i];
