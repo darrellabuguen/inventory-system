@@ -134,9 +134,7 @@
                             <th></th>
                         </thead>
                         <tbody class="item-body">
-                            <tr>
-                                <td colspan="6" style="text-align: center;">No Items</td>
-                            </tr>
+
                         </tbody>
                     </table>
                     <div style="height: 3rem;"></div>
@@ -165,6 +163,45 @@
 
                 </ul>
             </div>
+        </div>
+        <div class="item-info-container hidden">
+            <span class="flex" style="align-items: center;">
+                <span class="flex">
+                    <p style="color: #7E7E7E;">Batch no.</p>
+                    <input type="number" class="batch-number">
+                </span>
+                <div class="close-info">&Cross;</div>
+            </span>
+            <div class="info-inner-container">
+                <span class="flex">
+                    <input type="text" class="item-info-name">
+                    <span class="flex" style="align-items: center;">
+                        <input type="number" class="item-info-qnty">
+                        <p>pcs</p>
+                    </span>
+                </span>
+                <span class="flex" style="align-items: center;">
+                    <p style="font-size: 32px; width: 10%; font-weight: bold;">₱</p>
+                    <input type="number" class="item-info-price">
+                </span>
+                <span class="flex">
+                    <label for="item-info-expiry">Expiry: </label>
+                    <input type="date" id="item-info-expiry">
+                </span>
+                <span class="flex">
+                    <label for="item-info-manufactured">Manufactured: </label>
+                    <input type="date" id="item-info-manufactured">
+                </span>
+                <span class="flex">
+                    <label for="item-info-added">Added: </label>
+                    <input type="date" id="item-info-added" style="text-align: right;">
+                </span>
+                <span class="flex" style="gap: 1rem;">
+                    <button class="item-info-edit">Edit</button>
+                    <button class="item-info-update">Update</button>
+                </span>
+            </div>
+            <div class="item-info-id" style="text-align: right;"></div>
         </div>
     </main>
     <div class="bottom-fix"></div>
@@ -423,10 +460,11 @@
                     var snap_manufactured = data.manufactured;
                     var snap_expiry = data.expiry;
                     var snap_added = data.added;
+                    var snap_batch = data.batch_no;
 
                     item_num++;
 
-                    checkStatus(user.uid, snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added);
+                    checkStatus(user.uid, snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added, snap_batch);
                 })
                 var all = document.querySelectorAll(".item-quantity");
                 all.forEach(item => {               //for displaying how many items is in the inventory
@@ -434,7 +472,7 @@
                 })
             });
 
-            function checkStatus(uid, snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added) {
+            function checkStatus(uid, snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added, snap_batch) {
                 var new_exdate = new Date(snap_expiry);
                 var exdate_time = new_exdate.getTime();
                 exdate_time = exdate_time - 28800000;
@@ -464,7 +502,8 @@
                         ex_price: snap_itemp,
                         ex_manufactured: snap_manufactured,
                         ex_expiry: snap_expiry,
-                        ex_added: snap_added
+                        ex_added: snap_added,
+                        ex_batch: snap_batch
                     });
                 }
                 else {
@@ -483,33 +522,26 @@
                         av_price: snap_itemp,
                         av_manufactured: snap_manufactured,
                         av_expiry: snap_expiry,
-                        av_added: snap_added
+                        av_added: snap_added,
+                        av_batch: snap_batch
                     });
 
-                    removeTable();
-                    getAvailable(avref, onValue);
-                    setTimeout(() => {
-                        const delete_btn = document.querySelectorAll(".delete-exx");
-                        delete_btn.forEach(tag => {
-                            var id = tag.parentElement.parentElement.firstChild.textContent;
-                            const all_refs = ref(db, `User/${uid}/Items/` + id);
-                            const exp_refs = ref(db, `User/${uid}/Available/` + id);
-                            tag.onclick = () => {
-                                var result = confirm("Delete this item?");
-                                if (result) {
-                                    remove(all_refs);
-                                    removeTable();
-                                    remove(exp_refs)
-                                        .then(() => {
-                                            location.reload();
-                                        })
-                                        .catch(err => {
-                                            alert(err);
-                                        })
-                                }
+                    createTable(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added, snap_batch);
+
+                    //select item-option class
+                    const item_option = document.querySelectorAll(".item-option");
+                    item_option.forEach(tags => {
+                        var id = tags.parentElement.parentElement.firstChild.textContent;        //stored id in the table
+                        tags.onclick = () => {
+                            var opened = document.querySelectorAll(".opened");
+                            if (opened.length == 0) {
+                                showItemOption(id)      //this function would create another element below the option button
+                            } else {
+                                hideContainers();
+                                showItemOption(id);
                             }
-                        })
-                    }, 1500);
+                        };
+                    })
 
                     //to check if the item is going to expire within month.
                     if (remain <= 31) {
@@ -527,7 +559,8 @@
                             toex_price: snap_itemp,
                             toex_manufactured: snap_manufactured,
                             toex_expiry: snap_expiry,
-                            toex_added: snap_added
+                            toex_added: snap_added,
+                            toex_batch: snap_batch
                         });
                     }
                 }
@@ -559,7 +592,7 @@
                     var srchmanu = srchdata.av_manufactured;
                     var srchexp = srchdata.av_expiry;
                     var srchadd = srchdata.av_added;
-                    var srchbatch = srchdata.batch_no;
+                    var srchbatch = srchdata.av_batch;
 
 
                     createTable(srchid, srchname, srchprice, srchmanu, srchexp, srchadd, srchbatch);

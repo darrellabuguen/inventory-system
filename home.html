@@ -490,7 +490,7 @@
             });
         };
 
-        function checkStatus(uid, snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added) {
+        function checkStatus(uid, snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added, snap_batch) {
             var new_exdate = new Date(snap_expiry);
             var exdate_time = new_exdate.getTime();
             exdate_time = exdate_time - 28800000;
@@ -520,7 +520,8 @@
                     ex_price: snap_itemp,
                     ex_manufactured: snap_manufactured,
                     ex_expiry: snap_expiry,
-                    ex_added: snap_added
+                    ex_added: snap_added,
+                    ex_batch: snap_batch
                 });
             }
             else {
@@ -538,7 +539,8 @@
                     av_price: snap_itemp,
                     av_manufactured: snap_manufactured,
                     av_expiry: snap_expiry,
-                    av_added: snap_added
+                    av_added: snap_added,
+                    av_batch: snap_batch
                 });
                 //to check if the item is going to expire within month.
                 if (remain <= 31) {
@@ -556,7 +558,8 @@
                         toex_price: snap_itemp,
                         toex_manufactured: snap_manufactured,
                         toex_expiry: snap_expiry,
-                        toex_added: snap_added
+                        toex_added: snap_added,
+                        toex_batch: snap_batch
                     });
                 }
             }
