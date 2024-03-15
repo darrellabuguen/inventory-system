@@ -6,7 +6,8 @@
     }
 
     .main-container,
-    .forms {
+    .forms,
+    .item-info-container {
         width: 100%;
     }
 
@@ -90,6 +91,12 @@
         flex-direction: column;
         text-align: center;
     }
+
+    .item-info-container {
+        top: 90%;
+        left: 90%;
+        transform: translate(-90%, -95%);
+    }
 }
 
 @media (min-width: 320px) {
@@ -167,6 +174,13 @@
 
     .account-container {
         width: 20rem;
+    }
+
+    .item-info-container {
+        width: 20rem;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 }
 
