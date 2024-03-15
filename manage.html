@@ -65,18 +65,22 @@
                 <table style="margin: auto;">
                     <tr class="tr-email">
                         <td class="padding1"><b>Email</b></td>
-                        <td><input type="text" id="user-email" class="account-input manage-email" style="border: none;">
+                        <td>
+                            <input type="text" id="user-email" class="account-input manage-email" style="border: none;">
                         </td>
                         <td><a href="#" class="manage-update" id="edit-email">update</a></td>
                     </tr>
                     <tr class="tr-pass">
-                        <td colspan="3" class="padding1" style="text-align: center;">
+                        <td colspan="3" class="padding1">
                             <a href="./reset.html">Update password?</a>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="3" class="padding1 tr-save" style="display: none;">
-                            <button class="manage-save" style="font-family: poppins; padding: 0.5rem;">Save</button>
+                        <td colspan="3" class="padding1 tr-save" style="display: none; text-align: center;">
+                            <button class="manage-save"
+                                style="font-family: poppins; padding: 0.5rem; background-color: #FF3131; color: white; border: none; cursor: pointer;">
+                                Save
+                            </button>
                         </td>
                     </tr>
                     <tr>
@@ -193,6 +197,7 @@
         const update = document.querySelector(".manage-update");     //select all class manage-update which are the update buttons
         update.addEventListener("click", () => {
             email.classList.remove("account-input");        //remove account-input class that prohibits the user in editing email
+            email.style.border = "solid 1px gainsboro";
         })
 
         const save_btn = document.querySelector(".manage-save");
@@ -204,8 +209,8 @@
 
             if (input_email !== firebase_email && result == true) {
                 updateEmail(user, input_email)
-                    .then(msg => {
-                        alert(msg);
+                    .then(() => {
+                        alert("Email successfully updated");
                     })
                     .catch(err => {
                         alert("Error: " + err);
