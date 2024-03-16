@@ -12,17 +12,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./design.css">
     <link rel="stylesheet" href="./responsive.css">
-
+    <script type="module" src="./sameFunc.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
 
-    <title>Dashboard | Inventory System</title>
+    <title>Home | Inventory System</title>
 </head>
 
 <body>
     <header>
-        <div class="web-name">Store Inventory</div>
+        <div class="web-name">
+            <img src="./images/logo.png" alt="img" style="height: 2.6rem;">
+        </div>
         <div class="signout-contain">
             <button class="menu_bttn">
                 <svg xmlns="http://www.w3.org/2000/svg" class="menu_icon"
@@ -78,52 +80,63 @@
     <main>
         <div class="item-display">
             <div class="item-status-container">
-                <div class="item-all container active">
-                    <label class="item-quantity-label">All Items</label><br>
-                    <div class="item-quantity"></div>
-                </div>
-                <div class="item-available container">
-                    <label class="available-label">Available Items</label><br>
-                    <div class="available"></div>
-                </div>
-                <div class="item-to-expire container">
-                    <label class="almost-label">To Expire Items</label><br>
-                    <div class="almost"></div>
-                </div>
-                <div class="item-expired container">
-                    <label class="expired-label">Expired Items</label><br>
-                    <div class="expired"></div>
-                </div>
+                <a href="home.html" class="item-all container active">
+                    All Items
+                    <div class="item-quantity">0</div>
+                </a>
+                <a href="./status/available.html" class="item-available container">
+                    Available Items
+                    <div class="available">0</div>
+                </a>
+                <a href="./status/toexpire.html" class="item-to-expire container">
+                    Items To Expire
+                    <div class="almost">0</div>
+                </a>
+                <a href="./status/expired.html" class="item-expired container">
+                    Expired Items
+                    <div class="expired">0</div>
+                </a>
             </div>
             <div class="items-container">
                 <div class="nav-title">
                     <p class="title-nav">All Items</p>
                 </div>
                 <div class="search-container">
-                    <input class="search" type="search" name="search">
-                    <button class="search-button"><img class="search-icn" src="./images/search_icon.png"
-                            alt="img"></button>
-                    <div class="add-bottom">
-                        <button class="add-item-bottom"><img class="bttm-add" src="./images/add_icon.png"
-                                alt="img"></button>
+                    <div class="search-with-button">
+                        <input class="search" type="search" name="search">
+                        <button class="search-button">
+                            <img class="search-icn" src="./images/search_icon.png" alt="img">
+                        </button>
                     </div>
+                    <button class="add-item-bottom">
+                        <!-- <img class="bttm-add" src="./images/add_icon.png" alt="img"> -->
+                        <svg class="bttm-add" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512">
+                            <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                            <path
+                                d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z" />
+                        </svg>
+                        <div class="table-option-container">
+                            <span class="table-option table-add">Add Item</span>
+                            <span class="table-option table-delete">Delete Table</span>
+                        </div>
+                    </button>
                 </div>
                 <div class="table-container">
                     <table class="items">
                         <thead>
-                            <th>Item ID</th>
-                            <th>Item Name</th>
-                            <th>Item Price</th>
-                            <th>Manufactured Date</th>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Batch no#</th>
+                            <th>Quantity</th>
                             <th>Expiration Date</th>
-                            <th>Date Added</th>
+                            <th></th>
                         </thead>
                         <tbody class="item-body">
-                            <tr>
-                                <td colspan="6" style="text-align: center;">No items</td>
-                            </tr>
+
                         </tbody>
                     </table>
+                    <div style="height: 3rem;"></div>
                 </div>
             </div>
         </div>
@@ -132,7 +145,11 @@
                 <div class="add-item-text">Add Item <span class="exit-add"
                         style="float: right; display: none; cursor: pointer; ">&Cross;</span></div>
                 <input class="item-name" required type="text" placeholder="Item name...">
-                <input class="item-price" required type="text" placeholder="Item price...">
+                <input class="item-price" required type="number" placeholder="Item price...">
+                <div style="display: flex; align-items: center; gap: 5px; margin-top: 3px;">
+                    <input class="item-unit" required type="number" placeholder="Batch no#...">
+                    <input class="item-qnty" required type="number" placeholder="Quantity...">
+                </div>
                 <label for="manufactured">Manufactured Date</label>
                 <input class="manufactured-date" id="manufactured" required type="date" name="manufactured">
                 <label for="expiry-date">Expiry Date</label>
@@ -146,22 +163,68 @@
                 </ul>
             </div>
         </div>
+        <div class="item-info-container hidden">
+            <span class="flex" style="align-items: center; justify-content: space-between;">
+                <span class="flex">
+                    <p style="color: #7E7E7E; width: 50%;">Batch no.</p>
+                    <input type="number" class="batch-number">
+                </span>
+                <div class="close-info">&Cross;</div>
+            </span>
+            <div class="info-inner-container">
+                <span class="flex">
+                    <input type="text" class="item-info-name">
+                    <span class="flex" style="align-items: center;">
+                        <input type="number" class="item-info-qnty">
+                        <p>pcs</p>
+                    </span>
+                </span>
+                <span class="flex" style="align-items: center;">
+                    <p style="font-size: 32px; width: 10%; font-weight: bold;">₱</p>
+                    <input type="number" class="item-info-price">
+                </span>
+                <span class="flex">
+                    <label for="item-info-expiry">Expiry: </label>
+                    <input type="date" id="item-info-expiry">
+                </span>
+                <span class="flex">
+                    <label for="item-info-manufactured">Manufactured: </label>
+                    <input type="date" id="item-info-manufactured">
+                </span>
+                <span class="flex">
+                    <label for="item-info-added">Added: </label>
+                    <input type="date" id="item-info-added" style="text-align: right;">
+                </span>
+                <span class="flex" style="gap: 1rem;">
+                    <button class="item-info-edit">Edit</button>
+                    <button class="item-info-update">Update</button>
+                </span>
+            </div>
+            <div class="item-info-id" style="text-align: right;"></div>
+        </div>
     </main>
     <div class="bottom-fix"></div>
     <section>
         <div class="menu-container">
-            <div class="item-all-link bttm active-bttm"><span class="item-quantity status-number">0</span><img
-                    class="status-icn" src="./images/allitems_icon.png" alt="img">
+            <a href="../home.html" class="item-all-link bttm active-bttm">
+                <span class="item-quantity status-number">0</span>
+                <img class="status-icn" src="../images/allitems_icon.png" alt="img">
+            </a>
+            <a href="./status/available.html" class="item-available-link bttm">
+                <span class="available status-number">0</span>
+                <img class="status-icn" src="../images/available_icon.png" alt="img">
+            </a>
+            <div class="add-item-link bttm">
+                <img class="mid-add" src="../images/add_icon.png" alt="img">
             </div>
-            <div class="item-available-link bttm"><span class="available status-number">0</span><img class="status-icn"
-                    src="./images/available_icon.png" alt="img">
-            </div>
-            <div class="add-item-link bttm"><img class="mid-add" src="./images/add_icon.png" alt="img"></div>
-            <div class="item-to-expire-link bttm"><span class="almost status-number">0</span><img class="status-icn"
-                    src="./images/toexpired_icon.png" alt="img">
-            </div>
-            <div class="item-expired-link bttm"><span class="expired status-number">0</span><img class="status-icn"
-                    src="./images/expired_icon.png" alt=""></div>
+            <a href="./status/toexpire.html" class="item-to-expire-link bttm">
+                <span class="almost status-number">0</span>
+                <img class="status-icn" src="../images/toexpired_icon.png" alt="img">
+            </a>
+            <a href="./status/expired.html" class="item-expired-link bttm">
+                <span class="expired status-number">0</span>
+                <img class="status-icn" src="../images/expired_icon.png" alt="">
+            </a>
         </div>
     </section>
     <script src="config.js" type="module"></script>
@@ -177,6 +240,8 @@
         } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
+
+        import { openAdd, showItemOption, hideContainers } from "./sameFunc.js";
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
@@ -214,11 +279,15 @@
                         profile.setAttribute("src", photo_guest);
                         break;
                 }
+                loadData();
+                getRecent();
             }
             else if (user.isAnonymous == true) {
                 is_Anonymous = true;
                 profile.setAttribute("src", photo_guest);
                 document.querySelector(".manage-account").parentElement.style.display = "none";
+                loadData();
+                getRecent();
             }
             document.querySelector("#user-email").textContent = user.email;
         });
@@ -302,19 +371,14 @@
         }
 
         //add box shadow when the container is clicked
-        var bttmcontainer = document.querySelectorAll(".bttm");
-        for (let i = 0; i < bttmcontainer.length; i++) {
-            bttmcontainer[i].onclick = function () {
-                var first_container = bttmcontainer[0];
-                while (first_container) {
-                    if (first_container.tagName === "DIV") {
-                        first_container.classList.remove("active-bttm");
-                    }
-                    first_container = first_container.nextSibling;
-                }
-                this.classList.add("active-bttm");
-            }
-        }
+        const bttmcontainer = document.querySelectorAll(".bttm");
+        const crr_active = document.querySelector(".item-all-link");
+        bttmcontainer.forEach(tag => {
+            tag.addEventListener("click", () => {
+                crr_active.classList.remove("active-bttm");
+                tag.classList.add("active-bttm");
+            });
+        })
 
         //search button function section
         var serch = document.querySelector(".search-button");
@@ -322,9 +386,15 @@
 
         //add item link function section
         var add_link = document.querySelector(".add-item-link");
-        add_link.addEventListener("click", openAdd);
         var add_bottom = document.querySelector(".add-item-bottom");
-        add_bottom.addEventListener("click", openAdd);
+        var table_add = document.querySelector(".table-add");
+        add_link.addEventListener("click", openAdd);
+        add_bottom.addEventListener("click", openTableOptions);
+        table_add.addEventListener("click", openAdd);
+
+        //select delete button in table option
+        const table_delete = document.querySelector(".table-delete");
+        table_delete.addEventListener("click", deleteTable);
 
         //select add item button class
         var add = document.querySelector(".add-item");
@@ -334,12 +404,17 @@
             const item_id = push(child(ref(db), 'Items')).key;
             var item_name = document.querySelector(".item-name").value;
             var item_price = document.querySelector(".item-price").value;
+            var item_unit = document.querySelector(".item-unit").value;
+            var item_qnty = document.querySelector(".item-qnty").value;
             var manufactured = document.querySelector(".manufactured-date").value;
             var expiry = document.querySelector(".expiry-date").value;
             var d = new Date();
             var month = d.getMonth() + 1;
             var date = d.getUTCDate();
             var year = d.getUTCFullYear();
+
+            month < 10 ? month = "0" + month : month;
+            date < 10 ? date = "0" + date : date;
 
             if (item_name == "" || item_price == "" || manufactured == "") {
                 alert("Please input all the data needed.");
@@ -348,27 +423,33 @@
                 expiry == "" ? expiry = "No Expiry Date" : expiry = expiry;
                 push(ref(db, `User/${user.uid}/Items/`), {
                     item_name: item_name,
-                    item_price: "₱ " + item_price,
+                    item_price: item_price,
                     manufactured: manufactured,
                     expiry: expiry,
-                    added: year + "-" + month + "-" + date
+                    added: year + "-" + month + "-" + date,
+                    batch_no: item_unit,
+                    item_qnty: item_qnty
                 });
                 removeTable();
                 alert("Item Added!");
                 location.reload();
             }
         });
-
+        //items status
+        var item_num = 0;
+        var item_at_hand = 0;
+        var item_near = 0;
+        var item_exp = 0;
         function loadData() {
-            //items status
-            var item_num = 0;
-            var item_at_hand = 0;
-            var item_near = 0;
-            var item_exp = 0;
             const user = auth.currentUser;
 
             //get data in database
             const item = ref(db, `User/${user.uid}/Items`); //initialize database reference
+
+            remove(ref(db, `User/${user.uid}/Available/`)); //remove data in each reference to delete data that is not suited in that status
+            remove(ref(db, `User/${user.uid}/Expired/`));
+            remove(ref(db, `User/${user.uid}/To Expire/`));
+
             onValue(item, (snapshot) => {
                 snapshot.forEach(function (childSnap) {
                     const data = childSnap.val();
@@ -378,165 +459,114 @@
                     var snap_manufactured = data.manufactured;
                     var snap_expiry = data.expiry;
                     var snap_added = data.added;
+                    var snap_batch = data.batch_no;
+                    var snap_quantity = data.item_qnty;
 
                     item_num++;
 
-                    removeTable();
-                    createTable(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added);
-                    checkStatus(user.uid, snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added);
+                    createTable(snap_item_id, snap_itemn, snap_itemp, snap_quantity, snap_expiry, snap_batch);
+
+                    //select item-option class
+                    const item_option = document.querySelectorAll(".item-option");
+                    item_option.forEach(tags => {
+                        var id = tags.parentElement.parentElement.firstChild.textContent;        //stored id in the table
+                        tags.onclick = () => {
+                            var opened = document.querySelectorAll(".opened");
+                            if (opened.length == 0) {
+                                showItemOption(id)      //this function would create another element below the option button
+                            } else {
+                                hideContainers();
+                                showItemOption(id);
+                            }
+                        };
+                    })
+
+                    checkStatus(user.uid, snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added, snap_batch, snap_quantity);
                 })
                 var all = document.querySelectorAll(".item-quantity");
                 all.forEach(item => {               //for displaying how many items is in the inventory
                     item.innerHTML = item_num;
                 })
             });
+        };
 
-            function checkStatus(uid, snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added) {
-                var new_exdate = new Date(snap_expiry);
-                var exdate_time = new_exdate.getTime();
-                exdate_time = exdate_time - 28800000;
-                var month = new Date().getMonth() + 1;
-                var year = new Date().getFullYear();
-                var day = new Date().getDate();
-                var fulldate = month + "-" + day + "-" + year;
-                var transtodate = new Date(fulldate);
-                var crr_time = transtodate.getTime();
-                var near = crr_time - exdate_time;
-                var remain = Math.abs(Math.floor(near / (60 * 60 * 24)));
-                remain = remain / 1000;
+        function checkStatus(uid, snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added, snap_batch, snap_quantity) {
+            var new_exdate = new Date(snap_expiry);
+            var exdate_time = new_exdate.getTime();
+            exdate_time = exdate_time - 28800000;
+            var month = new Date().getMonth() + 1;
+            var year = new Date().getFullYear();
+            var day = new Date().getDate();
+            var fulldate = month + "-" + day + "-" + year;
+            var transtodate = new Date(fulldate);
+            var crr_time = transtodate.getTime();
+            var near = crr_time - exdate_time;
+            var remain = Math.abs(Math.floor(near / (60 * 60 * 24)));
+            remain = remain / 1000;
 
-                //check if the item exceeded the expiry date
-                if (crr_time >= exdate_time) {
-                    item_exp++;
-                    var expref = ref(db, `User/${uid}/Expired/` + snap_item_id);
-                    var exp = document.querySelectorAll(".expired");
-                    var expcontain = document.querySelector(".item-expired");
-                    var explink = document.querySelector(".item-expired-link");
+            //check if the item exceeded the expiry date
+            if (crr_time >= exdate_time) {
+                item_exp++;
+                var expref = ref(db, `User/${uid}/Expired/` + snap_item_id);
+                var exp = document.querySelectorAll(".expired");
 
-                    exp.forEach(item => {           //for displaying how many items is expired
-                        item.innerHTML = item_exp;
+                exp.forEach(item => {           //for displaying how many items is expired
+                    item.innerHTML = item_exp;
+                });
+
+                set(expref, {
+                    ex_id: snap_item_id,
+                    ex_name: snap_itemn,
+                    ex_price: snap_itemp,
+                    ex_manufactured: snap_manufactured,
+                    ex_expiry: snap_expiry,
+                    ex_added: snap_added,
+                    ex_batch: snap_batch,
+                    ex_qnty: snap_quantity
+                });
+            }
+            else {
+                item_at_hand++;
+                var avref = ref(db, `User/${uid}/Available/` + snap_item_id);
+                var available = document.querySelectorAll(".available");
+
+                available.forEach(item => {             //for displaying how many items is available
+                    item.innerHTML = item_at_hand;
+                });
+
+                set(avref, {
+                    av_id: snap_item_id,
+                    av_name: snap_itemn,
+                    av_price: snap_itemp,
+                    av_manufactured: snap_manufactured,
+                    av_expiry: snap_expiry,
+                    av_added: snap_added,
+                    av_batch: snap_batch,
+                    av_qnty: snap_quantity
+                });
+                //to check if the item is going to expire within month.
+                if (remain <= 31) {
+                    item_near++;
+                    var near = document.querySelectorAll(".almost");
+                    var toexref = ref(db, `User/${uid}/To Expire/` + snap_item_id);
+
+                    near.forEach(item => {              //for displaying how many items is to expired
+                        item.innerHTML = item_near;
                     });
 
-                    set(expref, {
-                        ex_id: snap_item_id,
-                        ex_name: snap_itemn,
-                        ex_price: snap_itemp,
-                        ex_manufactured: snap_manufactured,
-                        ex_expiry: snap_expiry,
-                        ex_added: snap_added
+                    set(toexref, {
+                        toex_id: snap_item_id,
+                        toex_name: snap_itemn,
+                        toex_price: snap_itemp,
+                        toex_manufactured: snap_manufactured,
+                        toex_expiry: snap_expiry,
+                        toex_added: snap_added,
+                        toex_batch: snap_batch,
+                        toex_qnty: snap_quantity
                     });
-                    //function when clicking expire container
-                    expcontain.addEventListener("click", () => {
-                        removeTable();
-                        checkScreen();
-                        getExp(expref, onValue);
-                        setTimeout(() => {
-                            const delete_btn = document.querySelectorAll(".delete-exx");
-                            delete_btn.forEach(tag => {
-                                var id = tag.parentElement.parentElement.firstChild.textContent;
-                                const all_refs = ref(db, `User/${uid}/Items/` + id);
-                                const exp_refs = ref(db, `User/${uid}/Expired/` + id);
-                                tag.onclick = () => {
-                                    var result = confirm("Delete this item?");
-                                    if (result) {
-                                        remove(all_refs);
-                                        removeTable();
-                                        remove(exp_refs)
-                                            .then(() => {
-                                                location.reload();
-                                            })
-                                            .catch(err => {
-                                                alert(err);
-                                            })
-                                    }
-                                }
-                            })
-                        }, 1500);
-                    });
-                    //function when clicking expire link
-                    explink.addEventListener("click", () => {
-                        removeTable();
-                        checkScreen();
-                        getExp(expref, onValue);
-                        setTimeout(() => {
-                            const delete_btn = document.querySelectorAll(".delete-exx");
-                            delete_btn.forEach(tag => {
-                                var id = tag.parentElement.parentElement.firstChild.textContent;
-                                tag.onclick = () => {
-                                    console.log(id);
-                                }
-                            })
-                        }, 1500);
-                    });
-                }
-                else {
-                    item_at_hand++;
-                    var avref = ref(db, `User/${uid}/Available/` + snap_item_id);
-                    var available = document.querySelectorAll(".available");
-                    var av = document.querySelector(".item-available");
-                    var avlink = document.querySelector(".item-available-link");
-
-                    available.forEach(item => {             //for displaying how many items is available
-                        item.innerHTML = item_at_hand;
-                    });
-
-                    set(avref, {
-                        av_id: snap_item_id,
-                        av_name: snap_itemn,
-                        av_price: snap_itemp,
-                        av_manufactured: snap_manufactured,
-                        av_expiry: snap_expiry,
-                        av_added: snap_added
-                    });
-                    //function when clicking available container
-                    av.addEventListener("click", () => {
-                        removeTable();
-                        checkScreen();
-                        getAvailable(avref, onValue);
-                    });
-                    //function when clicking available link
-                    avlink.addEventListener("click", () => {
-                        removeTable();
-                        checkScreen();
-                        getAvailable(avref, onValue);
-                    });
-                    //to check if the item is going to expire within month.
-                    if (remain <= 31) {
-                        item_near++;
-                        var near = document.querySelectorAll(".almost");
-                        var toexref = ref(db, `User/${uid}/To Expire/` + snap_item_id);
-                        var toex = document.querySelector(".item-to-expire");
-                        var toexlink = document.querySelector(".item-to-expire-link");
-
-                        near.forEach(item => {              //for displaying how many items is to expired
-                            item.innerHTML = item_near;
-                        });
-
-                        set(toexref, {
-                            toex_id: snap_item_id,
-                            toex_name: snap_itemn,
-                            toex_price: snap_itemp,
-                            toex_manufactured: snap_manufactured,
-                            toex_expiry: snap_expiry,
-                            toex_added: snap_added
-                        });
-                        toex.addEventListener("click", () => {
-                            removeTable();
-                            checkScreen();
-                            getToEx(toexref, onValue);
-                        });
-                        toexlink.addEventListener("click", () => {
-                            removeTable();
-                            checkScreen();
-                            getToEx(toexref, onValue);
-                        });
-                    }
-                    else {
-                        var toexnone = document.querySelector(".almost").innerHTML = 0;
-                    }
                 }
             }
-        };
+        }
 
         function checkScreen() {
             var screen_size = screen.width; //get the user's screen size
@@ -563,49 +593,41 @@
                     var srchmanu = srchdata.manufactured;
                     var srchexp = srchdata.expiry;
                     var srchadd = srchdata.added;
+                    var srchbatch = srchdata.batch_no;
 
-                    var srchrow = document.createElement("tr");
-                    var srchtd1 = document.createElement("td");
-                    var srchtd2 = document.createElement("td");
-                    var srchtd3 = document.createElement("td");
-                    var srchtd4 = document.createElement("td");
-                    var srchtd5 = document.createElement("td");
-                    var srchtd6 = document.createElement("td");
+                    createTable(srchid, srchname, srchprice, srchmanu, srchexp, srchadd, srchbatch);
 
-                    srchtd1.innerHTML = srchid; srchtd2.innerHTML = srchname; srchtd3.innerHTML = srchprice;
-                    srchtd4.innerHTML = srchmanu; srchtd5.innerHTML = srchexp; srchtd6.innerHTML = srchadd;
-
-                    srchtd1.classList.add("iid");
-
-                    srchrow.appendChild(srchtd1); srchrow.appendChild(srchtd2); srchrow.appendChild(srchtd3);
-                    srchrow.appendChild(srchtd4); srchrow.appendChild(srchtd5); srchrow.appendChild(srchtd6);
-
-                    var first = document.querySelector(".item-body");
-                    first.appendChild(srchrow);
+                    //select item-option class
+                    const item_option = document.querySelectorAll(".item-option");
+                    item_option.forEach(tags => {
+                        var id = tags.parentElement.parentElement.firstChild.textContent;        //stored id in the table
+                        tags.onclick = () => {
+                            var opened = document.querySelectorAll(".opened");
+                            if (opened.length == 0) {
+                                showItemOption(id)      //this function would create another element below the option button
+                            } else {
+                                hideContainers();
+                                showItemOption(id);
+                            }
+                        };
+                    })
                 })
             })
+            //select item-option class
+            const item_option = document.querySelectorAll(".item-option");
+            item_option.forEach(tags => {
+                var id = tags.parentElement.parentElement.firstChild.textContent;        //stored id in the table
+                tags.onclick = () => {
+                    var opened = document.querySelectorAll(".opened");
+                    if (opened.length == 0) {
+                        showItemOption(id)      //this function would create another element below the option button
+                    } else {
+                        hideContainers();
+                        showItemOption(id);
+                    }
+                };
+            })
         };
-
-        function openAdd() {
-            var add_section = document.querySelector(".add-item-section");
-            var add_container = document.querySelector(".add-item-container");
-            var exit_add = document.querySelector(".exit-add");
-            var menu = document.querySelector("main");
-            var browsersize = window.innerWidth;
-            var screensize = screen.width;
-            if (screensize < 768 || browsersize < 768) {
-                add_section.style.width = "100%";
-                add_container.style.borderTop = "none";
-                add_section.style.display = "block";
-                menu.style.display = "block";
-                document.querySelector(".items-container").style.display = "none";
-            }
-            else {
-                add_section.style.width = "50%";
-                exit_add.style.display = "block";
-                add_section.classList.add("show");
-            }
-        }
 
         function getRecent() {
             const uid = auth.currentUser.uid;
@@ -617,24 +639,44 @@
                         const data = item.val();
                         const date = new Date(data.added);
                         const string_date = date.toDateString();
-                        const info = data.item_name + " " + `(${string_date})`;
+                        const info = `<div>
+                                        <span style="color: #7E7E7E; font-size: 13px">${item.key}</span>
+                                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                                            <h3>${data.item_name}</h3>
+                                            <p>x${data.item_qnty}</p>
+                                        </div>
+                                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                                            <span>Price: ₱ ${data.item_price}</span>
+                                            <p style="font-size: 13px; float: right;">${string_date}</p>
+                                        </div>
+                                    </div>`;
                         const li = document.createElement("li");
-                        li.textContent = info;
+                        li.innerHTML = info;
                         li.style.fontFamily = "Poppins";
-                        li.style.textAlign = "center";
                         li.classList.add("recent");
                         ol_tag.append(li);
                     })
                 })
-                .catch(err => {
+                .catch((err) => {
                     console.error(err);
                 })
         }
 
-        setTimeout(() => {
-            loadData();
-            getRecent();
-        }, 1000);
+        function deleteTable() {
+            var uid = auth.currentUser.uid;
+            var ask = confirm("Delete your saved items?");
+            const refere = ref(db, `User/${uid}/`);
+            hideContainers();
+            if (ask) {
+                try {
+                    remove(refere)
+                    location.reload();
+                }
+                catch (err) {
+                    alert(err);
+                }
+            }
+        }
     </script>
     <script src="./index.js"></script>
 </body>

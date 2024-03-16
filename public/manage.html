@@ -16,7 +16,11 @@
 
 <body>
     <header>
-        <div class="web-name"><a href="home.html" style="color: white;">Store Inventory</a></div>
+        <div class="web-name">
+            <a href="home.html" style="display: flex; align-items: center;">
+                <img src="../images/logo.png" alt="img" style="height: 2.6rem;">
+            </a>
+        </div>
         <div class="signout-contain">
             <button class="menu_bttn">
                 <svg xmlns="http://www.w3.org/2000/svg" class="menu_icon"
@@ -61,18 +65,22 @@
                 <table style="margin: auto;">
                     <tr class="tr-email">
                         <td class="padding1"><b>Email</b></td>
-                        <td><input type="text" id="user-email" class="account-input manage-email" style="border: none;">
+                        <td>
+                            <input type="text" id="user-email" class="account-input manage-email" style="border: none;">
                         </td>
                         <td><a href="#" class="manage-update" id="edit-email">update</a></td>
                     </tr>
                     <tr class="tr-pass">
-                        <td colspan="3" class="padding1" style="text-align: center;">
+                        <td colspan="3" class="padding1">
                             <a href="./reset.html">Update password?</a>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="3" class="padding1 tr-save" style="display: none;">
-                            <button class="manage-save" style="font-family: poppins; padding: 0.5rem;">Save</button>
+                        <td colspan="3" class="padding1 tr-save" style="display: none; text-align: center;">
+                            <button class="manage-save"
+                                style="font-family: poppins; padding: 0.5rem; background-color: #FF3131; color: white; border: none; cursor: pointer;">
+                                Save
+                            </button>
                         </td>
                     </tr>
                     <tr>
@@ -175,7 +183,7 @@
             var lastLogin = user.metadata.lastLoginAt;
             if (result == true) {                                                       //if true delete the account and signout
                 deleteUser(user)              //method for deleting user account
-                reff ? remove(reff) : confirmation;
+                reff ? remove(reff) : result;
             }
         })
 
@@ -189,6 +197,7 @@
         const update = document.querySelector(".manage-update");     //select all class manage-update which are the update buttons
         update.addEventListener("click", () => {
             email.classList.remove("account-input");        //remove account-input class that prohibits the user in editing email
+            email.style.border = "solid 1px gainsboro";
         })
 
         const save_btn = document.querySelector(".manage-save");
@@ -200,8 +209,8 @@
 
             if (input_email !== firebase_email && result == true) {
                 updateEmail(user, input_email)
-                    .then(msg => {
-                        alert(msg);
+                    .then(() => {
+                        alert("Email successfully updated");
                     })
                     .catch(err => {
                         alert("Error: " + err);
@@ -212,6 +221,30 @@
                 trsave.style.display = "none";
             }
         });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const account_container = document.querySelector(".account-container");
+            const menu_bttn = document.querySelector(".menu_bttn");
+
+            function hideContainers() {
+                account_container.style.display = "none";
+            }
+
+            document.addEventListener("click", (e) => {
+                var target = e.target;
+                if (target !== menu_bttn && target !== account_container) {
+                    hideContainers();
+                }
+            })
+
+            account_container.addEventListener("click", (e) => {
+                e.stopPropagation();
+            })
+
+            menu_bttn.addEventListener("click", (e) => {
+                e.stopPropagation();
+            })
+        })
     </script>
 </body>
 
