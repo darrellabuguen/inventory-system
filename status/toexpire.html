@@ -124,13 +124,12 @@
                 <div class="table-container">
                     <table class="items">
                         <thead>
-                            <th>Item ID</th>
-                            <th>Item Name</th>
-                            <th>Item Price</th>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Price</th>
                             <th>Batch no#</th>
-                            <th>Manufactured Date</th>
+                            <th>Quantity</th>
                             <th>Expiration Date</th>
-                            <th class="date-added">Date Added</th>
                             <th></th>
                         </thead>
                         <tbody class="item-body">
@@ -461,10 +460,11 @@
                     var snap_expiry = data.expiry;
                     var snap_added = data.added;
                     var snap_batch = data.batch_no;
+                    var snap_quantity = data.item_qnty;
 
                     item_num++;
 
-                    checkStatus(user.uid, snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added, snap_batch);
+                    checkStatus(user.uid, snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added, snap_batch, snap_quantity);
                 })
                 var all = document.querySelectorAll(".item-quantity");
                 all.forEach(item => {               //for displaying how many items is in the inventory
@@ -472,7 +472,7 @@
                 })
             });
 
-            function checkStatus(uid, snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added, snap_batch) {
+            function checkStatus(uid, snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added, snap_batch, snap_quantity) {
                 var new_exdate = new Date(snap_expiry);
                 var exdate_time = new_exdate.getTime();
                 exdate_time = exdate_time - 28800000;
@@ -503,7 +503,8 @@
                         ex_manufactured: snap_manufactured,
                         ex_expiry: snap_expiry,
                         ex_added: snap_added,
-                        ex_batch: snap_batch
+                        ex_batch: snap_batch,
+                        ex_qnty: snap_quantity
                     });
                 }
                 else {
@@ -522,7 +523,8 @@
                         av_manufactured: snap_manufactured,
                         av_expiry: snap_expiry,
                         av_added: snap_added,
-                        av_batch: snap_batch
+                        av_batch: snap_batch,
+                        av_qnty: snap_quantity
                     });
 
                     //to check if the item is going to expire within month.
@@ -543,10 +545,11 @@
                             toex_manufactured: snap_manufactured,
                             toex_expiry: snap_expiry,
                             toex_added: snap_added,
-                            toex_batch: snap_batch
+                            toex_batch: snap_batch,
+                            toex_qnty: snap_quantity
                         });
 
-                        createTable(snap_item_id, snap_itemn, snap_itemp, snap_manufactured, snap_expiry, snap_added, snap_batch);
+                        createTable(snap_item_id, snap_itemn, snap_itemp, snap_quantity, snap_expiry, snap_batch);
 
                         //select item-option class
                         const item_option = document.querySelectorAll(".item-option");

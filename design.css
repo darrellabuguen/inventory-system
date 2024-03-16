@@ -434,14 +434,8 @@ td {
     border: none;
     font-family: poppins;
     cursor: pointer;
-    border-radius: 50%;
     background-color: transparent;
     padding: 6px;
-    transition: 0.5s ease;
-}
-
-.add-item-bottom:hover {
-    background-color: gainsboro;
 }
 
 .bttm-add {
