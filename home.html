@@ -590,12 +590,11 @@
                     var srchid = chld.key;
                     var srchname = srchdata.item_name;
                     var srchprice = srchdata.item_price;
-                    var srchmanu = srchdata.manufactured;
                     var srchexp = srchdata.expiry;
-                    var srchadd = srchdata.added;
                     var srchbatch = srchdata.batch_no;
+                    var srchqnty = srchdata.item_qnty;
 
-                    createTable(srchid, srchname, srchprice, srchmanu, srchexp, srchadd, srchbatch);
+                    createTable(srchid, srchname, srchprice, srchqnty, srchexp, srchbatch);
 
                     //select item-option class
                     const item_option = document.querySelectorAll(".item-option");
