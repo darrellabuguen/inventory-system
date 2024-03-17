@@ -196,6 +196,14 @@ function updateInfo(edit_id, name, price, qnty, batch, expiry, manufactured) {
     }
 }
 
+export function formatName(name) {
+    let last = name.slice(1);
+    name = name.charAt(0).toUpperCase();
+    name = name + last.toLowerCase();
+
+    return name
+}
+
 export function hideContainers() {
     const account_container = document.querySelector(".account-container");
     const table_option_container = document.querySelector(".table-option-container");

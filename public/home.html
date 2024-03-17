@@ -17,7 +17,7 @@
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
 
-    <title>Home | Inventory System</title>
+    <title>Home | ExTracker</title>
 </head>
 
 <body>
@@ -103,7 +103,7 @@
                 </div>
                 <div class="search-container">
                     <div class="search-with-button">
-                        <input class="search" type="search" name="search">
+                        <input class="search" type="search" name="search" placeholder="Search">
                         <button class="search-button">
                             <img class="search-icn" src="./images/search_icon.png" alt="img">
                         </button>
@@ -236,12 +236,12 @@
         import {
             getDatabase, ref, push, onValue, child,
             remove, set, query, orderByChild, get,
-            startAt, endAt, limitToLast
+            startAt, limitToLast, endBefore
         } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
 
-        import { openAdd, showItemOption, hideContainers } from "./sameFunc.js";
+        import { openAdd, showItemOption, hideContainers, formatName } from "./sameFunc.js";
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
@@ -413,6 +413,8 @@
             var date = d.getUTCDate();
             var year = d.getUTCFullYear();
 
+            item_name = formatName(item_name);
+
             month < 10 ? month = "0" + month : month;
             date < 10 ? date = "0" + date : date;
 
@@ -581,8 +583,9 @@
 
         function search() {
             const uid = auth.currentUser.uid;
-            var seach_value = document.querySelector(".search").value;
-            var reff = query(ref(db, `User/${uid}/Items`), orderByChild("item_name"), startAt(seach_value), endAt(seach_value + "\uf8ff"));
+            var search_value = document.querySelector(".search").value;
+            search_value = formatName(search_value)
+            var reff = query(ref(db, `User/${uid}/Items`), orderByChild("item_name"), startAt(search_value), endBefore(search_value + "\uf8ff"));
             removeTable();
             get(reff).then((snappy) => {
                 snappy.forEach(chld => {
